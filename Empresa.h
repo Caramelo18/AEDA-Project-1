@@ -21,14 +21,14 @@ class Empresa
 private:
 	string nomeEmpresa;
 	long saldo;
-	vector<*Camiao> camioes;
+	vector<Camiao *> camioes;
 	vector<Servico> servicos;
 	vector<Cliente> clientes;
 	vector<Funcionario> funcionarios;
 	
 public:
 	Empresa(string doc);
-	vector<*Camiao> getCamioes();
+	vector<Camiao *> getCamioes();
 	vector<Servico> getServicos();
 	vector<Cliente> getClientes();
 	vector<Funcionario> getFuncionarios();
@@ -36,7 +36,7 @@ public:
 	void adicionaCliente(Cliente cliente);
 	void novoServico(Servico servico);
 	void contrataFuncionario(Funcionario funcionario);
-	long getsaldo();
+	long getSaldo();
 	void pagaSalario();
 };
 

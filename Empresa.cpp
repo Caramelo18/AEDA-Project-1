@@ -5,6 +5,7 @@
  *      Author: fabio
  */
 #include "Empresa.h"
+#include "Camiao.h"
 #include <fstream>
 #include <sstream>
 
@@ -13,7 +14,7 @@ Empresa::Empresa(string doc)
 	saldo = 0;
 	vector<Servico> ser;
 	servicos = ser;
-	vector<*Camiao> cams;
+	vector<Camiao *> cams;
 	camioes = cams;
 	vector<Cliente> clis;
 	clientes = clis;
@@ -85,7 +86,7 @@ Empresa::Empresa(string doc)
 	fich.close();
 }
 
-vector<*Camiao> Empresa::getCamioes()
+vector<Camiao *> Empresa::getCamioes()
 {
 	return camioes;
 }
@@ -125,7 +126,7 @@ void Empresa::contrataFuncionario(Funcionario funcionario)
 	funcionarios.push_back(funcionario);
 }
 
-long Empresa::getsaldo()
+long Empresa::getSaldo()
 {
 	return saldo;
 }

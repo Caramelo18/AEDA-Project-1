@@ -17,20 +17,12 @@ using namespace std;
 class Cliente
 {
 public:
-
 	Cliente(string Nome,unsigned long Nif);
 	string getNome()const;
 	unsigned long getNif()const;
-
-
 protected:
-
 	string Nome;
 	unsigned long Nif;
 };
-
-
-
-
 
 #endif /* CLIENTE_H_ */

@@ -24,12 +24,6 @@ public:
 	float getDestinacia()const;
 	string getTipo_produto()const;
 	bool getChegada_servico()const;
-
-
-
-
-
-
 private:
 	static  float ID;
 	//vector<Camiao> Camioes;
@@ -39,15 +33,6 @@ private:
 	float distancia;
 	string tipo_produto;
 	bool chegada_servico;
-
-
-
-
-
 };
-
-
-
-
 
 #endif /* SERVICO_H_ */
