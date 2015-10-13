@@ -11,6 +11,8 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include "Cliente.h"
+#include "Servico.h"
 
 using namespace std;
 
@@ -19,22 +21,23 @@ class Empresa
 private:
 	string nomeEmpresa;
 	long saldo;
-	vector<int> camioes;
-	vector<int> servicos;
-	vector<int> clientes;
-	vector<int> funcionarios;
+	vector<*Camiao> camioes;
+	vector<Servico> servicos;
+	vector<Cliente> clientes;
+	vector<Funcionario> funcionarios;
 	
 public:
 	Empresa(string doc);
-	vector<int> getCamioes();
-	vector<int> getServicos();
-	vector<int> getClientes();
+	vector<*Camiao> getCamioes();
+	vector<Servico> getServicos();
+	vector<Cliente> getClientes();
+	vector<Funcionario> getFuncionarios();
 	void adicionaCamiao(Camiao *camiao);
 	void adicionaCliente(Cliente cliente);
 	void novoServico(Servico servico);
 	void contrataFuncionario(Funcionario funcionario);
 	long getsaldo();
-	long pagaSalario();
+	void pagaSalario();
 };
 
 
