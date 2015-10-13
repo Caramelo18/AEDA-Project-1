@@ -32,7 +32,7 @@ public:
 
 private:
 	static  float ID;
-	vector<Camiao> Camioes;
+	//vector<Camiao> Camioes;
 	string origem;
 	string destino;
 	float tempo_ocupacao;
