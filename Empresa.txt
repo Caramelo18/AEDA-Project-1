@@ -1,9 +1,0 @@
-Caramelo e filhos Lda
-Camioes:
-Isuzu Normal 11234 
-Mercedes Congelacao 15000
-Funcionarios:
-Jaime 740 12014374
-Jorge 780 13015886
-Clientes:
-Geraldina 125346975 

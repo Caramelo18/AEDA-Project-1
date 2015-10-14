@@ -22,7 +22,7 @@ Empresa::Empresa(string doc)
 	funcionarios = funcs;
 
 
-	ifstream fich("C:/Users/Bruno/git/AEDA-Project-1/Empresa.txt");
+	ifstream fich("C:/Users/Bruno/git/AEDA-Project-1/Camioes.txt");
 	if (!fich)
 		cerr << "Ficheiro nao encontrado";
 
@@ -31,10 +31,11 @@ Empresa::Empresa(string doc)
 		string temp;
 		getline(fich,nome);
 		getline(fich,temp);
-		getline(fich,temp);
 
-		do
+		while(!fich.eof())
 		{
+			getline(fich,temp);
+
 			string marca;
 			string tipo;
 			int capacidade;
@@ -43,17 +44,43 @@ Empresa::Empresa(string doc)
 			ss << temp;
 			ss >> marca >> tipo >> capacidade;
 
-			Camiao cam = Camiao::Camiao(marca, tipo, capacidade);
-			camioes.push_back(cam);
+			if (tipo == "Normal")
+			{
+				Normal *cam = new Normal(marca, tipo, capacidade);
+				camioes.push_back(cam);
+			}
 
-			getline(fich,temp);
+			if (tipo == "Congelacao")
+			{
+				Congelacao *cam1 = new Congelacao(marca, tipo, capacidade);
+				camioes.push_back(cam1);
+			}
 
-		}while(temp != "Funcionarios:");
+			if (tipo == "Perigosos")
+			{
+				Perigosos *cam2 = new Perigosos(marca, tipo, capacidade);
+				camioes.push_back(cam2);
+			}
 
-		getline(fich,temp);
+			if (tipo == "Animais")
+			{
+				Animais *cam3 = new Animais(marca, tipo, capacidade);
+				camioes.push_back(cam3);
+			}
+		}
 
-		do
+		fich.close();
+
+		ifstream fich2("C:/Users/Bruno/git/AEDA-Project-1/Funcionarios.txt");
+		if (!fich2)
+			cerr << "Ficheiro nao encontrado";
+
+		getline(fich2,temp);
+
+		while(!fich2.eof())
 		{
+			getline(fich2,temp);
+
 			string nomeFunc;
 			int salario;
 			unsigned long BI;
@@ -62,17 +89,21 @@ Empresa::Empresa(string doc)
 			ss << temp;
 			ss >> nomeFunc >> salario >> BI;
 
-			Funcionario func = Funcionario::Funcionario(nomeFunc, salario, BI);
+			Funcionario func = Funcionario(nomeFunc, salario, BI);
 			funcionarios.push_back(func);
 
-			getline(fich,temp);
+		}
 
-		}while(temp != "Clientes:");
+		fich2.close();
 
-		getline(fich,temp);
+		ifstream fich3("C:/Users/Bruno/git/AEDA-Project-1/Clientes.txt");
+		if (!fich3)
+			cerr << "Ficheiro nao encontrado";
 
-		while (! fich.eof())
+		while (! fich3.eof())
 		{
+			getline(fich3,temp);
+
 			string nomeCli;
 			unsigned long Nif;
 			stringstream ss;
@@ -80,10 +111,10 @@ Empresa::Empresa(string doc)
 			ss << temp;
 			ss >> nomeCli >> Nif;
 
-			Cliente cli = Cliente::Cliente(nomeCli, Nif);
+			Cliente cli = Cliente(nomeCli, Nif);
 			clientes.push_back(cli);
 		}
-	fich.close();
+	fich3.close();
 }
 
 vector<Camiao *> Empresa::getCamioes()
@@ -109,6 +140,7 @@ vector<Funcionario> Empresa::getFuncionarios()
 void Empresa::adicionaCamiao(Camiao *camiao)
 {
 	camioes.push_back(camiao);
+
 }
 
 void Empresa::adicionaCliente(Cliente cliente)

@@ -23,7 +23,7 @@ protected:
 	int ID;
 public:
 	Camiao(string marca, string tipo, int capacidade);
-	virtual int getPreco(int dist) = 0;
+	virtual int getPreco(int dist);
 	int getCapacidade();
 	string getTipo();
 	string getMarca();
@@ -45,11 +45,9 @@ public:
 
 class Perigosos: public Camiao
 {
-private:
-	string nivelp;
 public:
-	Perigosos(string marca, string tipo, int capacidade, string nivelp);
-	int getPreco(int dist);
+	Perigosos(string marca, string tipo, int capacidade);
+	int getPreco(int dist, string nivelp);
 };
 
 class Animais: public Camiao

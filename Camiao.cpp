@@ -24,6 +24,9 @@ string Camiao::getMarca()
 	return marca;
 }
 
+int Camiao::getPreco(int dist)
+{}
+
 string Camiao::getTipo()
 {
 	return tipo;
@@ -44,8 +47,7 @@ int Normal::getPreco(int dist)
 }
 
 Congelacao::Congelacao(string marca, string tipo, int capacidade):Camiao(marca, tipo, capacidade)
-{
-}
+{}
 
 int Congelacao::getPreco(int dist, int temp)
 {
@@ -54,12 +56,10 @@ int Congelacao::getPreco(int dist, int temp)
 	return (6 + dif) * dist;
 }
 
-Perigosos::Perigosos(string marca, string tipo, int capacidade, string nivelp):Camiao(marca, tipo, capacidade)
-{
-	this->nivelp = nivelp;
-}
+Perigosos::Perigosos(string marca, string tipo, int capacidade):Camiao(marca, tipo, capacidade)
+{}
 
-int Perigosos::getPreco(int dist)
+int Perigosos::getPreco(int dist, string nivelp)
 {
 	if (nivelp == "inflamavel")
 		return 7 * dist;
@@ -69,6 +69,8 @@ int Perigosos::getPreco(int dist)
 		return 7.3 * dist;
 	else if (nivelp == "radioactiva")
 		return 9 * dist;
+	else
+		return -1;
 }
 
 Animais::Animais(string marca, string tipo, int capacidade):Camiao(marca, tipo, capacidade)
