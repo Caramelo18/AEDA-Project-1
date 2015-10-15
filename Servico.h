@@ -17,22 +17,30 @@ using namespace std;
 class Servico
 {
 public:
-	Servico();
+	Servico(string origem, string destino,float distancia, string tipo_produto, float quantidade);
 	string getOrigem()const;
 	string getDestino()const;
-	float getTempo_ocupacao()const;
-	float getDestinacia()const;
+	float getDistancia()const;
 	string getTipo_produto()const;
-	bool getChegada_servico()const;
+	bool getIniciado()const;
+	bool getTerminado()const;
+	float getQuantidade()const;
+	void setInicia();
+	void setTermina();
+	vector<int> inicia_servico();//retorna o vetor com o indice dos camioes ocupados, se não inicia retorna um vetor nulo
+	void termina_servico();
+
 private:
 	static  float ID;
-	//vector<Camiao> Camioes;
+	vector<int> veiculos_ocupados;
+	vector<Camiao> Camioes;
 	string origem;
 	string destino;
-	float tempo_ocupacao;
 	float distancia;
+	float quantidade;
 	string tipo_produto;
-	bool chegada_servico;
+	bool iniciado;
+	bool terminado;
 };
 
 #endif /* SERVICO_H_ */
