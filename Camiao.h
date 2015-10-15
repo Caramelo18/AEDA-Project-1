@@ -27,7 +27,8 @@ public:
 	int getCapacidade();
 	string getTipo();
 	string getMarca();
-	void setDisponivel();
+	bool getDisponivel();
+	void setDisponivel( bool bo);
 };
 
 class Normal: public Camiao
