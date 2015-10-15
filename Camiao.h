@@ -31,6 +31,7 @@ public:
 	void setDisponivel( bool bo);
 };
 
+
 class Normal: public Camiao
 {
 public:
