@@ -72,16 +72,16 @@ vector<int> Servico::inicia_servico()
 
 	for(int i=0; i < Camioes.size(); i++)
 
-		if (Camioes[i].getDisponivel()==true)
+		if (Camioes[i]->getDisponivel()==true)
 		{
-			quantia = quantia - Camioes[i]. getCapacidade();
+			quantia = quantia - Camioes[i]->getCapacidade();
 			veiculos_ocupados.push_back(i);
 		}
 
 	if (quantia <= 0 )
 		{
 		for(int i=0; i <veiculos_ocupados.size(); i++)
-			Camioes[i].setDisponivel( false);
+			Camioes[i]->setDisponivel( false);
 
 		setInicia();
 		}
@@ -94,7 +94,7 @@ vector<int> Servico::inicia_servico()
 void Servico::termina_servico()
 {
 	for(int i=0; i <veiculos_ocupados.size(); i++)
-		Camioes[i].setDisponivel(true);
+		Camioes[i]->setDisponivel(true);
 
 	setTermina();
 

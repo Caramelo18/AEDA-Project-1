@@ -33,7 +33,7 @@ public:
 private:
 	static  float ID;
 	vector<int> veiculos_ocupados;
-	vector<Camiao> Camioes;
+	vector<Camiao*> Camioes;
 	string origem;
 	string destino;
 	float distancia;
