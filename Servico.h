@@ -45,4 +45,11 @@ private:
 	bool terminado;
 };
 
+class ServicoNaoIniciado
+{
+public:
+
+
+};
+
 #endif /* SERVICO_H_ */
