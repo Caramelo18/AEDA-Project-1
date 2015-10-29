@@ -47,4 +47,11 @@ private:
 
 };
 
+class ServicoNaoIniciado
+{
+public:
+
+
+};
+
 #endif /* SERVICO_H_ */
