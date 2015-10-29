@@ -61,7 +61,7 @@ Congelacao::Congelacao(string marca, string tipo, int capacidade):Camiao(marca, 
 
 int Congelacao::getPreco(int dist, int temp)
 {
-	int dif = 20 - temp;
+	double dif = 20 - temp;
 	dif = dif / 10;
 	return (6 + dif) * dist;
 }
