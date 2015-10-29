@@ -28,7 +28,7 @@ unsigned long  Cliente::getNif()const
 }
 
 
-bool Cliente::operator < (const Cliente Cli)const
+bool Cliente::operator <(const Cliente &Cli)const
 {
 	if (Nome < Cli.getNome())
 		return true;

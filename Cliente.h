@@ -20,7 +20,7 @@ public:
 	Cliente(string Nome,unsigned long Nif);
 	string getNome()const;
 	unsigned long getNif()const;
-	bool operator < (const Cliente &Cli)const;
+	bool operator <(const Cliente &Cli)const;
 protected:
 	string Nome;
 	unsigned long Nif;
