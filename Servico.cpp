@@ -72,7 +72,7 @@ vector<int> Servico::inicia_servico()
 
 	for(int i=0; i < Camioes.size(); i++)
 
-		if (Camioes[i]->getDisponivel()==true)
+		if (Camioes[i]->getDisponivel())
 		{
 			quantia = quantia - Camioes[i]->getCapacidade();
 			veiculos_ocupados.push_back(i);
