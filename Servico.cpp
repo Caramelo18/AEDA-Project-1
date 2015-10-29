@@ -8,13 +8,13 @@
 #include "Servico.h"
 
 
-Servico::Servico(string origem, string destino,float distancia, string tipo_produto, float quantidade)
+Servico::Servico(string origem, string destino,float distancia, string tipo_produto, float capacidade)
 {
 	this->origem = origem;
 	this->destino = destino;
 	this->distancia = distancia;
 	this->tipo_produto = tipo_produto;
-	this->quantidade = quantidade;
+	this->capacidade = capacidade;
 	iniciado = false;
 	terminado = false;
 }
@@ -30,7 +30,7 @@ string Servico::getDestino()const
 }
 
 
-float Servico::getDistancia()const
+int Servico::getDistancia()const
 {
 	return distancia;
 }
@@ -50,9 +50,9 @@ bool Servico::getTerminado()const
 	return terminado;
 }
 
-float Servico::getQuantidade()const
+int Servico::getCapacidade()const
 {
-	return quantidade;
+	return capacidade;
 }
 
 void Servico::setInicia()
@@ -67,7 +67,7 @@ void Servico::setTermina()
 
 vector<int> Servico::inicia_servico()
 {
-	int quantia = quantidade;
+	int quantia = capacidade;
 
 
 	for(int i=0; i < Camioes.size(); i++)
@@ -79,12 +79,12 @@ vector<int> Servico::inicia_servico()
 		}
 
 	if (quantia <= 0 )
-		{
+	{
 		for(int i=0; i <veiculos_ocupados.size(); i++)
 			Camioes[i]->setDisponivel( false);
 
 		setInicia();
-		}
+	}
 
 
 
@@ -98,6 +98,21 @@ void Servico::termina_servico()
 
 	setTermina();
 
+}
+
+bool Servico::operator < (const Servico &Ser)const
+{
+	if (distancia < Ser.getDistancia())
+		return true;
+
+	if(distancia == Ser.getDistancia())
+	{
+		if(capacidade < Ser.getCapacidade())
+			return true;
+		else
+			return false;
+	}
+	else return false;
 }
 
 

@@ -27,3 +27,18 @@ unsigned long  Cliente::getNif()const
 	return Nif;
 }
 
+
+bool Cliente::operator < (const Cliente Cli)const
+{
+	if (Nome < Cli.getNome())
+		return true;
+	if(Nome == Cli.getNome())
+	{
+		if(Nif<Cli.getNif())
+			return true;
+		else
+			return false;
+	}
+	else return false;
+
+}

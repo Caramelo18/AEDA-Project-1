@@ -11,6 +11,7 @@
 #include "Camiao.h"
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -20,15 +21,16 @@ public:
 	Servico(string origem, string destino,float distancia, string tipo_produto, float quantidade);
 	string getOrigem()const;
 	string getDestino()const;
-	float getDistancia()const;
+	int getDistancia()const;
 	string getTipo_produto()const;
 	bool getIniciado()const;
 	bool getTerminado()const;
-	float getQuantidade()const;
+	int getCapacidade()const;
 	void setInicia();
 	void setTermina();
 	vector<int> inicia_servico();//retorna o vetor com o indice dos camioes ocupados, se não inicia retorna um vetor nulo
-	void termina_servico();
+	void termina_servico();//atualiza todo o vetor de camioes, pondo desocupado os camioes que estao em veiculos ocupados
+	bool operator < (const Servico &Ser)const;
 
 private:
 	static  float ID;
@@ -36,8 +38,8 @@ private:
 	vector<Camiao*> Camioes;
 	string origem;
 	string destino;
-	float distancia;
-	float quantidade;
+	int distancia;
+	int capacidade;
 	string tipo_produto;
 	bool iniciado;
 	bool terminado;
