@@ -13,8 +13,15 @@
 #include <iostream>
 #include "Cliente.h"
 #include "Servico.h"
+#include "Funcionario.h"
 
 using namespace std;
+
+class SaldoIndisponivel
+{
+public:
+	SaldoIndisponivel(){};
+};
 
 class Empresa
 {

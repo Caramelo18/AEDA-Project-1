@@ -114,7 +114,7 @@ Empresa::Empresa(string doc)
 			Cliente cli = Cliente(nomeCli, Nif);
 			clientes.push_back(cli);
 		}
-	fich3.close();
+		fich3.close();
 }
 
 vector<Camiao *> Empresa::getCamioes()
@@ -141,21 +141,57 @@ void Empresa::adicionaCamiao(Camiao *camiao)
 {
 	camioes.push_back(camiao);
 
+	fstream fich("C:/Users/Bruno/git/AEDA-Project-1/Camioes.txt", fstream::app);
+	if (!fich)
+		cerr << "Ficheiro nao encontrado";
+
+	fich << endl;
+	fich << camiao->getMarca() << " " << camiao->getTipo() << " " << camiao->getCapacidade();
+
+	fich.close();
+
 }
 
 void Empresa::adicionaCliente(Cliente cliente)
 {
 	clientes.push_back(cliente);
+
+	fstream fich("C:/Users/Bruno/git/AEDA-Project-1/Clientes.txt", fstream::app);
+	if (!fich)
+		cerr << "Ficheiro nao encontrado";
+
+	fich << endl;
+	fich << cliente.getNome() << " "  << cliente.getNif();
+
+	fich.close();
 }
 
 void Empresa::novoServico(Servico servico)
 {
 	servicos.push_back(servico);
+
+	fstream fich("C:/Users/Bruno/git/AEDA-Project-1/Clientes.txt", fstream::app);
+	if (!fich)
+		cerr << "Ficheiro nao encontrado";
+
+	fich << endl;
+	fich << servico.getOrigem() << " " << servico.getDestino() << " " << servico.getDistancia() << servico.getTipo_produto() << servico.getCapacidade();
+
+	fich.close();
 }
 
 void Empresa::contrataFuncionario(Funcionario funcionario)
 {
 	funcionarios.push_back(funcionario);
+
+	fstream fich("C:/Users/Bruno/git/AEDA-Project-1/Funcionarios.txt", fstream::app);
+	if (!fich)
+		cerr << "Ficheiro nao encontrado";
+
+	fich << endl;
+	fich << funcionario.getNome() << " " << funcionario.getSalario() << " " << funcionario.getBI();
+
+	fich.close();
 }
 
 long Empresa::getSaldo()
@@ -165,8 +201,12 @@ long Empresa::getSaldo()
 
 void Empresa::pagaSalario()
 {
-	for(usigned int i = 0; funcionarios.size(); i++)
+	int salarios_total = 0;
+	for(unsigned int i = 0; i < funcionarios.size(); i++)
 	{
-		saldo = saldo - funcionarios[i].getSalario();
+		salarios_total = salarios_total - funcionarios[i].getSalario();
 	}
+
+	if (salarios_total > saldo)
+		throw SaldoIndisponivel();
 }

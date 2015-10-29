@@ -37,6 +37,16 @@ int Camiao::getCapacidade()
 	return capacidade;
 }
 
+bool Camiao::getDisponivel()
+{
+	return disponivel;
+}
+
+void Camiao::setDisponivel(bool bo)
+{
+	disponivel = bo;
+}
+
 Normal::Normal(string marca, string tipo, int capacidade):Camiao(marca, tipo, capacidade)
 {
 }
