@@ -7,6 +7,7 @@
 
 #include "Servico.h"
 
+int Servico::globalID = 0;
 
 Servico::Servico(string origem, string destino,float distancia, string tipo_produto, float capacidade)
 {
@@ -17,6 +18,7 @@ Servico::Servico(string origem, string destino,float distancia, string tipo_prod
 	this->capacidade = capacidade;
 	iniciado = false;
 	terminado = false;
+	ID = globalID++;
 }
 
 string Servico::getOrigem()const

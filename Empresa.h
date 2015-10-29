@@ -45,6 +45,7 @@ public:
 	void contrataFuncionario(Funcionario funcionario);
 	long getSaldo();
 	void pagaSalario();
+	string getNome() const;
 };
 
 

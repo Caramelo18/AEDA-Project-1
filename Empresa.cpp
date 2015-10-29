@@ -21,8 +21,14 @@ Empresa::Empresa(string doc)
 	vector<Funcionario> funcs;
 	funcionarios = funcs;
 
+	string ficca, ficcli, ficfun, ficser;
+	ficca = doc + "/Camioes.txt";
+	ficcli = doc + "/Clientes.txt";
+	ficfun = doc + "/Funcionarios.txt";
+	ficser = doc + "/Servicos.txt";
 
-	ifstream fich("C:/Users/Bruno/git/AEDA-Project-1/Camioes.txt");
+
+	ifstream fich(ficca.c_str());
 	if (!fich)
 		cerr << "Ficheiro nao encontrado";
 
@@ -30,6 +36,7 @@ Empresa::Empresa(string doc)
 		string nome;
 		string temp;
 		getline(fich,nome);
+		nomeEmpresa = nome;
 		getline(fich,temp);
 
 		while(!fich.eof())
@@ -71,7 +78,7 @@ Empresa::Empresa(string doc)
 
 		fich.close();
 
-		ifstream fich2("C:/Users/Bruno/git/AEDA-Project-1/Funcionarios.txt");
+		ifstream fich2(ficfun.c_str());
 		if (!fich2)
 			cerr << "Ficheiro nao encontrado";
 
@@ -96,10 +103,11 @@ Empresa::Empresa(string doc)
 
 		fich2.close();
 
-		ifstream fich3("C:/Users/Bruno/git/AEDA-Project-1/Clientes.txt");
+		ifstream fich3(ficcli.c_str());
 		if (!fich3)
 			cerr << "Ficheiro nao encontrado";
 
+		getline(fich3, temp);
 		while (! fich3.eof())
 		{
 			getline(fich3,temp);
@@ -209,4 +217,10 @@ void Empresa::pagaSalario()
 
 	if (salarios_total > saldo)
 		throw SaldoIndisponivel();
+	else saldo -= salarios_total;
+}
+
+string Empresa::getNome() const
+{
+	return nomeEmpresa;
 }

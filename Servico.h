@@ -33,7 +33,8 @@ public:
 	bool operator < (const Servico &Ser)const;
 
 private:
-	static  float ID;
+	static int globalID;
+	int ID;
 	vector<int> veiculos_ocupados;
 	vector<Camiao*> Camioes;
 	string origem;
@@ -43,6 +44,7 @@ private:
 	string tipo_produto;
 	bool iniciado;
 	bool terminado;
+
 };
 
 #endif /* SERVICO_H_ */
