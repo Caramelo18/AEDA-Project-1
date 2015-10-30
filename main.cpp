@@ -69,6 +69,22 @@ void gestaoFinanceira(Empresa &e)
 	cout << " 2 - Pagar salarios" << endl;
 	cout << "Por favor escolha a opcao pretendida: ";
 	cin >> op;
+
+	cout << "op = " << op << endl;
+
+	if (op == 1)
+	{
+		cout << "ola\n";
+		e.imprimeSaldo();
+	}
+	else if (op == 2)
+	{//Tem de se tentar apanhar a exceção do saldo insuficiente
+		e.pagaSalario();
+		cout << "Salarios pagos." << endl;
+		e.imprimeSaldo();
+	}
+	else
+		cout << "Tipo invalido" << endl;
 }
 
 void consultaServicos(Empresa &e)
@@ -107,7 +123,7 @@ int main()
 	cout << "Por favor insira o directorio da pasta que contem os ficheiros da Empresa: ";
 	cin >> directorio;
  */
-	string directorio = "C:/Users/fabio/Documents/workspace/AEDA-Project-1";
+	string directorio = "C:/Users/Bruno/git/AEDA-Project";
 	Empresa e = Empresa(directorio);
 
 	do

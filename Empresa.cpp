@@ -224,3 +224,21 @@ string Empresa::getNome() const
 {
 	return nomeEmpresa;
 }
+
+void Empresa::imprimeSaldo()
+{
+	cout << "O seu saldo autal é de: " << saldo << " euros" << endl;
+}
+
+void Empresa::imprimeServico()
+{
+	for(unsigned int i = 0; i < servicos.size(); i++)
+	{
+		cout << "Servico " << i <<":" << endl;
+		cout << "Camioes Utilizados:" << endl;
+		for(unsigned int j = 0; j < servicos[i].getCamioes().size(); j++)
+		{
+			//"Camiao " << j << ": " << servicos[i].getCamioes[j]->getMarca() << "-" << servicos[i].getCamioes[j]->getTipo() ;
+		}
+	}
+}

@@ -26,6 +26,11 @@ string Servico::getOrigem()const
 	return origem;
 }
 
+vector<Camiao*> Servico::getCamioes()
+{
+	return Camioes;
+}
+
 string Servico::getDestino()const
 {
 	return destino;
