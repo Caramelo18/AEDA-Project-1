@@ -46,7 +46,7 @@ public:
 	long getSaldo();
 	void pagaSalario();
 	string getNome() const;
-	void imprimeSaldo();
+	void imprimeSaldo() const;
 	void imprimeServico();
 };
 

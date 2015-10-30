@@ -11,7 +11,7 @@
 
 Empresa::Empresa(string doc)
 {
-	saldo = 0;
+
 	vector<Servico> ser;
 	servicos = ser;
 	vector<Camiao *> cams;
@@ -30,99 +30,107 @@ Empresa::Empresa(string doc)
 
 	ifstream fich(ficca.c_str());
 	if (!fich)
+		{
 		cerr << "Ficheiro nao encontrado";
+		//fazer throw aqui
+		}
 
+	long sal;
+	string nome;
+	string temp;
+	getline(fich,nome);
+	nomeEmpresa = nome;
+	getline(fich, temp);
+	stringstream sald;
+	sald << temp;
+	sald >> temp >> sal;
+	saldo = sal;
+	getline(fich,temp);
 
-		string nome;
-		string temp;
-		getline(fich,nome);
-		nomeEmpresa = nome;
+	while(!fich.eof())
+	{
 		getline(fich,temp);
 
-		while(!fich.eof())
+		string marca;
+		string tipo;
+		int capacidade;
+		stringstream ss;
+
+		ss << temp;
+		ss >> marca >> tipo >> capacidade;
+
+		if (tipo == "Normal")
 		{
-			getline(fich,temp);
-
-			string marca;
-			string tipo;
-			int capacidade;
-			stringstream ss;
-
-			ss << temp;
-			ss >> marca >> tipo >> capacidade;
-
-			if (tipo == "Normal")
-			{
-				Normal *cam = new Normal(marca, tipo, capacidade);
-				camioes.push_back(cam);
-			}
-
-			if (tipo == "Congelacao")
-			{
-				Congelacao *cam1 = new Congelacao(marca, tipo, capacidade);
-				camioes.push_back(cam1);
-			}
-
-			if (tipo == "Perigosos")
-			{
-				Perigosos *cam2 = new Perigosos(marca, tipo, capacidade);
-				camioes.push_back(cam2);
-			}
-
-			if (tipo == "Animais")
-			{
-				Animais *cam3 = new Animais(marca, tipo, capacidade);
-				camioes.push_back(cam3);
-			}
+			Normal *cam = new Normal(marca, tipo, capacidade);
+			camioes.push_back(cam);
 		}
 
-		fich.close();
+		if (tipo == "Congelacao")
+		{
+			Congelacao *cam1 = new Congelacao(marca, tipo, capacidade);
+			camioes.push_back(cam1);
+		}
 
-		ifstream fich2(ficfun.c_str());
-		if (!fich2)
-			cerr << "Ficheiro nao encontrado";
+		if (tipo == "Perigosos")
+		{
+			Perigosos *cam2 = new Perigosos(marca, tipo, capacidade);
+			camioes.push_back(cam2);
+		}
 
+		if (tipo == "Animais")
+		{
+			Animais *cam3 = new Animais(marca, tipo, capacidade);
+			camioes.push_back(cam3);
+		}
+	}
+
+	fich.close();
+
+	ifstream fich2(ficfun.c_str());
+	if (!fich2)
+		cerr << "Ficheiro nao encontrado";
+
+	getline(fich2,temp);
+
+	while(!fich2.eof())
+	{
 		getline(fich2,temp);
 
-		while(!fich2.eof())
-		{
-			getline(fich2,temp);
+		string nomeFunc;
+		int salario;
+		unsigned long BI;
+		stringstream ss;
 
-			string nomeFunc;
-			int salario;
-			unsigned long BI;
-			stringstream ss;
+		ss << temp;
+		ss >> nomeFunc >> salario >> BI;
 
-			ss << temp;
-			ss >> nomeFunc >> salario >> BI;
+		Funcionario func = Funcionario(nomeFunc, salario, BI);
+		funcionarios.push_back(func);
 
-			Funcionario func = Funcionario(nomeFunc, salario, BI);
-			funcionarios.push_back(func);
+	}
 
-		}
+	fich2.close();
 
-		fich2.close();
+	ifstream fich3(ficcli.c_str());
+	if (!fich3)
+		cerr << "Ficheiro nao encontrado";
 
-		ifstream fich3(ficcli.c_str());
-		if (!fich3)
-			cerr << "Ficheiro nao encontrado";
+	getline(fich3, temp);
+	while (! fich3.eof())
+	{
+		getline(fich3,temp);
 
-		getline(fich3, temp);
-		while (! fich3.eof())
-		{
-			getline(fich3,temp);
+		string nomeCli;
+		unsigned long Nif;
+		stringstream ss;
 
-			string nomeCli;
-			unsigned long Nif;
-			stringstream ss;
+		ss << temp;
+		ss >> nomeCli >> Nif;
 
-			ss << temp;
-			ss >> nomeCli >> Nif;
-
-			Cliente cli = Cliente(nomeCli, Nif);
-			clientes.push_back(cli);
-		}
-		fich3.close();
+		Cliente cli = Cliente(nomeCli, Nif);
+		clientes.push_back(cli);
+	}
+	fich3.close();
 }
 
 vector<Camiao *> Empresa::getCamioes()
@@ -204,6 +212,7 @@ void Empresa::contrataFuncionario(Funcionario funcionario)
 
 long Empresa::getSaldo()
 {
+	cout << saldo << endl;
 	return saldo;
 }
 
@@ -212,7 +221,7 @@ void Empresa::pagaSalario()
 	int salarios_total = 0;
 	for(unsigned int i = 0; i < funcionarios.size(); i++)
 	{
-		salarios_total = salarios_total - funcionarios[i].getSalario();
+		salarios_total = salarios_total + funcionarios[i].getSalario();
 	}
 
 	if (salarios_total > saldo)
@@ -225,9 +234,9 @@ string Empresa::getNome() const
 	return nomeEmpresa;
 }
 
-void Empresa::imprimeSaldo()
+void Empresa::imprimeSaldo() const
 {
-	cout << "O seu saldo autal é de: " << saldo << " euros" << endl;
+	cout << "O seu saldo autal e de: " << saldo << " euros" << endl;
 }
 
 void Empresa::imprimeServico()

@@ -1,4 +1,5 @@
 Caramelo e Filhos LDA
+Saldo: 1200
 Camioes:
 Isuzu Normal 11234 
 Mercedes Congelacao 15000

@@ -10,6 +10,17 @@
 #include "Empresa.h"
 #include "Servico.h"
 #include <cstdlib>
+#include <cstdio>
+
+//fazer funcao wait
+
+void wait()
+{
+	cin.ignore(1000,'\n');
+	cout << "Prima enter para regressar ao menu principal: ";
+	cin.get();
+	return;
+}
 
 void adicionaServico(Empresa &e)
 {
@@ -60,6 +71,7 @@ void adicionaServico(Empresa &e)
 	else
 		cout << "Tipo invalido" << endl;
 
+	wait();
 }
 
 void gestaoFinanceira(Empresa &e)
@@ -70,21 +82,28 @@ void gestaoFinanceira(Empresa &e)
 	cout << "Por favor escolha a opcao pretendida: ";
 	cin >> op;
 
-	cout << "op = " << op << endl;
-
 	if (op == 1)
 	{
-		cout << "ola\n";
 		e.imprimeSaldo();
 	}
 	else if (op == 2)
 	{//Tem de se tentar apanhar a exceção do saldo insuficiente
-		e.pagaSalario();
+		try
+		{
+			e.pagaSalario(); // falta actualizar saldo no ficheiro
+		}
+		catch(SaldoIndisponivel&)
+		{
+			cout << "Saldo insuficiente" << endl;
+		}
+
 		cout << "Salarios pagos." << endl;
 		e.imprimeSaldo();
 	}
 	else
 		cout << "Tipo invalido" << endl;
+
+	wait();
 }
 
 void consultaServicos(Empresa &e)
@@ -95,6 +114,8 @@ void consultaServicos(Empresa &e)
 	cout << " 3 - Lista de servicos de um camiao" << endl;
 	cout << "Por favor escolha a opcao pretendida: ";
 	cin >> op;
+
+	wait();
 }
 
 void gestaoClientes(Empresa &e)
@@ -104,6 +125,8 @@ void gestaoClientes(Empresa &e)
 	cout << " 2 - Adicionar clientes" << endl;
 	cout << "Por favor escolha a opcao pretendida: ";
 	cin >> op;
+
+	wait();
 }
 
 void gestaoCamioes(Empresa &e)
@@ -114,6 +137,8 @@ void gestaoCamioes(Empresa &e)
 	cout << "3 - Adicionar camiao" << endl;
 	cout << "Por favor escolha a opcao pretendida: ";
 	cin >> op;
+
+	wait();
 }
 
 
@@ -123,7 +148,8 @@ int main()
 	cout << "Por favor insira o directorio da pasta que contem os ficheiros da Empresa: ";
 	cin >> directorio;
  */
-	string directorio = "C:/Users/Bruno/git/AEDA-Project";
+	//string directorio = "C:/Users/Bruno/git/AEDA-Project";
+	string directorio = "C:/Users/fabio/Documents/workspace/AEDA-Project-1";
 	Empresa e = Empresa(directorio);
 
 	do
@@ -167,7 +193,7 @@ int main()
 		default:
 			cin.clear();
 			cin.ignore(1000, '\n');
-			//system("CLS");
+			system("CLS");
 			break;
 		}
 		system("CLS");
