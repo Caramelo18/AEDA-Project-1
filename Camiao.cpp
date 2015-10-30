@@ -16,6 +16,7 @@ Camiao::Camiao(string marca, string tipo, int capacidade)
 	this->capacidade = capacidade;
 	disponivel = true;
 	ID = IDg;
+
 	IDg++;
 }
 
