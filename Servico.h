@@ -18,7 +18,7 @@ using namespace std;
 class Servico
 {
 public:
-	Servico(string origem, string destino,float distancia, string tipo_produto, float quantidade);
+	Servico(string origem, string destino,float distancia, string tipo_produto, float quantidade,unsigned long Nif);
 	string getOrigem()const;
 	string getDestino()const;
 	int getDistancia()const;
@@ -26,6 +26,7 @@ public:
 	bool getIniciado()const;
 	bool getTerminado()const;
 	int getCapacidade()const;
+	unsigned long getNif()const;
 	void setInicia();
 	void setTermina();
 	vector<int> inicia_servico();//retorna o vetor com o indice dos camioes ocupados, se não inicia retorna um vetor nulo
@@ -45,6 +46,7 @@ private:
 	string tipo_produto;
 	bool iniciado;
 	bool terminado;
+	unsigned long Nif;//variavel para associar o cliente a um serviço
 
 };
 

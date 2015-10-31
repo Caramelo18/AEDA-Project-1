@@ -9,7 +9,7 @@
 
 int Servico::globalID = 0;
 
-Servico::Servico(string origem, string destino,float distancia, string tipo_produto, float capacidade)
+Servico::Servico(string origem, string destino,float distancia, string tipo_produto, float capacidade, unsigned long Nif)
 {
 	this->origem = origem;
 	this->destino = destino;
@@ -19,6 +19,7 @@ Servico::Servico(string origem, string destino,float distancia, string tipo_prod
 	iniciado = false;
 	terminado = false;
 	ID = globalID++;
+	this->Nif=Nif;
 }
 
 string Servico::getOrigem()const
@@ -60,6 +61,11 @@ bool Servico::getTerminado()const
 int Servico::getCapacidade()const
 {
 	return capacidade;
+}
+
+unsigned long Servico::getNif()const
+{
+	return Nif;
 }
 
 void Servico::setInicia()

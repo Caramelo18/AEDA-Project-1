@@ -295,8 +295,20 @@ void Empresa::ListaServicosCliente()const
 
 	for (unsigned i=0; i < clientes.size();i++)
 	{
-		//eu lazaro aqui como vou aceder ao serviço de um determinado cliente...
-		//para isso temos que assuciar o nif do cliente ao serviço
+		cout << clientes[i].getNome() << " :" << endl;
+
+		for(unsigned j=0; j < servicos.size();j++)
+		{
+			if(clientes[i].getNif()==servicos[j].getNif())
+			{
+				cout << servicos[i].getOrigem() << endl;
+				cout << servicos[i].getDestino() << endl;
+				cout << servicos[i].getDistancia() << endl;
+				cout << servicos[i].getTipo_produto() << endl;
+				cout << endl << endl;
+
+			}
+		}
 	}
 }
 
