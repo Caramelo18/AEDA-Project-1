@@ -8,6 +8,8 @@
 #include "Camiao.h"
 #include <fstream>
 #include <sstream>
+#include <vector>
+#include <string>
 
 Empresa::Empresa(string doc)
 {
@@ -30,10 +32,10 @@ Empresa::Empresa(string doc)
 
 	ifstream fich(ficca.c_str());
 	if (!fich)
-		{
+	{
 		cerr << "Ficheiro nao encontrado";
 		//fazer throw aqui
-		}
+	}
 
 	long sal;
 	string nome;
@@ -248,6 +250,71 @@ void Empresa::imprimeServico()
 		for(unsigned int j = 0; j < servicos[i].getCamioes().size(); j++)
 		{
 			//"Camiao " << j << ": " << servicos[i].getCamioes[j]->getMarca() << "-" << servicos[i].getCamioes[j]->getTipo() ;
+		}
+	}
+}
+
+
+void Empresa::ListaServicosExecucao()const
+{
+	for(unsigned i=0; i <servicos.size();i++)
+	{
+		if(servicos[i].getIniciado())
+		{
+			cout << servicos[i].getOrigem() << endl;
+			cout << servicos[i].getDestino() << endl;
+			cout << servicos[i].getDistancia() << endl;
+			cout << servicos[i].getTipo_produto() << endl;
+			cout << endl << endl;
+		}
+	}
+}
+
+void Empresa::ListaServicosCliente()const
+{
+
+	for (unsigned i=0; i < clientes.size();i++)
+	{
+		//eu lazaro aqui como vou aceder ao serviço de um determinado cliente...
+		//para isso temos que assuciar o nif do cliente ao serviço
+	}
+}
+
+void Empresa::ListaServicosCamiao()const
+{
+	vector<string> v_tipo;
+
+	for (unsigned i=0; i < camioes.size();i++)
+		v_tipo.push_back(camioes[i]->getTipo());
+
+
+	for (unsigned i=0; i < v_tipo.size();i++)
+	{
+		for (unsigned j=i+1; j < v_tipo.size(); j++)
+		{
+			if (v_tipo[i]==v_tipo[j])
+			{
+				v_tipo.erase(v_tipo.begin()+j);//vou fazer um vetor só com os tipos de camioes que ha sem repetidos
+				j--;
+			}
+		}
+	}
+
+
+	//vou imprimir cada tipo de serviço com todos os camioes desse serviço juntos
+
+	for (unsigned i=0; i < v_tipo.size();i++)
+	{
+		for(unsigned j=0; j < camioes.size();j++)
+		{
+			if(v_tipo[i]==camioes[i]->getTipo())
+			{
+				cout << camioes[i]->tipo;
+				cout << camioes[i]->capacidade;
+				cout << camioes[i]->marca;
+				cout << endl << endl;
+			}
+
 		}
 	}
 }

@@ -116,6 +116,23 @@ void consultaServicos(Empresa &e)
 	cin >> op;
 
 	wait();
+
+	switch(op)
+	{
+	case 1:
+		//
+		e.ListaServicosExecucao();
+		break;
+	case 2:
+		//
+		e.ListaServicosCliente();
+		break;
+	case 3:
+		//
+		e.ListaServicosCamiao();
+		break;
+	}
+
 }
 
 void gestaoClientes(Empresa &e)

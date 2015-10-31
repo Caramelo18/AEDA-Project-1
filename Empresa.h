@@ -48,6 +48,9 @@ public:
 	string getNome() const;
 	void imprimeSaldo() const;
 	void imprimeServico();
+	void ListaServicosExecucao()const;
+	void ListaServicosCliente()const;
+	void ListaServicosCamiao()const;
 };
 
 
