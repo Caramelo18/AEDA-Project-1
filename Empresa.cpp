@@ -180,7 +180,7 @@ void Empresa::adicionaCliente()
 	cin >> nome;
 	cout << "Nif: ";
 	cin >> Nif;
-	cout << endl << endl;
+	cout << endl;
 
 	Cliente cliente = Cliente(nome, Nif);
 
@@ -193,11 +193,9 @@ void Empresa::adicionaCliente()
 	clientes.push_back(cliente);
 
 	fstream fich(ficcli.c_str(), fstream::app);
-	if (!fich)
-		throw FicheiroInexistente("clientes");
 
 	fich << endl;
-	fich << cliente.getNome() << " "  << cliente.getNif();
+	fich << cliente.getNome() << " "  << cliente.getNif();//Ainda nao esta a ler
 
 	cout << "Cliente adicionado com sucesso" << endl;
 
@@ -209,8 +207,6 @@ void Empresa::novoServico(Servico servico)
 	servicos.push_back(servico);
 
 	fstream fich(ficser.c_str(), fstream::app);
-	if (!fich)
-		cerr << "Ficheiro nao encontrado";
 
 	fich << endl;
 	fich << servico.getOrigem() << " " << servico.getDestino() << " " << servico.getDistancia() << servico.getTipo_produto() << servico.getCapacidade();
@@ -269,8 +265,12 @@ void Empresa::imprimeServico()
 		cout << "Camioes Utilizados:" << endl;
 		for(unsigned int j = 0; j < servicos[i].getCamioes().size(); j++)
 		{
-			//"Camiao " << j << ": " << servicos[i].getCamioes[j]->getMarca() << "-" << servicos[i].getCamioes[j]->getTipo() ;
+			//"Camiao " << j + 1 << ": " << servicos[i].getCamioes[j]->getMarca() << "-" << servicos[i].getCamioes[j]->getTipo() ;
+			//Nao esta a funionar, esta a dar erro
+
 		}
+
+		//Ainda nao esta completa
 	}
 }
 

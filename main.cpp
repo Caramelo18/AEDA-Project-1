@@ -28,7 +28,7 @@ void adicionaServico(Empresa &e)
 	int dist;
 	cout << "Introduza o tipo de transporte (normal, congelacao, perigosos, animais): ";
 	cin >> tipo;
-
+	cout << endl;
 
 	if (tipo == "normal" || tipo == "Normal" || tipo == "")
 	{
@@ -81,6 +81,7 @@ void gestaoFinanceira(Empresa &e)
 	cout << " 2 - Pagar salarios" << endl;
 	cout << "Por favor escolha a opcao pretendida: ";
 	cin >> op;
+	cout << endl;
 
 	if (op == 1)
 	{
@@ -114,6 +115,7 @@ void consultaServicos(Empresa &e)
 	cout << " 3 - Lista de servicos de um camiao" << endl;
 	cout << "Por favor escolha a opcao pretendida: ";
 	cin >> op;
+	cout << endl;
 
 	wait();
 
@@ -142,6 +144,7 @@ void gestaoClientes(Empresa &e)
 	cout << " 2 - Adicionar clientes" << endl;
 	cout << "Por favor escolha a opcao pretendida: ";
 	cin >> op;
+	cout << endl;
 
 	switch(op)
 	{
@@ -166,6 +169,7 @@ void gestaoCamioes(Empresa &e)
 	cout << "3 - Adicionar camiao" << endl;
 	cout << "Por favor escolha a opcao pretendida: ";
 	cin >> op;
+	cout << endl;
 
 	wait();
 }
@@ -177,8 +181,8 @@ int main()
 	cout << "Por favor insira o directorio da pasta que contem os ficheiros da Empresa: ";
 	cin >> directorio;
  */
-	//string directorio = "C:/Users/Bruno/git/AEDA-Project";
-	string directorio = "C:/Users/POS/git/AEDA-Project-1";
+	string directorio = "C:/Users/Bruno/git/AEDA-Project";
+	//string directorio = "C:/Users/POS/git/AEDA-Project-1";
 	//string directorio = "C:/Users/fabio/Documents/workspace/AEDA-Project-1";
 	Empresa e = Empresa(directorio);
 
@@ -194,9 +198,9 @@ int main()
 
 
 		int op;
-		cout << "" << endl;
 		cout << "Por favor insira a opcao desejada: ";
 		cin >> op;
+		cout << "" << endl;
 
 		switch (op)
 		{
