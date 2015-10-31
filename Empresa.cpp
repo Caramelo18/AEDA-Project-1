@@ -23,7 +23,6 @@ Empresa::Empresa(string doc)
 	vector<Funcionario> funcs;
 	funcionarios = funcs;
 
-	string ficca, ficcli, ficfun, ficser;
 	ficca = doc + "/Camioes.txt";
 	ficcli = doc + "/Clientes.txt";
 	ficfun = doc + "/Funcionarios.txt";
@@ -159,7 +158,7 @@ void Empresa::adicionaCamiao(Camiao *camiao)
 {
 	camioes.push_back(camiao);
 
-	fstream fich("C:/Users/Bruno/git/AEDA-Project-1/Camioes.txt", fstream::app);
+	fstream fich(ficca.c_str(), fstream::app);
 	if (!fich)
 		cerr << "Ficheiro nao encontrado";
 
@@ -170,16 +169,37 @@ void Empresa::adicionaCamiao(Camiao *camiao)
 
 }
 
-void Empresa::adicionaCliente(Cliente cliente)
+void Empresa::adicionaCliente()
 {
+	string nome;
+	unsigned long Nif;
+
+	cout << "Novo Cliente: " << endl;
+
+	cout << "Nome: ";
+	cin >> nome;
+	cout << "Nif: ";
+	cin >> Nif;
+	cout << endl << endl;
+
+	Cliente cliente = Cliente(nome, Nif);
+
+	for (unsigned int  i = 0; i < clientes.size(); i++)
+	{
+		if (clientes[i] == cliente)
+			throw ClienteJaExistente(nome, Nif);
+	}
+
 	clientes.push_back(cliente);
 
-	fstream fich("C:/Users/Bruno/git/AEDA-Project-1/Clientes.txt", fstream::app);
+	fstream fich(ficcli.c_str(), fstream::app);
 	if (!fich)
-		cerr << "Ficheiro nao encontrado";
+		throw FicheiroInexistente("clientes");
 
 	fich << endl;
 	fich << cliente.getNome() << " "  << cliente.getNif();
+
+	cout << "Cliente adicionado com sucesso" << endl;
 
 	fich.close();
 }
@@ -188,7 +208,7 @@ void Empresa::novoServico(Servico servico)
 {
 	servicos.push_back(servico);
 
-	fstream fich("C:/Users/Bruno/git/AEDA-Project-1/Clientes.txt", fstream::app);
+	fstream fich(ficser.c_str(), fstream::app);
 	if (!fich)
 		cerr << "Ficheiro nao encontrado";
 
@@ -202,7 +222,7 @@ void Empresa::contrataFuncionario(Funcionario funcionario)
 {
 	funcionarios.push_back(funcionario);
 
-	fstream fich("C:/Users/Bruno/git/AEDA-Project-1/Funcionarios.txt", fstream::app);
+	fstream fich(ficfun.c_str(), fstream::app);
 	if (!fich)
 		cerr << "Ficheiro nao encontrado";
 
@@ -309,12 +329,21 @@ void Empresa::ListaServicosCamiao()const
 		{
 			if(v_tipo[i]==camioes[i]->getTipo())
 			{
-				cout << camioes[i]->tipo;
-				cout << camioes[i]->capacidade;
-				cout << camioes[i]->marca;
+				cout << camioes[i]->getTipo();
+				cout << camioes[i]->getCapacidade();
+				cout << camioes[i]->getMarca();
 				cout << endl << endl;
 			}
 
 		}
+	}
+}
+
+void Empresa::listaClientes() const
+{
+	cout << "Clientes: " << endl;
+	for (unsigned int i = 0; i < clientes.size(); i++)
+	{
+		cout << i + 1 << ": " << clientes[i].getNome() << " - " << clientes[i].getNif() << endl;
 	}
 }

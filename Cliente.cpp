@@ -42,3 +42,10 @@ bool Cliente::operator <(const Cliente &Cli)const
 	else return false;
 
 }
+
+bool Cliente::operator ==(const Cliente &c)const
+{
+	if (Nome == c.getNome() && Nif == c.getNif())
+		return true;
+	return false;
+}

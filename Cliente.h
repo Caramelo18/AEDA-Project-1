@@ -21,6 +21,7 @@ public:
 	string getNome()const;
 	unsigned long getNif()const;
 	bool operator <(const Cliente &Cli)const;
+	bool operator ==(const Cliente &c)const;
 protected:
 	string Nome;
 	unsigned long Nif;

@@ -143,6 +143,18 @@ void gestaoClientes(Empresa &e)
 	cout << "Por favor escolha a opcao pretendida: ";
 	cin >> op;
 
+	switch(op)
+	{
+	case 1:
+		//
+		e.listaClientes();
+		break;
+	case 2:
+		//
+		e.adicionaCliente();
+		break;
+	}
+
 	wait();
 }
 
@@ -165,8 +177,8 @@ int main()
 	cout << "Por favor insira o directorio da pasta que contem os ficheiros da Empresa: ";
 	cin >> directorio;
  */
-	//string directorio = "C:/Users/Bruno/git/AEDA-Project";
-	string directorio = "C:/Users/fabio/Documents/workspace/AEDA-Project-1";
+	string directorio = "C:/Users/Bruno/git/AEDA-Project";
+	//string directorio = "C:/Users/fabio/Documents/workspace/AEDA-Project-1";
 	Empresa e = Empresa(directorio);
 
 	do
