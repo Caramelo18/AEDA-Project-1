@@ -158,9 +158,7 @@ void Empresa::adicionaCamiao(Camiao *camiao)
 {
 	camioes.push_back(camiao);
 
-	fstream fich(ficca.c_str(), fstream::app);
-	if (!fich)
-		cerr << "Ficheiro nao encontrado";
+	ofstream fich(ficca.c_str(), ofstream::app);
 
 	fich << endl;
 	fich << camiao->getMarca() << " " << camiao->getTipo() << " " << camiao->getCapacidade();
@@ -192,7 +190,7 @@ void Empresa::adicionaCliente()
 
 	clientes.push_back(cliente);
 
-	fstream fich(ficcli.c_str(), fstream::app);
+	ofstream fich(ficcli.c_str(), ofstream::app);
 
 	fich << endl;
 	fich << cliente.getNome() << " "  << cliente.getNif();//Ainda nao esta a ler
@@ -206,7 +204,7 @@ void Empresa::novoServico(Servico servico)
 {
 	servicos.push_back(servico);
 
-	fstream fich(ficser.c_str(), fstream::app);
+	ofstream fich(ficser.c_str(), ofstream::app);
 
 	fich << endl;
 	fich << servico.getOrigem() << " " << servico.getDestino() << " " << servico.getDistancia() << servico.getTipo_produto() << servico.getCapacidade();
@@ -218,9 +216,7 @@ void Empresa::contrataFuncionario(Funcionario funcionario)
 {
 	funcionarios.push_back(funcionario);
 
-	fstream fich(ficfun.c_str(), fstream::app);
-	if (!fich)
-		cerr << "Ficheiro nao encontrado";
+	ofstream fich(ficfun.c_str(), ofstream::app);
 
 	fich << endl;
 	fich << funcionario.getNome() << " " << funcionario.getSalario() << " " << funcionario.getBI();
