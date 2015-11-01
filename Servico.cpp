@@ -197,38 +197,6 @@ void Servico::setTermina()
 	terminado = true;
 }
 
-vector<int> Servico::inicia_servico()
-{
-	int quantia = capacidade;
-	vector<int> v;
-
-
-	for(unsigned int i=0; i < Camioes.size(); i++)
-	{
-		if (Camioes[i]->getDisponivel()&& Camioes[i]->getTipo()==tipo_produto)
-		{
-			quantia = quantia - Camioes[i]->getCapacidade();
-			v.push_back(i);
-		}
-	}
-
-	if (quantia <= 0 )
-	{
-		for(unsigned int i=0; i <v.size(); i++)
-		{
-			Camioes[i]->setDisponivel( false);
-			veiculos_ocupados.push_back(v[i]);
-		}
-
-		setInicia();
-	}
-	else
-		throw ServicoNaoIniciado();
-
-
-	return veiculos_ocupados;
-}
-
 void Servico::termina_servico()
 {
 	for(unsigned int i=0; i <veiculos_ocupados.size(); i++)

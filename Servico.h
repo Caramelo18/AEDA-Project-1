@@ -32,7 +32,6 @@ public:
 	unsigned long getNif()const;
 	void setInicia();
 	void setTermina();
-	vector<int> inicia_servico();//retorna o vetor com o indice dos camioes ocupados, se não inicia retorna um vetor nulo
 	void termina_servico();//atualiza todo o vetor de camioes, pondo desocupado os camioes que estao em veiculos ocupados
 	bool operator < (const Servico &Ser)const;
 	vector<Camiao*> getCamioes();
