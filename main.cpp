@@ -345,8 +345,9 @@ int main()
 	cin >> directorio;
  */
 	//string directorio = "C:/Users/Bruno/git/AEDA-Project";
+	string directorio = "C:\Users/Acer-PC/git/AEDA-Project-1";
 	//string directorio = "C:/Users/POS/git/AEDA-Project-1";
-	string directorio = "C:/Users/fabio/Documents/workspace/AEDA-Project-1";
+	//string directorio = "C:/Users/fabio/Documents/workspace/AEDA-Project-1";
 	Empresa e = Empresa(directorio);
 
 	do
