@@ -9,28 +9,33 @@
 
 int Servico::globalID = 0;
 
-Servico::Servico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, vector<Camiao *> camioes)
+
+Servico::Servico()
 {
-	int cap = 0;
-	vector <Camiao *> disp;
-	for (unsigned int i = 0; i < camioes.size(); i++)
-		if (camioes[i]->getTipo() == tipo_produto && camioes[i]->getDisponivel())
-			{
-			cap += camioes[i]->getCapacidade();
-			disp.push_back(camioes[i]);
-			}
 
-	if (cap < capacidade)
-		//throw camioes
-		cout <<"Impossivel" << endl;
+}
 
-	int i = 0;
-	while(capacidade > 0)
+
+Servico::Servico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, vector<Camiao *> &c)
+{
+	unsigned int i = 0;
+
+	while(capacidade > 0 && i < c.size())
 	{
-		capacidade = capacidade - disp[i]->getCapacidade();
-		Camioes.push_back(disp[i]);
+		if (c[i]->getTipo() == tipo_produto && c[i]->getDisponivel())
+		{
+			capacidade = capacidade - c[i]->getCapacidade();
+			Camioes.push_back(c[i]);
+			if (origem != "abcd") // para pedir o orcamento arbitra-se um a origem "abcd"
+			{
+				c[i]->setDisponivel(false);
+				Camioes[i]->setDisponivel(false);
+			}
+		}
 		i++;
 	}
+	if (capacidade > 0)
+		throw camioesIndisponiveis();
 
 	this->origem = origem;
 	this->destino = destino;
@@ -41,6 +46,9 @@ Servico::Servico(string origem, string destino, int distancia, string tipo_produ
 	terminado = false;
 	ID = globalID++;
 	this->Nif=Nif;
+	preco = 0;
+	for (unsigned int i = 0; i < Camioes.size(); i++)
+		preco = preco + Camioes[i]->getPreco(distancia);
 
 }
 
@@ -154,6 +162,12 @@ bool Servico::operator < (const Servico &Ser)const
 			return false;
 	}
 	else return false;
+}
+
+
+int Servico::getPreco() const
+{
+	return preco;
 }
 
 

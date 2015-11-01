@@ -12,6 +12,13 @@
 
 using namespace std;
 
+class camioesIndisponiveis
+{
+public:
+	camioesIndisponiveis(){}
+};
+
+
 class Camiao
 {
 protected:

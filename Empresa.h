@@ -14,6 +14,7 @@
 #include "Cliente.h"
 #include "Servico.h"
 #include "Funcionario.h"
+#include "Camiao.h"
 
 using namespace std;
 
@@ -35,11 +36,18 @@ public:
 	unsigned long getNif(){return nif;}
 };
 
+class ClienteNaoExistente
+{
+public:
+	ClienteNaoExistente(){}
+};
+
 class SaldoIndisponivel
 {
 public:
 	SaldoIndisponivel(){};
 };
+
 
 class Empresa
 {
@@ -70,6 +78,8 @@ public:
 	void ListaServicosCliente()const;
 	void ListaServicosCamiao()const;
 	void listaClientes() const;
+	int posCliente(unsigned long nif) const;
+	void actualizaFicheiro();
 };
 
 

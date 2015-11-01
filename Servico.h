@@ -18,7 +18,8 @@ using namespace std;
 class Servico
 {
 public:
-	Servico(string origem, string destino, int distancia, string tipo_produto, int quantidade, unsigned long Nif, vector<Camiao *> camioes);
+	Servico();
+	Servico(string origem, string destino, int distancia, string tipo_produto, int quantidade, unsigned long Nif, vector<Camiao *> &c);
 	string getOrigem()const;
 	string getDestino()const;
 	int getDistancia()const;
@@ -33,6 +34,7 @@ public:
 	void termina_servico();//atualiza todo o vetor de camioes, pondo desocupado os camioes que estao em veiculos ocupados
 	bool operator < (const Servico &Ser)const;
 	vector<Camiao*> getCamioes();
+	int getPreco() const;
 
 private:
 	static int globalID;
@@ -47,6 +49,7 @@ private:
 	bool iniciado;
 	bool terminado;
 	unsigned long Nif;//variavel para associar o cliente a um serviço
+	int preco;
 
 };
 

@@ -5,7 +5,6 @@
  *      Author: fabio
  */
 #include "Empresa.h"
-#include "Camiao.h"
 #include <fstream>
 #include <sstream>
 #include <vector>
@@ -202,10 +201,12 @@ void Empresa::adicionaCliente()
 
 void Empresa::novoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif)
 {
-	// adicionar try e catch
+
 	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, camioes);
 
 	servicos.push_back(s);
+
+	saldo += s.getPreco();
 
 	ofstream fich(ficser.c_str(), ofstream::app);
 
@@ -357,3 +358,30 @@ void Empresa::listaClientes() const
 		cout << i + 1 << ": " << clientes[i].getNome() << " - " << clientes[i].getNif() << endl;
 	}
 }
+
+int Empresa::posCliente(unsigned long nif) const
+{
+	for (unsigned int i = 0; i < clientes.size(); i++)
+		if (clientes[i].getNif() == nif)
+			return i;
+
+	throw ClienteNaoExistente();
+}
+
+void Empresa::actualizaFicheiro()
+{
+	ofstream fich(ficca.c_str());
+	if (!fich)
+	{
+		cerr << "Ficheiro nao encontrado";
+		//fazer throw aqui
+	}
+
+	fich << nomeEmpresa << endl;
+	fich << "Saldo: " << saldo << endl;
+	fich << "Camioes:";
+	for(unsigned int i = 0; i < camioes.size(); i++)
+		fich << endl << camioes[i]->getMarca() << " " << camioes[i]->getTipo() << " " << camioes[i]->getCapacidade();
+}
+
+

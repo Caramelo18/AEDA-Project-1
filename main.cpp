@@ -33,26 +33,51 @@ void adicionaServico(Empresa &e)
 	if (tipo == "normal" || tipo == "Normal" || tipo == "")
 	{
 		string conf;
+		int cap;
+		string test = "abcd";
 		Normal c = Normal("exemplo", tipo, 20000);
 		cout << "Introduza a distancia do transporte a efectuar: ";
 		cin >> dist;
-		cout << "O preco do servido pretendido e: " << c.getPreco(dist) << endl;
-		cout << "Deseja adicionar o servico? " << endl;
+		cout << "Insira a quantidade da carga a transportar: ";
+		cin >> cap;
+		//string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, vector<Camiao *> &c
+		int ca = cap;
+		Servico s;
+		vector<Camiao *> v = e.getCamioes();
+		try
+		{
+			s = Servico(test, test, dist, "Normal", ca, 111, v);
+		}
+		catch (camioesIndisponiveis &c)
+		{
+			cout << "Impossivel realizar servico, camioes insuficientes" << endl;
+			wait();
+			return;
+		}
+		cout << "O preco do servido pretendido e: " << s.getPreco() << endl;
+		cout << "Deseja adicionar o servico? ";
 		cin >> conf;
 		if (conf == "sim" || conf == "Sim" || conf == "s" || conf == "S")
 		{
 			string ori, dest;
-			int cap;
 			unsigned long nif;
+			cout << "Insira o NIF do cliente: ";
+			cin >> nif;
+			try
+			{
+				e.posCliente(nif);
+			}
+			catch(ClienteNaoExistente &c)
+			{
+				cout << "Cliente nao existente." << endl;
+				wait();
+				return;
+			}
 			cout << "Insira a origem: ";
 			cin >> ori;
 			cout << "Insira o destino: ";
 			cin >> dest;
-			cout << "Insira a quantidade da carga a transportar: ";
-			cin >> cap;
-			cout << "Insira o NIF do cliente: ";
-			cin >> nif;
-			e.novoServico(ori, dest, dist, tipo, cap, nif);
+			e.novoServico(ori, dest, dist, "Normal", cap, nif);
 		}
 	}
 	else if (tipo == "congelacao" || tipo == "Congelacao")
@@ -114,6 +139,8 @@ void gestaoFinanceira(Empresa &e)
 		catch(SaldoIndisponivel&)
 		{
 			cout << "Saldo insuficiente" << endl;
+			wait();
+			return;
 		}
 
 		cout << "Salarios pagos." << endl;
@@ -251,6 +278,7 @@ int main()
 		system("CLS");
 	}while(!cin.eof());
 
+	e.actualizaFicheiro();
 	system("pause");
 	return 0;
 }
