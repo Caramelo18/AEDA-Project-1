@@ -20,6 +20,8 @@ class Servico
 public:
 	Servico();
 	Servico(string origem, string destino, int distancia, string tipo_produto, int quantidade, unsigned long Nif, vector<Camiao *> &c);
+	Servico(string origem, string destino, int distancia, string tipo_produto, int quantidade, unsigned long Nif, vector<Camiao *> &c, int temp);
+	Servico(string origem, string destino, int distancia, string tipo_produto, int quantidade, unsigned long Nif, vector<Camiao *> &c, string nivel_p);
 	string getOrigem()const;
 	string getDestino()const;
 	int getDistancia()const;

@@ -9,6 +9,7 @@
 #define CAMIAO_H_
 
 #include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -50,7 +51,7 @@ class Congelacao: public Camiao
 {
 public:
 	Congelacao(string marca, string tipo, int capacidade);
-	int getPreco (int dist, int temp);
+	int getPreco (int dist);
 };
 
 class Perigosos: public Camiao

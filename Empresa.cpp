@@ -216,6 +216,41 @@ void Empresa::novoServico(string origem, string destino, int distancia, string t
 	fich.close();
 }
 
+
+void Empresa::novoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, int temp)
+{
+
+	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, camioes, temp);
+
+	servicos.push_back(s);
+
+	saldo += s.getPreco();
+
+	ofstream fich(ficser.c_str(), ofstream::app);
+
+	fich << endl;
+	fich << origem << " " << destino << " " << distancia << " " << tipo_produto << " " << capacidade;
+
+	fich.close();
+}
+
+void Empresa::novoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, string nivel_p)
+{
+
+	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, camioes, nivel_p);
+
+	servicos.push_back(s);
+
+	saldo += s.getPreco();
+
+	ofstream fich(ficser.c_str(), ofstream::app);
+
+	fich << endl;
+	fich << origem << " " << destino << " " << distancia << " " << tipo_produto << " " << capacidade;
+
+	fich.close();
+}
+
 void Empresa::contrataFuncionario(Funcionario funcionario)
 {
 	funcionarios.push_back(funcionario);
@@ -263,11 +298,12 @@ void Empresa::imprimeServico()
 	{
 		cout << "Servico " << i <<":" << endl;
 		cout << "Camioes Utilizados:" << endl;
+		vector<Camiao *> v = servicos[i].getCamioes();
 		for(unsigned int j = 0; j < servicos[i].getCamioes().size(); j++)
 		{
-			//"Camiao " << j + 1 << ": " << servicos[i].getCamioes[j]->getMarca() << "-" << servicos[i].getCamioes[j]->getTipo() ;
+			cout << "Camiao " << j+1 << ": " << v[j]->getMarca() << " - " << v[j]->getTipo() << endl;
+			//"Camiao " << j + 1 << ": " << v[j]->getMarca() << "-" << v[j]->getTipo();
 			//Nao esta a funionar, esta a dar erro
-
 		}
 
 		//Ainda nao esta completa

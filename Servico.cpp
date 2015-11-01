@@ -27,15 +27,17 @@ Servico::Servico(string origem, string destino, int distancia, string tipo_produ
 			capacidade = capacidade - c[i]->getCapacidade();
 			Camioes.push_back(c[i]);
 			if (origem != "abcd") // para pedir o orcamento arbitra-se um a origem "abcd"
-			{
 				c[i]->setDisponivel(false);
-				Camioes[i]->setDisponivel(false);
-			}
 		}
 		i++;
 	}
+
 	if (capacidade > 0)
 		throw camioesIndisponiveis();
+
+	if (origem != "abcd")
+		for(unsigned int i = 0; i < Camioes.size(); i++)
+			Camioes[i]->setDisponivel(false);
 
 	this->origem = origem;
 	this->destino = destino;
@@ -50,6 +52,93 @@ Servico::Servico(string origem, string destino, int distancia, string tipo_produ
 	for (unsigned int i = 0; i < Camioes.size(); i++)
 		preco = preco + Camioes[i]->getPreco(distancia);
 
+}
+
+Servico::Servico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, vector<Camiao *> &c, int temp)
+{
+	unsigned int i = 0;
+
+	while(capacidade > 0 && i < c.size())
+	{
+		if (c[i]->getTipo() == tipo_produto && c[i]->getDisponivel())
+		{
+			capacidade = capacidade - c[i]->getCapacidade();
+			Camioes.push_back(c[i]);
+			if (origem != "abcd") // para pedir o orcamento arbitra-se um a origem "abcd"
+				c[i]->setDisponivel(false);
+		}
+		i++;
+	}
+
+	if (capacidade > 0)
+		throw camioesIndisponiveis();
+
+	if (origem != "abcd")
+		for(unsigned int i = 0; i < Camioes.size(); i++)
+			Camioes[i]->setDisponivel(false);
+
+	this->origem = origem;
+	this->destino = destino;
+	this->distancia = distancia;
+	this->tipo_produto = tipo_produto;
+	this->capacidade = capacidade;
+	iniciado = false;
+	terminado = false;
+	ID = globalID++;
+	this->Nif=Nif;
+	preco = 0;
+	for (unsigned int i = 0; i < Camioes.size(); i++)
+	{
+		double dif = 20 - temp;
+		dif = dif / 10;
+		preco += (6 + dif) * distancia;
+	}
+}
+
+Servico::Servico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, vector<Camiao *> &c, string nivel_p)
+{
+	unsigned int i = 0;
+
+	while(capacidade > 0 && i < c.size())
+	{
+		if (c[i]->getTipo() == tipo_produto && c[i]->getDisponivel())
+		{
+			capacidade = capacidade - c[i]->getCapacidade();
+			Camioes.push_back(c[i]);
+			if (origem != "abcd") // para pedir o orcamento arbitra-se um a origem "abcd"
+				c[i]->setDisponivel(false);
+		}
+		i++;
+	}
+
+	if (capacidade > 0)
+		throw camioesIndisponiveis();
+
+	if (origem != "abcd")
+		for(unsigned int i = 0; i < Camioes.size(); i++)
+			Camioes[i]->setDisponivel(false);
+
+	this->origem = origem;
+	this->destino = destino;
+	this->distancia = distancia;
+	this->tipo_produto = tipo_produto;
+	this->capacidade = capacidade;
+	iniciado = false;
+	terminado = false;
+	ID = globalID++;
+	this->Nif=Nif;
+	preco = 0;
+	for (unsigned int i = 0; i < Camioes.size(); i++)
+	{
+		if (nivel_p == "inflamavel")
+			preco += 7 * distancia;
+		else if (nivel_p == "toxica")
+			preco += 8 * distancia;
+		else if (nivel_p == "corrosiva")
+			preco += 7.5 * distancia;
+		else if (nivel_p == "radioactiva")
+			preco += 9 * distancia;
+	}
 }
 
 string Servico::getOrigem()const

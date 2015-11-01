@@ -68,6 +68,8 @@ public:
 	void adicionaCamiao(Camiao *camiao);
 	void adicionaCliente();
 	void novoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif);
+	void novoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, int temp);
+	void novoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, string nivel_p);
 	void contrataFuncionario(Funcionario funcionario);
 	long getSaldo();
 	void pagaSalario();

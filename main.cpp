@@ -12,12 +12,11 @@
 #include <cstdlib>
 #include <cstdio>
 
-//fazer funcao wait
 
 void wait()
 {
 	cin.ignore(1000,'\n');
-	cout << "Prima enter para regressar ao menu principal: ";
+	cout << "Prima enter para regressar ao menu principal ";
 	cin.get();
 	return;
 }
@@ -28,25 +27,20 @@ void adicionaServico(Empresa &e)
 	int dist;
 	cout << "Introduza o tipo de transporte (normal, congelacao, perigosos, animais): ";
 	cin >> tipo;
-	cout << endl;
-	// fazer funcao para ver quantos camioes sao necessarios
-	if (tipo == "normal" || tipo == "Normal" || tipo == "")
+	if (tipo == "normal" || tipo == "Normal")
 	{
 		string conf;
 		int cap;
 		string test = "abcd";
-		Normal c = Normal("exemplo", tipo, 20000);
 		cout << "Introduza a distancia do transporte a efectuar: ";
 		cin >> dist;
 		cout << "Insira a quantidade da carga a transportar: ";
 		cin >> cap;
-		//string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, vector<Camiao *> &c
-		int ca = cap;
 		Servico s;
 		vector<Camiao *> v = e.getCamioes();
 		try
 		{
-			s = Servico(test, test, dist, "Normal", ca, 111, v);
+			s = Servico(test, test, dist, "Normal", cap, 111, v);
 		}
 		catch (camioesIndisponiveis &c)
 		{
@@ -82,34 +76,158 @@ void adicionaServico(Empresa &e)
 	}
 	else if (tipo == "congelacao" || tipo == "Congelacao")
 	{
-		Congelacao c = Congelacao("exemplo", tipo, 20000);
+		string conf;
+		int cap;
 		int temp;
+		string test = "abcd";
 		cout << "Introduza a distancia do transporte a efectuar: ";
 		cin >> dist;
-		cout << "Introduza a temperatura desejada: ";
+		cout << "Insira a quantidade da carga a transportar: ";
+		cin >> cap;
+		cout << "Insira a temperatura pretendida para o transporte: ";
 		cin >> temp;
-		cout << "O preco do servido pretendido e: " <<c.getPreco(dist, temp) << endl;
+		Servico s;
+		vector<Camiao *> v = e.getCamioes();
+		try
+		{
+			s = Servico(test, test, dist, "Congelacao", cap, 111, v, temp);
+		}
+		catch (camioesIndisponiveis &c)
+		{
+			cout << "Impossivel realizar servico, camioes insuficientes" << endl;
+			wait();
+			return;
+		}
+		cout << "O preco do servido pretendido e: " << s.getPreco() << endl;
+		cout << "Deseja adicionar o servico? ";
+		cin >> conf;
+		if (conf == "sim" || conf == "Sim" || conf == "s" || conf == "S")
+		{
+			string ori, dest;
+			unsigned long nif;
+			cout << "Insira o NIF do cliente: ";
+			cin >> nif;
+			try
+			{
+				e.posCliente(nif);
+			}
+			catch(ClienteNaoExistente &c)
+			{
+				cout << "Cliente nao existente." << endl;
+				wait();
+				return;
+			}
+			cout << "Insira a origem: ";
+			cin >> ori;
+			cout << "Insira o destino: ";
+			cin >> dest;
+			e.novoServico(ori, dest, dist, "Congelacao", cap, nif, temp);
+		}
 
 	}
 	else if (tipo == "perigosos" || tipo == "Perigosos")
 	{
-		Perigosos c = Perigosos("exemplo", tipo, 20000);
-		string nivelp;
-		cout << "Insira o nivel de perigosidade (inflamavel, toxica, corrosiva, radioactiva): ";
-		cin >> nivelp;
+		string conf;
+		int cap;
+		string nivel;
+		string test = "abcd";
 		cout << "Introduza a distancia do transporte a efectuar: ";
 		cin >> dist;
-		if(c.getPreco(dist, nivelp) != -1)
-			cout << "O preco do servido pretendido e: " << c.getPreco(dist, nivelp) << endl;
-		else cout << "Nivel de perigosidade invalido" << endl;
+		cout << "Insira a quantidade da carga a transportar: ";
+		cin >> cap;
+		cout << "Insira o nivel de perigosidade do transporte (inflamavel, toxica, corrosiva ou radioactiva): ";
+		cin >> nivel;
+		if (nivel != "inflamavel" && nivel != "toxica" && nivel != "corrosiva" && nivel != "radioactiva")
+		{
+			cerr << "Nivel de perigosidade invalido" << endl;
+			wait();
+			return;
+		}
+		Servico s;
+		vector<Camiao *> v = e.getCamioes();
+		try
+		{
+			s = Servico(test, test, dist, "Perigosos", cap, 111, v, nivel);
+		}
+		catch (camioesIndisponiveis &c)
+		{
+			cout << "Impossivel realizar servico, camioes insuficientes" << endl;
+			wait();
+			return;
+		}
+		cout << "O preco do servido pretendido e: " << s.getPreco() << endl;
+		cout << "Deseja adicionar o servico? ";
+		cin >> conf;
+		if (conf == "sim" || conf == "Sim" || conf == "s" || conf == "S")
+		{
+			string ori, dest;
+			unsigned long nif;
+			cout << "Insira o NIF do cliente: ";
+			cin >> nif;
+			try
+			{
+				e.posCliente(nif);
+			}
+			catch(ClienteNaoExistente &c)
+			{
+				cout << "Cliente nao existente." << endl;
+				wait();
+				return;
+			}
+			cout << "Insira a origem: ";
+			cin >> ori;
+			cout << "Insira o destino: ";
+			cin >> dest;
+			e.novoServico(ori, dest, dist, "Perigosos", cap, nif, nivel);
+		}
 
 	}
 	else if (tipo == "animais" || tipo == "Animais")
 	{
-		Animais c = Animais("exemplo", tipo, 20000);
+		string conf;
+		int cap;
+		string test = "abcd";
 		cout << "Introduza a distancia do transporte a efectuar: ";
 		cin >> dist;
-		cout << "O preco do servido pretendido e: " << c.getPreco(dist) << endl;
+		cout << "Insira a quantidade da carga a transportar: ";
+		cin >> cap;
+		Servico s;
+		vector<Camiao *> v = e.getCamioes();
+		try
+		{
+			s = Servico(test, test, dist, "Animais", cap, 111, v);
+		}
+		catch (camioesIndisponiveis &c)
+		{
+			cout << "Impossivel realizar servico, camioes insuficientes" << endl;
+			wait();
+			return;
+		}
+		cout << "O preco do servido pretendido e: " << s.getPreco() << endl;
+		cout << "Deseja adicionar o servico? ";
+		cin >> conf;
+		if (conf == "sim" || conf == "Sim" || conf == "s" || conf == "S")
+		{
+			string ori, dest;
+			unsigned long nif;
+			cout << "Insira o NIF do cliente: ";
+			cin >> nif;
+			try
+			{
+				e.posCliente(nif);
+			}
+			catch(ClienteNaoExistente &c)
+			{
+				cout << "Cliente nao existente." << endl;
+				wait();
+				return;
+			}
+			cout << "Insira a origem: ";
+			cin >> ori;
+			cout << "Insira o destino: ";
+			cin >> dest;
+			e.novoServico(ori, dest, dist, "Animais", cap, nif);
+		}
 	}
 	else
 		cout << "Tipo invalido" << endl;
@@ -239,7 +357,7 @@ int main()
 		cout << "2 - Gestao financeira" << endl;
 		cout << "3 - Consultar servicos" << endl;
 		cout << "4 - Gestao de clientes" << endl;
-		cout << "5 - Gestao de camioes" << endl;
+		cout << "5 - Gestao de camioes" << endl << endl;
 		// falta adicionar contratar funcionario
 
 		int op;

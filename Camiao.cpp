@@ -60,11 +60,8 @@ int Normal::getPreco(int dist)
 Congelacao::Congelacao(string marca, string tipo, int capacidade):Camiao(marca, tipo, capacidade)
 {}
 
-int Congelacao::getPreco(int dist, int temp)
+int Congelacao::getPreco(int dist)
 {
-	double dif = 20 - temp;
-	dif = dif / 10;
-	return (6 + dif) * dist;
 }
 
 Perigosos::Perigosos(string marca, string tipo, int capacidade):Camiao(marca, tipo, capacidade)
@@ -72,16 +69,6 @@ Perigosos::Perigosos(string marca, string tipo, int capacidade):Camiao(marca, ti
 
 int Perigosos::getPreco(int dist, string nivelp)
 {
-	if (nivelp == "inflamavel")
-		return 7 * dist;
-	else if (nivelp == "toxica")
-		return 7.5 * dist;
-	else if (nivelp == "corrosiva")
-		return 7.3 * dist;
-	else if (nivelp == "radioactiva")
-		return 9 * dist;
-	else
-		return -1;
 }
 
 Animais::Animais(string marca, string tipo, int capacidade):Camiao(marca, tipo, capacidade)
