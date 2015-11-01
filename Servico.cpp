@@ -9,8 +9,29 @@
 
 int Servico::globalID = 0;
 
-Servico::Servico(string origem, string destino,float distancia, string tipo_produto, float capacidade, unsigned long Nif)
+Servico::Servico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, vector<Camiao *> camioes)
 {
+	int cap = 0;
+	vector <Camiao *> disp;
+	for (unsigned int i = 0; i < camioes.size(); i++)
+		if (camioes[i]->getTipo() == tipo_produto && camioes[i]->getDisponivel())
+			{
+			cap += camioes[i]->getCapacidade();
+			disp.push_back(camioes[i]);
+			}
+
+	if (cap < capacidade)
+		//throw camioes
+		cout <<"Impossivel" << endl;
+
+	int i = 0;
+	while(capacidade > 0)
+	{
+		capacidade = capacidade - disp[i]->getCapacidade();
+		Camioes.push_back(disp[i]);
+		i++;
+	}
+
 	this->origem = origem;
 	this->destino = destino;
 	this->distancia = distancia;
@@ -20,6 +41,7 @@ Servico::Servico(string origem, string destino,float distancia, string tipo_prod
 	terminado = false;
 	ID = globalID++;
 	this->Nif=Nif;
+
 }
 
 string Servico::getOrigem()const

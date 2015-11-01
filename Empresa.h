@@ -59,7 +59,7 @@ public:
 	vector<Funcionario> getFuncionarios();
 	void adicionaCamiao(Camiao *camiao);
 	void adicionaCliente();
-	void novoServico(Servico servico);
+	void novoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif);
 	void contrataFuncionario(Funcionario funcionario);
 	long getSaldo();
 	void pagaSalario();

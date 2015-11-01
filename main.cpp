@@ -29,13 +29,31 @@ void adicionaServico(Empresa &e)
 	cout << "Introduza o tipo de transporte (normal, congelacao, perigosos, animais): ";
 	cin >> tipo;
 	cout << endl;
-
+	// fazer funcao para ver quantos camioes sao necessarios
 	if (tipo == "normal" || tipo == "Normal" || tipo == "")
 	{
+		string conf;
 		Normal c = Normal("exemplo", tipo, 20000);
 		cout << "Introduza a distancia do transporte a efectuar: ";
 		cin >> dist;
 		cout << "O preco do servido pretendido e: " << c.getPreco(dist) << endl;
+		cout << "Deseja adicionar o servico? " << endl;
+		cin >> conf;
+		if (conf == "sim" || conf == "Sim" || conf == "s" || conf == "S")
+		{
+			string ori, dest;
+			int cap;
+			unsigned long nif;
+			cout << "Insira a origem: ";
+			cin >> ori;
+			cout << "Insira o destino: ";
+			cin >> dest;
+			cout << "Insira a quantidade da carga a transportar: ";
+			cin >> cap;
+			cout << "Insira o NIF do cliente: ";
+			cin >> nif;
+			e.novoServico(ori, dest, dist, tipo, cap, nif);
+		}
 	}
 	else if (tipo == "congelacao" || tipo == "Congelacao")
 	{
@@ -181,9 +199,9 @@ int main()
 	cout << "Por favor insira o directorio da pasta que contem os ficheiros da Empresa: ";
 	cin >> directorio;
  */
-	string directorio = "C:/Users/Bruno/git/AEDA-Project";
+	//string directorio = "C:/Users/Bruno/git/AEDA-Project";
 	//string directorio = "C:/Users/POS/git/AEDA-Project-1";
-	//string directorio = "C:/Users/fabio/Documents/workspace/AEDA-Project-1";
+	string directorio = "C:/Users/fabio/Documents/workspace/AEDA-Project-1";
 	Empresa e = Empresa(directorio);
 
 	do
@@ -195,7 +213,7 @@ int main()
 		cout << "3 - Consultar servicos" << endl;
 		cout << "4 - Gestao de clientes" << endl;
 		cout << "5 - Gestao de camioes" << endl;
-
+		// falta adicionar contratar funcionario
 
 		int op;
 		cout << "Por favor insira a opcao desejada: ";

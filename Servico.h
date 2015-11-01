@@ -18,7 +18,7 @@ using namespace std;
 class Servico
 {
 public:
-	Servico(string origem, string destino,float distancia, string tipo_produto, float quantidade,unsigned long Nif);
+	Servico(string origem, string destino, int distancia, string tipo_produto, int quantidade, unsigned long Nif, vector<Camiao *> camioes);
 	string getOrigem()const;
 	string getDestino()const;
 	int getDistancia()const;

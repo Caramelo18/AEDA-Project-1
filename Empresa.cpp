@@ -200,14 +200,17 @@ void Empresa::adicionaCliente()
 	fich.close();
 }
 
-void Empresa::novoServico(Servico servico)
+void Empresa::novoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif)
 {
-	servicos.push_back(servico);
+	// adicionar try e catch
+	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, camioes);
+
+	servicos.push_back(s);
 
 	ofstream fich(ficser.c_str(), ofstream::app);
 
 	fich << endl;
-	fich << servico.getOrigem() << " " << servico.getDestino() << " " << servico.getDistancia() << servico.getTipo_produto() << servico.getCapacidade();
+	fich << origem << " " << destino << " " << distancia << " " << tipo_produto << " " << capacidade;
 
 	fich.close();
 }
@@ -269,7 +272,6 @@ void Empresa::imprimeServico()
 		//Ainda nao esta completa
 	}
 }
-
 
 void Empresa::ListaServicosExecucao()const
 {
