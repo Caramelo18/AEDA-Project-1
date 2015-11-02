@@ -26,7 +26,6 @@ public:
 	string getDestino()const;
 	int getDistancia()const;
 	string getTipo_produto()const;
-	bool getIniciado()const;
 	bool getTerminado()const;
 	int getCapacidade()const;
 	unsigned long getNif()const;
@@ -37,6 +36,7 @@ public:
 	vector<Camiao*> getCamioes();
 	int getPreco() const;
 	int getID() const;
+	static void incGlobalID();
 
 private:
 	static int globalID;
@@ -47,7 +47,6 @@ private:
 	int distancia;
 	int capacidade;
 	string tipo_produto;
-	bool iniciado;
 	bool terminado;
 	unsigned long Nif;//variavel para associar o cliente a um serviço
 	int preco;

@@ -64,7 +64,7 @@ private:
 	vector<Servico> servicos;
 	vector<Cliente> clientes;
 	vector<Funcionario> funcionarios;
-	
+
 public:
 	Empresa(string doc);
 	vector<Camiao *> getCamioes();
@@ -76,6 +76,9 @@ public:
 	void novoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif);
 	void novoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, int temp);
 	void novoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, string nivel_p);
+	void leNovoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, vector<string> mat, bool ter);
+	void leNovoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, int temp, vector<string> mat, bool ter);
+	void leNovoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, string nivel_p, vector<string> mat, bool ter);
 	void contrataFuncionario(Funcionario funcionario);
 	long getSaldo();
 	void pagaSalario();

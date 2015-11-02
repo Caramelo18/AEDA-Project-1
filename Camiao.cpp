@@ -9,13 +9,14 @@
 
 int Camiao::IDg = 1;
 
-Camiao::Camiao(string marca, string tipo, int capacidade)
+Camiao::Camiao(string marca, string tipo, int capacidade, string matricula)
 {
 	this->marca = marca;
 	this->tipo = tipo;
 	this->capacidade = capacidade;
 	disponivel = true;
 	ID = IDg;
+	this->matricula = matricula;
 
 	IDg++;
 }
@@ -48,7 +49,7 @@ void Camiao::setDisponivel(bool bo)
 	disponivel = bo;
 }
 
-Normal::Normal(string marca, string tipo, int capacidade):Camiao(marca, tipo, capacidade)
+Normal::Normal(string marca, string tipo, int capacidade, string matricula):Camiao(marca, tipo, capacidade, matricula)
 {
 }
 
@@ -57,26 +58,31 @@ int Normal::getPreco(int dist)
 	return 6*dist;
 }
 
-Congelacao::Congelacao(string marca, string tipo, int capacidade):Camiao(marca, tipo, capacidade)
+Congelacao::Congelacao(string marca, string tipo, int capacidade, string matricula):Camiao(marca, tipo, capacidade, matricula)
 {}
 
 int Congelacao::getPreco(int dist)
 {
 }
 
-Perigosos::Perigosos(string marca, string tipo, int capacidade):Camiao(marca, tipo, capacidade)
+Perigosos::Perigosos(string marca, string tipo, int capacidade, string matricula):Camiao(marca, tipo, capacidade, matricula)
 {}
 
 int Perigosos::getPreco(int dist, string nivelp)
 {
 }
 
-Animais::Animais(string marca, string tipo, int capacidade):Camiao(marca, tipo, capacidade)
+Animais::Animais(string marca, string tipo, int capacidade, string matricula):Camiao(marca, tipo, capacidade, matricula)
 {
 }
 
 int Animais::getPreco(int dist)
 {
 	return 7 * dist;
+}
+
+string Camiao::getMatricula() const
+{
+	return matricula;
 }
 

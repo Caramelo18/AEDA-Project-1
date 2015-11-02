@@ -53,33 +53,34 @@ Empresa::Empresa(string doc)
 
 		string marca;
 		string tipo;
+		string matricula;
 		int capacidade;
 		stringstream ss;
 
 		ss << temp;
-		ss >> marca >> tipo >> capacidade;
+		ss >> marca >> tipo >> capacidade >> matricula;
 
 		if (tipo == "Normal")
 		{
-			Normal *cam = new Normal(marca, tipo, capacidade);
+			Normal *cam = new Normal(marca, tipo, capacidade, matricula);
 			camioes.push_back(cam);
 		}
 
 		if (tipo == "Congelacao")
 		{
-			Congelacao *cam1 = new Congelacao(marca, tipo, capacidade);
+			Congelacao *cam1 = new Congelacao(marca, tipo, capacidade, matricula);
 			camioes.push_back(cam1);
 		}
 
 		if (tipo == "Perigosos")
 		{
-			Perigosos *cam2 = new Perigosos(marca, tipo, capacidade);
+			Perigosos *cam2 = new Perigosos(marca, tipo, capacidade, matricula);
 			camioes.push_back(cam2);
 		}
 
 		if (tipo == "Animais")
 		{
-			Animais *cam3 = new Animais(marca, tipo, capacidade);
+			Animais *cam3 = new Animais(marca, tipo, capacidade, matricula);
 			camioes.push_back(cam3);
 		}
 	}
@@ -131,6 +132,55 @@ Empresa::Empresa(string doc)
 		clientes.push_back(cli);
 	}
 	fich3.close();
+
+	ifstream fich4(ficser.c_str());
+	if (!fich)
+	{
+		cerr << "Ficheiro nao encontrado";
+		//fazer throw aqui
+	}
+	getline(fich4, temp);
+	while(!fich4.eof())
+	{
+		getline(fich4, temp);
+		stringstream ss;
+		int id, distancia, capacidade;
+		string origem, destino, tipo_produto, estado;
+		ss << temp;
+		ss >> id >> origem >> destino >> distancia >> tipo_produto >> capacidade >> estado;
+		bool ter;
+		if (estado == "T")
+			ter = true;
+		else
+			ter = false;
+		int gr;
+		string grp;
+		if (tipo_produto == "Congelacao")
+			ss >> gr;
+		else if (tipo_produto == "Perigosos")
+			ss >> grp;
+
+		getline(fich4, temp); // nif cliente
+		int nif;
+		stringstream ni(temp);
+		ni >> nif;
+		getline(fich4, temp); // matriculas dos camioes
+		stringstream matri(temp);
+		vector<string> mat;
+		string m;
+		while (matri >> m)
+			mat.push_back(m);
+		if (tipo_produto == "Congelacao")
+			leNovoServico(origem, destino, distancia, tipo_produto, capacidade, nif, gr, mat, ter);
+		else if (tipo_produto == "Perigosos")
+			leNovoServico(origem, destino, distancia, tipo_produto, capacidade, nif, grp, mat, ter);
+		else
+			leNovoServico(origem, destino, distancia, tipo_produto, capacidade, nif, mat, ter);
+	}
+
+
+
+
 }
 
 vector<Camiao *> Empresa::getCamioes()
@@ -211,7 +261,15 @@ void Empresa::novoServico(string origem, string destino, int distancia, string t
 	ofstream fich(ficser.c_str(), ofstream::app);
 
 	fich << endl;
-	fich << origem << " " << destino << " " << distancia << " " << tipo_produto << " " << capacidade;
+	fich << s.getID() << " " << origem << " " << destino << " " << distancia << " " << tipo_produto << " " << capacidade;
+	if(s.getTerminado())
+		fich << " T";
+	else
+		fich << " E";
+
+	fich << endl << Nif << endl;
+	for (unsigned int i = 0; i < s.getCamioes().size(); i++)
+		fich << s.getCamioes()[i]->getMatricula() << " ";
 
 	fich.close();
 }
@@ -229,7 +287,16 @@ void Empresa::novoServico(string origem, string destino, int distancia, string t
 	ofstream fich(ficser.c_str(), ofstream::app);
 
 	fich << endl;
-	fich << origem << " " << destino << " " << distancia << " " << tipo_produto << " " << capacidade;
+	fich << s.getID() << " " << origem << " " << destino << " " << distancia << " " << tipo_produto << " " << capacidade;
+	if(s.getTerminado())
+		fich << " T";
+	else
+		fich << " E";
+	fich << " " << temp;
+
+	fich << endl << Nif << endl;
+	for (unsigned int i = 0; i < s.getCamioes().size(); i++)
+		fich << s.getCamioes()[i]->getMatricula() << " ";
 
 	fich.close();
 }
@@ -246,7 +313,18 @@ void Empresa::novoServico(string origem, string destino, int distancia, string t
 	ofstream fich(ficser.c_str(), ofstream::app);
 
 	fich << endl;
-	fich << origem << " " << destino << " " << distancia << " " << tipo_produto << " " << capacidade;
+	fich << s.getID() << " " << origem << " " << destino << " " << distancia << " " << tipo_produto << " " << capacidade;
+	if(s.getTerminado())
+		fich << " T";
+	else
+		fich << " E";
+
+	fich << " " << nivel_p;
+
+	fich << endl << Nif << endl;
+	for (unsigned int i = 0; i < s.getCamioes().size(); i++)
+		fich << s.getCamioes()[i]->getMatricula() << " ";
+
 
 	fich.close();
 }
@@ -296,18 +374,21 @@ void  Empresa::imprimeServico(Servico s) const
 {
 	cout << "Servico " << s.getID() <<":" << endl;
 	cout << "Cliente: " << clientes[posCliente(s.getNif())].getNome() << endl;
-	cout << s.getOrigem() << " - " << s.getDestino() << " distancia: " << s.getDistancia() << endl;
+	cout << s.getOrigem() << " - " << s.getDestino() << " - Distancia: " << s.getDistancia() << endl;
 	cout << "Camioes Utilizados:" << endl;
 	for(unsigned int j = 0; j < s.getCamioes().size(); j++)
 	{
-		cout << "Camiao " << j+1 << ": " << s.getCamioes()[j]->getMarca() << " - " << s.getCamioes()[j]->getTipo() << endl;
+		cout << "Camiao " << j+1 << ": " << s.getCamioes()[j]->getMarca() << " - " << s.getCamioes()[j]->getMatricula() << " - " <<s.getCamioes()[j]->getTipo() << endl;
 	}
+	if (s.getTerminado())
+		cout << "Terminado" << endl;
+	else
+		cout << "Em curso" << endl;
 	cout << endl;
 }
 
 void Empresa::imprimeServicos() const
 {
-	cout << servicos.size() << endl;
 	for(unsigned int i = 0; i < servicos.size(); i++)
 	{
 		imprimeServico(servicos[i]);
@@ -414,7 +495,7 @@ void Empresa::actualizaFicheiro()
 	fich << "Saldo: " << saldo << endl;
 	fich << "Camioes:";
 	for(unsigned int i = 0; i < camioes.size(); i++)
-		fich << endl << camioes[i]->getMarca() << " " << camioes[i]->getTipo() << " " << camioes[i]->getCapacidade();
+		fich << endl << camioes[i]->getMarca() << " " << camioes[i]->getTipo() << " " << camioes[i]->getCapacidade() << " " << camioes[i]->getMatricula();
 }
 
 void Empresa::terminaServico(int ID)
@@ -430,4 +511,89 @@ void Empresa::terminaServico(int ID)
 		throw ServicoInexistente();
 
 	servicos[i].termina_servico();
+}
+
+void Empresa::leNovoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, vector<string> mat, bool ter)
+{
+	vector<Camiao *> c;
+
+
+	for (unsigned int i = 0; i < mat.size(); i++)
+	{
+		for (unsigned int j = 0; j < camioes.size();j++)
+		{
+			if(camioes[j]->getMatricula() == mat[i])
+				c.push_back(camioes[j]);
+		}
+	}
+
+	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, c);
+
+	if (!ter)
+	{
+		for (unsigned int i = 0; i < mat.size(); i++)
+		{
+			for (unsigned int j = 0; j < camioes.size();j++)
+			{
+				if(camioes[j]->getMatricula() == mat[i])
+					camioes[j]->setDisponivel(false);
+			}
+		}
+	}
+	servicos.push_back(s);
+}
+
+void Empresa::leNovoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, int temp, vector<string> mat, bool ter)
+{
+	vector<Camiao *> c;
+
+	for (unsigned int i = 0; i < mat.size(); i++)
+	{
+		for (unsigned int j = 0; j < camioes.size(); j++)
+		{
+			if(camioes[j]->getMatricula() == mat[i])
+				c.push_back(camioes[j]);
+		}
+	}
+	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, c);
+	if (!ter)
+	{
+		for (unsigned int i = 0; i < mat.size(); i++)
+		{
+			for (unsigned int j = 0; j < camioes.size(); j++)
+			{
+				if(camioes[j]->getMatricula() == mat[i])
+					camioes[j]->setDisponivel(false);
+			}
+		}
+	}
+	servicos.push_back(s);
+}
+
+void Empresa::leNovoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, string nivel_p, vector<string> mat, bool ter)
+{
+	vector<Camiao *> c;
+	for (unsigned int i = 0; i < mat.size(); i++)
+	{
+		for (unsigned int j = 0; j < camioes.size(); j++)
+		{
+			if(camioes[j]->getMatricula() == mat[i])
+				c.push_back(camioes[j]);
+		}
+	}
+
+	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, c);
+
+	if (!ter)
+	{
+		for (unsigned int i = 0; i < mat.size(); i++)
+		{
+			for (unsigned int j = 0; j < camioes.size(); j++)
+			{
+				if(camioes[j]->getMatricula() == mat[i])
+					camioes[j]->setDisponivel(false);
+			}
+		}
+	}
+	servicos.push_back(s);
 }

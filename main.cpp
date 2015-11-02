@@ -260,7 +260,7 @@ void gestaoFinanceira(Empresa &e)
 {
 	int op;
 	cout << " 1 - Verificar saldo" << endl;
-	cout << " 2 - Pagar salarios" << endl;
+	cout << " 2 - Pagar salarios" << endl << endl;
 	cout << "Por favor escolha a opcao pretendida: ";
 	cin >> op;
 	cout << endl;
@@ -294,9 +294,10 @@ void gestaoFinanceira(Empresa &e)
 void consultaServicos(Empresa &e)
 {
 	int op;
-	cout << " 1 - Lista de servicos em execucao" << endl;
-	cout << " 2 - Lista de servicos do cliente" << endl;
-	cout << " 3 - Lista de servicos de um camiao" << endl;
+	cout << " 1 - Lista de servicos" << endl;
+	cout << " 2 - Lista de servicos em execucao" << endl;
+	cout << " 3 - Lista de servicos do cliente" << endl;
+	cout << " 4 - Lista de servicos de um camiao" << endl << endl;
 	cout << "Por favor escolha a opcao pretendida: ";
 	cin >> op;
 	cout << endl;
@@ -304,17 +305,16 @@ void consultaServicos(Empresa &e)
 	switch(op)
 	{
 	case 1:
-		//
 		e.imprimeServicos();
 		break;
 	case 2:
-		//
-		e.ListaServicosCliente();
+		e.ListaServicosExecucao();
 		break;
 	case 3:
-		//
-		e.ListaServicosCamiao();
+		e.ListaServicosCliente();
 		break;
+	case 4:
+		e.ListaServicosCamiao();
 	}
 	wait();
 }
@@ -323,7 +323,7 @@ void gestaoClientes(Empresa &e)
 {
 	int op;
 	cout << " 1 - Lista de clientes" << endl;
-	cout << " 2 - Adicionar clientes" << endl;
+	cout << " 2 - Adicionar clientes" << endl << endl;
 	cout << "Por favor escolha a opcao pretendida: ";
 	cin >> op;
 	cout << endl;
@@ -363,10 +363,10 @@ int main()
 	cout << "Por favor insira o directorio da pasta que contem os ficheiros da Empresa: ";
 	cin >> directorio;
  */
-	string directorio = "C:/Users/Bruno/git/AEDA-Project";
+	//string directorio = "C:/Users/Bruno/git/AEDA-Project";
 	//string directorio = "C:/Users/Acer-PC/git/AEDA-Project-1";
 	//string directorio = "C:/Users/POS/git/AEDA-Project-1";
-	//string directorio = "C:/Users/fabio/Documents/workspace/AEDA-Project-1";
+	string directorio = "C:/Users/fabio/Documents/workspace/AEDA-Project-1";
 	Empresa e = Empresa(directorio);
 
 	do
@@ -390,7 +390,7 @@ int main()
 		case 1:
 			//
 			cout << " 1 - Adicionar Servico" << endl;
-			cout << " 2 - Terminar Servico" << endl;
+			cout << " 2 - Terminar Servico" << endl << endl;
 
 			int op;
 			cout << "Por favor insira a opcao desejada: ";
@@ -430,7 +430,6 @@ int main()
 	}while(!cin.eof());
 
 	e.actualizaFicheiro();
-	system("pause");
 	return 0;
 }
 

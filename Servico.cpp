@@ -7,7 +7,7 @@
 
 #include "Servico.h"
 
-int Servico::globalID = 0;
+int Servico::globalID = 1;
 
 
 Servico::Servico()
@@ -36,17 +36,18 @@ Servico::Servico(string origem, string destino, int distancia, string tipo_produ
 		throw camioesIndisponiveis();
 
 	if (origem != "abcd")
+	{
 		for(unsigned int i = 0; i < Camioes.size(); i++)
 			Camioes[i]->setDisponivel(false);
+		ID = globalID++;
+	}
 
 	this->origem = origem;
 	this->destino = destino;
 	this->distancia = distancia;
 	this->tipo_produto = tipo_produto;
 	this->capacidade = capacidade;
-	iniciado = false;
 	terminado = false;
-	ID = globalID++;
 	this->Nif=Nif;
 	preco = 0;
 	for (unsigned int i = 0; i < Camioes.size(); i++)
@@ -74,17 +75,18 @@ Servico::Servico(string origem, string destino, int distancia, string tipo_produ
 		throw camioesIndisponiveis();
 
 	if (origem != "abcd")
+	{
 		for(unsigned int i = 0; i < Camioes.size(); i++)
 			Camioes[i]->setDisponivel(false);
+		ID = globalID++;
+	}
 
 	this->origem = origem;
 	this->destino = destino;
 	this->distancia = distancia;
 	this->tipo_produto = tipo_produto;
 	this->capacidade = capacidade;
-	iniciado = false;
 	terminado = false;
-	ID = globalID++;
 	this->Nif=Nif;
 	preco = 0;
 	for (unsigned int i = 0; i < Camioes.size(); i++)
@@ -115,17 +117,19 @@ Servico::Servico(string origem, string destino, int distancia, string tipo_produ
 		throw camioesIndisponiveis();
 
 	if (origem != "abcd")
+	{
 		for(unsigned int i = 0; i < Camioes.size(); i++)
 			Camioes[i]->setDisponivel(false);
+		ID = globalID++;
+	}
+
 
 	this->origem = origem;
 	this->destino = destino;
 	this->distancia = distancia;
 	this->tipo_produto = tipo_produto;
 	this->capacidade = capacidade;
-	iniciado = false;
 	terminado = false;
-	ID = globalID++;
 	this->Nif=Nif;
 	preco = 0;
 	for (unsigned int i = 0; i < Camioes.size(); i++)
@@ -167,11 +171,6 @@ string Servico::getTipo_produto()const
 	return tipo_produto;
 }
 
-bool Servico::getIniciado()const
-{
-	return iniciado;
-}
-
 bool Servico::getTerminado()const
 {
 	return terminado;
@@ -187,10 +186,6 @@ unsigned long Servico::getNif()const
 	return Nif;
 }
 
-void Servico::setInicia()
-{
-	iniciado = true;
-}
 
 void Servico::setTermina()
 {
@@ -220,6 +215,10 @@ bool Servico::operator < (const Servico &Ser)const
 	else return false;
 }
 
+void Servico::incGlobalID()
+{
+	globalID++;
+}
 
 int Servico::getPreco() const
 {

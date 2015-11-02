@@ -29,42 +29,44 @@ protected:
 	bool disponivel;
 	static int IDg;
 	int ID;
+	string matricula;
 public:
-	Camiao(string marca, string tipo, int capacidade);
+	Camiao(string marca, string tipo, int capacidade, string matricula);
 	virtual int getPreco(int dist);
 	int getCapacidade();
 	string getTipo();
 	string getMarca();
 	bool getDisponivel();
 	void setDisponivel( bool bo);
+	string getMatricula() const;
 };
 
 
 class Normal: public Camiao
 {
 public:
-	Normal(string marca, string tipo, int capacidade);
+	Normal(string marca, string tipo, int capacidade, string matricula);
 	int getPreco(int dist);
 };
 
 class Congelacao: public Camiao
 {
 public:
-	Congelacao(string marca, string tipo, int capacidade);
+	Congelacao(string marca, string tipo, int capacidade, string matricula);
 	int getPreco (int dist);
 };
 
 class Perigosos: public Camiao
 {
 public:
-	Perigosos(string marca, string tipo, int capacidade);
+	Perigosos(string marca, string tipo, int capacidade, string matricula);
 	int getPreco(int dist, string nivelp);
 };
 
 class Animais: public Camiao
 {
 public:
-	Animais(string marca, string tipo, int capacidade);
+	Animais(string marca, string tipo, int capacidade, string matricula);
 	int getPreco(int dist);
 };
 
