@@ -18,6 +18,12 @@
 
 using namespace std;
 
+class ServicoInexistente
+{
+public:
+	ServicoInexistente(){}
+};
+
 class FicheiroInexistente
 {
 	string ficheiro;
@@ -75,13 +81,15 @@ public:
 	void pagaSalario();
 	string getNome() const;
 	void imprimeSaldo() const;
-	void imprimeServico();
+	void imprimeServicos() const;
+	void imprimeServico(Servico s) const;
 	void ListaServicosExecucao()const;
 	void ListaServicosCliente()const;
 	void ListaServicosCamiao()const;
 	void listaClientes() const;
 	int posCliente(unsigned long nif) const;
 	void actualizaFicheiro();
+	void terminaServico(int ID);
 };
 
 

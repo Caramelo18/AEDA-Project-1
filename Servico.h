@@ -36,11 +36,11 @@ public:
 	bool operator < (const Servico &Ser)const;
 	vector<Camiao*> getCamioes();
 	int getPreco() const;
+	int getID() const;
 
 private:
 	static int globalID;
 	int ID;
-	vector<int> veiculos_ocupados;
 	vector<Camiao*> Camioes;
 	string origem;
 	string destino;

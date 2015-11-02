@@ -292,21 +292,25 @@ void Empresa::imprimeSaldo() const
 	cout << "O seu saldo autal e de: " << saldo << " euros" << endl;
 }
 
-void Empresa::imprimeServico()
+void  Empresa::imprimeServico(Servico s) const
 {
+	cout << "Servico " << s.getID() <<":" << endl;
+	cout << "Cliente: " << clientes[posCliente(s.getNif())].getNome() << endl;
+	cout << s.getOrigem() << " - " << s.getDestino() << " distancia: " << s.getDistancia() << endl;
+	cout << "Camioes Utilizados:" << endl;
+	for(unsigned int j = 0; j < s.getCamioes().size(); j++)
+	{
+		cout << "Camiao " << j+1 << ": " << s.getCamioes()[j]->getMarca() << " - " << s.getCamioes()[j]->getTipo() << endl;
+	}
+	cout << endl;
+}
+
+void Empresa::imprimeServicos() const
+{
+	cout << servicos.size() << endl;
 	for(unsigned int i = 0; i < servicos.size(); i++)
 	{
-		cout << "Servico " << i <<":" << endl;
-		cout << "Camioes Utilizados:" << endl;
-		vector<Camiao *> v = servicos[i].getCamioes();
-		for(unsigned int j = 0; j < servicos[i].getCamioes().size(); j++)
-		{
-			cout << "Camiao " << j+1 << ": " << v[j]->getMarca() << " - " << v[j]->getTipo() << endl;
-			//"Camiao " << j + 1 << ": " << v[j]->getMarca() << "-" << v[j]->getTipo();
-			//Nao esta a funionar, esta a dar erro
-		}
-
-		//Ainda nao esta completa
+		imprimeServico(servicos[i]);
 	}
 }
 
@@ -314,13 +318,9 @@ void Empresa::ListaServicosExecucao()const
 {
 	for(unsigned i=0; i <servicos.size();i++)
 	{
-		if(servicos[i].getIniciado())
+		if(!servicos[i].getTerminado())
 		{
-			cout << servicos[i].getOrigem() << endl;
-			cout << servicos[i].getDestino() << endl;
-			cout << servicos[i].getDistancia() << endl;
-			cout << servicos[i].getTipo_produto() << endl;
-			cout << endl << endl;
+			imprimeServico(servicos[i]);
 		}
 	}
 }
@@ -408,10 +408,7 @@ void Empresa::actualizaFicheiro()
 {
 	ofstream fich(ficca.c_str());
 	if (!fich)
-	{
 		cerr << "Ficheiro nao encontrado";
-		//fazer throw aqui
-	}
 
 	fich << nomeEmpresa << endl;
 	fich << "Saldo: " << saldo << endl;
@@ -420,4 +417,17 @@ void Empresa::actualizaFicheiro()
 		fich << endl << camioes[i]->getMarca() << " " << camioes[i]->getTipo() << " " << camioes[i]->getCapacidade();
 }
 
+void Empresa::terminaServico(int ID)
+{
+	unsigned int i;
+	for (i = 0; i < servicos.size(); i++)
+	{
+		if(servicos[i].getID() == ID)
+			break;
+	}
 
+	if (i >= servicos.size())
+		throw ServicoInexistente();
+
+	servicos[i].termina_servico();
+}

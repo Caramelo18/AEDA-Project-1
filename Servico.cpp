@@ -199,11 +199,10 @@ void Servico::setTermina()
 
 void Servico::termina_servico()
 {
-	for(unsigned int i=0; i <veiculos_ocupados.size(); i++)
+	for(unsigned int i=0; i <Camioes.size(); i++)
 		Camioes[i]->setDisponivel(true);
 
 	setTermina();
-
 }
 
 bool Servico::operator < (const Servico &Ser)const
@@ -227,4 +226,7 @@ int Servico::getPreco() const
 	return preco;
 }
 
-
+int Servico::getID() const
+{
+	return ID;
+}

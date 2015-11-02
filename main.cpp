@@ -235,6 +235,27 @@ void adicionaServico(Empresa &e)
 	wait();
 }
 
+void terminaServico(Empresa &e)
+{
+	int ID;
+	cout << "Indique o ID do Servico que pretende terminar: ";
+	cin >> ID;
+
+	try
+	{
+		e.terminaServico(ID);
+	}
+	catch(ServicoInexistente &s)
+	{
+		cout << "Servico Inexistente" << endl;
+		wait();
+		return;
+	}
+
+	cout << "Servico terminado" << endl;
+	wait();
+}
+
 void gestaoFinanceira(Empresa &e)
 {
 	int op;
@@ -249,12 +270,12 @@ void gestaoFinanceira(Empresa &e)
 		e.imprimeSaldo();
 	}
 	else if (op == 2)
-	{//Tem de se tentar apanhar a exceção do saldo insuficiente
+	{
 		try
 		{
-			e.pagaSalario(); // falta actualizar saldo no ficheiro
+			e.pagaSalario();
 		}
-		catch(SaldoIndisponivel&)
+		catch(SaldoIndisponivel &s)
 		{
 			cout << "Saldo insuficiente" << endl;
 			wait();
@@ -280,13 +301,11 @@ void consultaServicos(Empresa &e)
 	cin >> op;
 	cout << endl;
 
-	wait();
-
 	switch(op)
 	{
 	case 1:
 		//
-		e.ListaServicosExecucao();
+		e.imprimeServicos();
 		break;
 	case 2:
 		//
@@ -297,7 +316,7 @@ void consultaServicos(Empresa &e)
 		e.ListaServicosCamiao();
 		break;
 	}
-
+	wait();
 }
 
 void gestaoClientes(Empresa &e)
@@ -344,8 +363,8 @@ int main()
 	cout << "Por favor insira o directorio da pasta que contem os ficheiros da Empresa: ";
 	cin >> directorio;
  */
-	//string directorio = "C:/Users/Bruno/git/AEDA-Project";
-	string directorio = "C:/Users/Acer-PC/git/AEDA-Project-1";
+	string directorio = "C:/Users/Bruno/git/AEDA-Project";
+	//string directorio = "C:/Users/Acer-PC/git/AEDA-Project-1";
 	//string directorio = "C:/Users/POS/git/AEDA-Project-1";
 	//string directorio = "C:/Users/fabio/Documents/workspace/AEDA-Project-1";
 	Empresa e = Empresa(directorio);
@@ -354,7 +373,7 @@ int main()
 	{
 		cout << e.getNome() << endl << endl;
 
-		cout << "1 - Adicionar servicos" << endl;
+		cout << "1 - Gestao de servicos" << endl;
 		cout << "2 - Gestao financeira" << endl;
 		cout << "3 - Consultar servicos" << endl;
 		cout << "4 - Gestao de clientes" << endl;
@@ -370,7 +389,20 @@ int main()
 		{
 		case 1:
 			//
-			adicionaServico(e);
+			cout << " 1 - Adicionar Servico" << endl;
+			cout << " 2 - Terminar Servico" << endl;
+
+			int op;
+			cout << "Por favor insira a opcao desejada: ";
+			cin >> op;
+			cout << endl;
+
+			if (op == 1)
+				adicionaServico(e);
+
+			else if (op == 2)
+				terminaServico(e);
+
 			break;
 		case 2:
 			//
