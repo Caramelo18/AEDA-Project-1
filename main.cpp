@@ -349,9 +349,23 @@ void gestaoCamioes(Empresa &e)
 	cout << "1 - Ver lista de camioes" << endl;
 	cout << "2 - Ver lista de camioes disponiveis" << endl;
 	cout << "3 - Adicionar camiao" << endl;
+	cout << endl;
 	cout << "Por favor escolha a opcao pretendida: ";
 	cin >> op;
 	cout << endl;
+
+	switch(op)
+	{
+	case 1:
+		e.ImprimeListaCamioes();
+		break;
+	case 2:
+		e.ImprimeListaCamioesDisponiveis();
+		break;
+	case 3:
+		e.AdicionaCamiao();
+		break;
+	}
 
 	wait();
 }
@@ -363,10 +377,10 @@ int main()
 	cout << "Por favor insira o directorio da pasta que contem os ficheiros da Empresa: ";
 	cin >> directorio;
  */
-	//string directorio = "C:/Users/Bruno/git/AEDA-Project";
+	string directorio = "C:/Users/Bruno/git/AEDA-Project";
 	//string directorio = "C:/Users/Acer-PC/git/AEDA-Project-1";
 	//string directorio = "C:/Users/POS/git/AEDA-Project-1";
-	string directorio = "C:/Users/fabio/Documents/workspace/AEDA-Project-1";
+	//string directorio = "C:/Users/fabio/Documents/workspace/AEDA-Project-1";
 	Empresa e = Empresa(directorio);
 
 	do

@@ -93,6 +93,10 @@ public:
 	int posCliente(unsigned long nif) const;
 	void actualizaFicheiro();
 	void terminaServico(int ID);
+	void EscreveServicoTerminado();
+	void ImprimeListaCamioes();
+	void ImprimeListaCamioesDisponiveis();
+	void AdicionaCamiao();
 };
 
 
