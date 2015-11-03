@@ -93,7 +93,7 @@ public:
 	int posCliente(unsigned long nif) const;
 	void actualizaFicheiro();
 	void terminaServico(int ID);
-	void EscreveServicoTerminado();
+	void EscreveServicoTerminado(int ID, string tipo);
 	void ImprimeListaCamioes();
 	void ImprimeListaCamioesDisponiveis();
 	void AdicionaCamiao();

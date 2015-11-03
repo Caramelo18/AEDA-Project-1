@@ -144,10 +144,10 @@ Empresa::Empresa(string doc)
 	{
 		getline(fich4, temp);
 		stringstream ss;
-		int id, distancia, capacidade;
+		int id, distancia, cap;
 		string origem, destino, tipo_produto, estado;
 		ss << temp;
-		ss >> id >> origem >> destino >> distancia >> tipo_produto >> capacidade >> estado;
+		ss >> id >> origem >> destino >> distancia >> tipo_produto >> cap >> estado;
 		bool ter;
 		if (estado == "T")
 			ter = true;
@@ -171,11 +171,11 @@ Empresa::Empresa(string doc)
 		while (matri >> m)
 			mat.push_back(m);
 		if (tipo_produto == "Congelacao")
-			leNovoServico(origem, destino, distancia, tipo_produto, capacidade, nif, gr, mat, ter);
+			leNovoServico(origem, destino, distancia, tipo_produto, cap, nif, gr, mat, ter);
 		else if (tipo_produto == "Perigosos")
-			leNovoServico(origem, destino, distancia, tipo_produto, capacidade, nif, grp, mat, ter);
+			leNovoServico(origem, destino, distancia, tipo_produto, cap, nif, grp, mat, ter);
 		else
-			leNovoServico(origem, destino, distancia, tipo_produto, capacidade, nif, mat, ter);
+			leNovoServico(origem, destino, distancia, tipo_produto, cap, nif, mat, ter);
 	}
 
 
@@ -456,10 +456,7 @@ void Empresa::ListaServicosCamiao()const
 		{
 			if(v_tipo[i]==camioes[i]->getTipo())
 			{
-				cout << camioes[i]->getTipo() << endl;
-				cout << camioes[i]->getCapacidade() << endl;
-				cout << camioes[i]->getMarca() << endl;
-				cout << endl;
+				cout << camioes[i]->getTipo() << " " << camioes[i]->getCapacidade() << " " << camioes[i]->getMarca() << endl;
 			}
 
 		}
@@ -511,13 +508,12 @@ void Empresa::terminaServico(int ID)
 
 	servicos[i].termina_servico();
 
-	EscreveServicoTerminado();
+	EscreveServicoTerminado(ID, servicos[i].getTipo_produto());
 }
 
 void Empresa::leNovoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, vector<string> mat, bool ter)
 {
 	vector<Camiao *> c;
-
 
 	for (unsigned int i = 0; i < mat.size(); i++)
 	{
@@ -541,7 +537,11 @@ void Empresa::leNovoServico(string origem, string destino, int distancia, string
 			}
 		}
 	}
+	if (ter)
+		s.setTermina();
+
 	servicos.push_back(s);
+
 }
 
 void Empresa::leNovoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, int temp, vector<string> mat, bool ter)
@@ -599,31 +599,77 @@ void Empresa::leNovoServico(string origem, string destino, int distancia, string
 	servicos.push_back(s);
 }
 
-void Empresa::EscreveServicoTerminado()
+void Empresa::EscreveServicoTerminado(int ID, string tipo)
 {
-	ofstream fich(ficser.c_str(), ofstream::app);
+	ifstream fchl(ficser.c_str());
+	int t = 0;
+	string nivelp = "";
+	while(!fchl.eof())
+	{
+		string line;
+		stringstream ss;
+		int iden;
+		getline(fchl, line);
+		ss << line;
+		ss >> iden;
+		if (iden == ID)
+		{
+			string temp;
+			if(tipo == "Congelacao")
+			{
+				ss >> temp >> temp >> temp >> temp >> temp >> temp >> t;
+			}
+			else if (tipo == "Perigosos")
+			{
+				ss >> temp >> temp >> temp >> temp >> temp >> temp >> nivelp;
+			}
+		}
+	}
+	ofstream fich(ficser.c_str());
 
-	cout << "Servicos: ";
+	fich << "Servicos: ";
 
 	for (unsigned int i = 0; i < servicos.size(); i++)
 	{
 		fich << endl;
-		fich << servicos[i].getID() << " " << servicos[i].getOrigem() << " " << servicos[i].getDestino() << " " << servicos[i].getDistancia() << " " << servicos[i].getTipo_produto() << " " << servicos[i].getCapacidade();
-		if(servicos[i].getTerminado())
-			fich << " T";
+		if (servicos[i].getTipo_produto() == "Congelacao")
+		{
+			fich << servicos[i].getID() << " " << servicos[i].getOrigem() << " " << servicos[i].getDestino() << " " << servicos[i].getDistancia() << " " << servicos[i].getTipo_produto() << " " << servicos[i].getCapacidade();
+			if(servicos[i].getTerminado())
+				fich << " T ";
+			else
+				fich << " E ";
+			fich << t;
+		}
+		else if (servicos[i].getTipo_produto() == "Perigosos")
+		{
+			fich << servicos[i].getID() << " " << servicos[i].getOrigem() << " " << servicos[i].getDestino() << " " << servicos[i].getDistancia() << " " << servicos[i].getTipo_produto() << " " << servicos[i].getCapacidade();
+			if(servicos[i].getTerminado())
+				fich << " T ";
+			else
+				fich << " E ";
+			fich << nivelp;
+		}
 		else
-			fich << " E";
+		{
+			fich << servicos[i].getID() << " " << servicos[i].getOrigem() << " " << servicos[i].getDestino() << " " << servicos[i].getDistancia() << " " << servicos[i].getTipo_produto() << " " << servicos[i].getCapacidade();
+			if(servicos[i].getTerminado())
+				fich << " T ";
+			else
+				fich << " E ";
+		}
+
 
 		//falta conseguir escrever a temperatura e o tipo de perigosidade nos seus casos respetivos
 
 		fich << endl << servicos[i].getNif() << endl;
-		for (unsigned int i = 0; i < servicos[i].getCamioes().size(); i++)
-			fich << servicos[i].getCamioes()[i]->getMatricula() << " ";
+		for (unsigned int j = 0; j < servicos[i].getCamioes().size(); j++)
+			fich << servicos[i].getCamioes()[j]->getMatricula() << " ";
 
-
-		fich.close();
 	}
+	fich.close();
 }
+
 
 void Empresa::ImprimeListaCamioes()
 {
@@ -665,6 +711,11 @@ void Empresa::AdicionaCamiao()
 
 	cout << "Insira o tipo de camiao que pretende adicionar: ";
 	cin >> tipo;
+	if (tipo != "Perigoso" && tipo != "perigoso" && tipo != "Congelacao" && tipo != "congelacao" && tipo != "Animais" && tipo != "animais" && tipo != "Normal" && tipo != "normal")
+	{
+		cout << "Tipo de camiao invalido" << endl;
+		return;
+	}
 	cout << "Insira a marca: ";
 	cin >> marca;
 	cout << "Insira a capacidade: ";
@@ -695,6 +746,7 @@ void Empresa::AdicionaCamiao()
 		Animais *c = new Animais(marca, tipo, capacidade, matricula);
 		camioes.push_back(c);
 	}
+
 
 	actualizaFicheiro();
 

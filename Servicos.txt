@@ -1,4 +1,7 @@
-Servicos:
-1 Origem Destino 150 Normal 14500 E
+Servicos: 
+1 Origem Destino 150 Normal 14500 T 
 123456789
 57-26-DI 99-ZZ-99 
+2 Porto Barcelona 875 Perigosos 6500 T 
+147852369
+30-40-CD 

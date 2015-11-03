@@ -34,6 +34,12 @@ void adicionaServico(Empresa &e)
 		string test = "abcd";
 		cout << "Introduza a distancia do transporte a efectuar: ";
 		cin >> dist;
+		if (dist <= 10)
+		{
+			cout << "Distancia invalida" << endl;
+			wait();
+			return;
+		}
 		cout << "Insira a quantidade da carga a transportar: ";
 		cin >> cap;
 		Servico s;
@@ -82,10 +88,22 @@ void adicionaServico(Empresa &e)
 		string test = "abcd";
 		cout << "Introduza a distancia do transporte a efectuar: ";
 		cin >> dist;
+		if (dist <= 10)
+		{
+			cout << "Distancia invalida" << endl;
+			wait();
+			return;
+		}
 		cout << "Insira a quantidade da carga a transportar: ";
 		cin >> cap;
 		cout << "Insira a temperatura pretendida para o transporte: ";
 		cin >> temp;
+		if (temp > 20 || temp < -10)
+		{
+			cout << "Temperatura invalida" << endl;
+			wait();
+			return;
+		}
 		Servico s;
 		vector<Camiao *> v = e.getCamioes();
 		try
@@ -133,6 +151,12 @@ void adicionaServico(Empresa &e)
 		string test = "abcd";
 		cout << "Introduza a distancia do transporte a efectuar: ";
 		cin >> dist;
+		if (dist <= 10)
+		{
+			cout << "Distancia invalida" << endl;
+			wait();
+			return;
+		}
 		cout << "Insira a quantidade da carga a transportar: ";
 		cin >> cap;
 		cout << "Insira o nivel de perigosidade do transporte (inflamavel, toxica, corrosiva ou radioactiva): ";
@@ -189,6 +213,12 @@ void adicionaServico(Empresa &e)
 		string test = "abcd";
 		cout << "Introduza a distancia do transporte a efectuar: ";
 		cin >> dist;
+		if (dist <= 10)
+		{
+			cout << "Distancia invalida" << endl;
+			wait();
+			return;
+		}
 		cout << "Insira a quantidade da carga a transportar: ";
 		cin >> cap;
 		Servico s;
@@ -377,10 +407,10 @@ int main()
 	cout << "Por favor insira o directorio da pasta que contem os ficheiros da Empresa: ";
 	cin >> directorio;
  */
-	string directorio = "C:/Users/Bruno/git/AEDA-Project";
+	//string directorio = "C:/Users/Bruno/git/AEDA-Project";
 	//string directorio = "C:/Users/Acer-PC/git/AEDA-Project-1";
 	//string directorio = "C:/Users/POS/git/AEDA-Project-1";
-	//string directorio = "C:/Users/fabio/Documents/workspace/AEDA-Project-1";
+	string directorio = "C:/Users/fabio/Documents/workspace/AEDA-Project-1";
 	Empresa e = Empresa(directorio);
 
 	do
