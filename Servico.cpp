@@ -16,7 +16,7 @@ Servico::Servico()
 }
 
 
-Servico::Servico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, vector<Camiao *> &c)
+Servico::Servico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, vector<Camiao *> &c , vector<Funcionario *> &f)
 {
 	unsigned int i = 0;
 
@@ -36,11 +36,28 @@ Servico::Servico(string origem, string destino, int distancia, string tipo_produ
 	if (capacidade > 0)
 		throw camioesIndisponiveis();
 
+	unsigned int funcsdisp = 0;
+	for (unsigned int i = 0; i < f.size(); i++)
+		if(f[i]->getDisponivel())
+			funcsdisp++;
+
+	if (funcsdisp < Camioes.size())
+		throw FuncionariosIndisponiveis();
+
+	unsigned int funcness = Camioes.size();
 	if (origem != "abcd")
 	{
 		for(unsigned int i = 0; i < Camioes.size(); i++)
 			Camioes[i]->setDisponivel(false);
 		ID = globalID++;
+		for (unsigned int i = 0; i < f.size() && funcness > 0; i++)
+		{
+			if(f[i]->getDisponivel())
+			{
+				f[i]->setDisponibilidade(false);
+				funcness--;
+			}
+		}
 	}
 
 	this->origem = origem;
@@ -56,7 +73,7 @@ Servico::Servico(string origem, string destino, int distancia, string tipo_produ
 
 }
 
-Servico::Servico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, vector<Camiao *> &c, int temp)
+Servico::Servico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, vector<Camiao *> &c, int temp, vector<Funcionario *> &f)
 {
 	unsigned int i = 0;
 
@@ -75,11 +92,28 @@ Servico::Servico(string origem, string destino, int distancia, string tipo_produ
 	if (capacidade > 0)
 		throw camioesIndisponiveis();
 
+	unsigned int funcsdisp = 0;
+	for (unsigned int i = 0; i < f.size(); i++)
+		if(f[i]->getDisponivel())
+			funcsdisp++;
+
+	if (funcsdisp < Camioes.size())
+		throw FuncionariosIndisponiveis();
+
+	unsigned int funcness = Camioes.size();
 	if (origem != "abcd")
 	{
 		for(unsigned int i = 0; i < Camioes.size(); i++)
 			Camioes[i]->setDisponivel(false);
 		ID = globalID++;
+		for (unsigned int i = 0; i < f.size() && funcness > 0; i++)
+		{
+			if(f[i]->getDisponivel())
+			{
+				f[i]->setDisponibilidade(false);
+				funcness--;
+			}
+		}
 	}
 
 	this->origem = origem;
@@ -98,7 +132,7 @@ Servico::Servico(string origem, string destino, int distancia, string tipo_produ
 	}
 }
 
-Servico::Servico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, vector<Camiao *> &c, string nivel_p)
+Servico::Servico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, vector<Camiao *> &c, string nivel_p, vector<Funcionario *> &f)
 {
 	unsigned int i = 0;
 
@@ -117,11 +151,28 @@ Servico::Servico(string origem, string destino, int distancia, string tipo_produ
 	if (capacidade > 0)
 		throw camioesIndisponiveis();
 
+	unsigned int funcsdisp = 0;
+	for (unsigned int i = 0; i < f.size(); i++)
+		if(f[i]->getDisponivel())
+			funcsdisp++;
+
+	if (funcsdisp < Camioes.size())
+		throw FuncionariosIndisponiveis();
+
+	unsigned int funcness = Camioes.size();
 	if (origem != "abcd")
 	{
 		for(unsigned int i = 0; i < Camioes.size(); i++)
 			Camioes[i]->setDisponivel(false);
 		ID = globalID++;
+		for (unsigned int i = 0; i < f.size() && funcness > 0; i++)
+		{
+			if(f[i]->getDisponivel())
+			{
+				f[i]->setDisponibilidade(false);
+				funcness--;
+			}
+		}
 	}
 
 
@@ -188,17 +239,12 @@ unsigned long Servico::getNif()const
 }
 
 
-void Servico::setTermina()
-{
-	terminado = true;
-}
-
 void Servico::termina_servico()
 {
 	for(unsigned int i=0; i <Camioes.size(); i++)
 		Camioes[i]->setDisponivel(true);
 
-	setTermina();
+	terminado = true;
 }
 
 bool Servico::operator < (const Servico &Ser)const

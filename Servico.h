@@ -9,6 +9,7 @@
 #define SERVICO_H_
 
 #include "Camiao.h"
+#include "Funcionario.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -19,9 +20,9 @@ class Servico
 {
 public:
 	Servico();
-	Servico(string origem, string destino, int distancia, string tipo_produto, int quantidade, unsigned long Nif, vector<Camiao *> &c);
-	Servico(string origem, string destino, int distancia, string tipo_produto, int quantidade, unsigned long Nif, vector<Camiao *> &c, int temp);
-	Servico(string origem, string destino, int distancia, string tipo_produto, int quantidade, unsigned long Nif, vector<Camiao *> &c, string nivel_p);
+	Servico(string origem, string destino, int distancia, string tipo_produto, int quantidade, unsigned long Nif, vector<Camiao *> &c, vector<Funcionario *> &f);
+	Servico(string origem, string destino, int distancia, string tipo_produto, int quantidade, unsigned long Nif, vector<Camiao *> &c, int temp, vector<Funcionario *> &f);
+	Servico(string origem, string destino, int distancia, string tipo_produto, int quantidade, unsigned long Nif, vector<Camiao *> &c, string nivel_p, vector<Funcionario *> &f);
 	string getOrigem()const;
 	string getDestino()const;
 	int getDistancia()const;

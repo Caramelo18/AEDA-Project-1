@@ -18,11 +18,13 @@
 
 using namespace std;
 
+
 class ServicoInexistente
 {
 public:
 	ServicoInexistente(){}
 };
+
 
 class FicheiroInexistente
 {
@@ -31,6 +33,7 @@ public:
 	FicheiroInexistente(string nome){ficheiro = nome;}
 	string getFicheiro(){return ficheiro;}
 };
+
 
 class ClienteJaExistente
 {
@@ -42,11 +45,13 @@ public:
 	unsigned long getNif(){return nif;}
 };
 
+
 class ClienteNaoExistente
 {
 public:
 	ClienteNaoExistente(){}
 };
+
 
 class SaldoIndisponivel
 {
@@ -63,14 +68,15 @@ private:
 	vector<Camiao *> camioes;
 	vector<Servico> servicos;
 	vector<Cliente> clientes;
-	vector<Funcionario> funcionarios;
+	vector<Funcionario *> funcionarios;
 
 public:
+	Empresa(){}
 	Empresa(string doc);
 	vector<Camiao *> getCamioes();
 	vector<Servico> getServicos();
 	vector<Cliente> getClientes();
-	vector<Funcionario> getFuncionarios();
+	vector<Funcionario *> getFuncionarios();
 	void adicionaCamiao(Camiao *camiao);
 	void adicionaCliente();
 	void novoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif);
@@ -79,7 +85,7 @@ public:
 	void leNovoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, vector<string> mat, bool ter);
 	void leNovoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, int temp, vector<string> mat, bool ter);
 	void leNovoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, string nivel_p, vector<string> mat, bool ter);
-	void contrataFuncionario(Funcionario funcionario);
+	void contrataFuncionario();
 	long getSaldo();
 	void pagaSalario();
 	string getNome() const;
@@ -97,6 +103,8 @@ public:
 	void ImprimeListaCamioes();
 	void ImprimeListaCamioesDisponiveis();
 	void AdicionaCamiao();
+	void listaFuncionarios() const;
+	void listaFuncionariosDisponiveis() const;
 };
 
 

@@ -1,5 +1,5 @@
 Caramelo e Filhos LDA
-Saldo: 112882
+Saldo: 152917
 Camioes:
 Isuzu Normal 11234 57-26-DI
 Mercedes Congelacao 15000 42-CM-08
@@ -7,3 +7,4 @@ Volvo Animais 5000 10-AB-20
 Renault Perigosos 7000 30-40-CD
 Ferrari Normal 3472 99-ZZ-99
 Isuzu Congelacao 8000 56-RI-67
+Honda Perigosos 5000 87-87-GA

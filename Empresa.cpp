@@ -19,7 +19,7 @@ Empresa::Empresa(string doc)
 	camioes = cams;
 	vector<Cliente> clis;
 	clientes = clis;
-	vector<Funcionario> funcs;
+	vector<Funcionario *> funcs;
 	funcionarios = funcs;
 
 	ficca = doc + "/Camioes.txt";
@@ -30,10 +30,7 @@ Empresa::Empresa(string doc)
 
 	ifstream fich(ficca.c_str());
 	if (!fich)
-	{
-		cerr << "Ficheiro nao encontrado";
-		//fazer throw aqui
-	}
+		throw FicheiroInexistente(ficca);
 
 	long sal;
 	string nome;
@@ -89,7 +86,7 @@ Empresa::Empresa(string doc)
 
 	ifstream fich2(ficfun.c_str());
 	if (!fich2)
-		cerr << "Ficheiro nao encontrado";
+		throw FicheiroInexistente(ficfun);
 
 	getline(fich2,temp);
 
@@ -99,13 +96,14 @@ Empresa::Empresa(string doc)
 
 		string nomeFunc;
 		int salario;
+		string disp;
 		unsigned long BI;
 		stringstream ss;
 
 		ss << temp;
-		ss >> nomeFunc >> salario >> BI;
+		ss >> nomeFunc >> salario >> BI >> disp;
 
-		Funcionario func = Funcionario(nomeFunc, salario, BI);
+		Funcionario *func = new Funcionario(nomeFunc, salario, BI, disp);
 		funcionarios.push_back(func);
 
 	}
@@ -114,7 +112,7 @@ Empresa::Empresa(string doc)
 
 	ifstream fich3(ficcli.c_str());
 	if (!fich3)
-		cerr << "Ficheiro nao encontrado";
+		throw FicheiroInexistente(ficcli);
 
 	getline(fich3, temp);
 	while (! fich3.eof())
@@ -134,11 +132,8 @@ Empresa::Empresa(string doc)
 	fich3.close();
 
 	ifstream fich4(ficser.c_str());
-	if (!fich)
-	{
-		cerr << "Ficheiro nao encontrado";
-		//fazer throw aqui
-	}
+	if (!fich4)
+		throw FicheiroInexistente(ficser);
 	getline(fich4, temp);
 	while(!fich4.eof())
 	{
@@ -170,6 +165,11 @@ Empresa::Empresa(string doc)
 		string m;
 		while (matri >> m)
 			mat.push_back(m);
+		for (unsigned int i = 0; i < mat.size();i++)
+		{
+			if(!funcionarios[i]->getDisponivel())
+				funcionarios[i]->setDisponibilidade(true);
+		}
 		if (tipo_produto == "Congelacao")
 			leNovoServico(origem, destino, distancia, tipo_produto, cap, nif, gr, mat, ter);
 		else if (tipo_produto == "Perigosos")
@@ -198,7 +198,7 @@ vector<Cliente> Empresa::getClientes()
 	return clientes;
 }
 
-vector<Funcionario> Empresa::getFuncionarios()
+vector<Funcionario *> Empresa::getFuncionarios()
 {
 	return funcionarios;
 }
@@ -252,7 +252,7 @@ void Empresa::adicionaCliente()
 void Empresa::novoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif)
 {
 
-	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, camioes);
+	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, camioes, funcionarios);
 
 	servicos.push_back(s);
 
@@ -272,13 +272,14 @@ void Empresa::novoServico(string origem, string destino, int distancia, string t
 		fich << s.getCamioes()[i]->getMatricula() << " ";
 
 	fich.close();
+	actualizaFicheiro();
 }
 
 
 void Empresa::novoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, int temp)
 {
 
-	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, camioes, temp);
+	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, camioes, temp, funcionarios);
 
 	servicos.push_back(s);
 
@@ -299,12 +300,13 @@ void Empresa::novoServico(string origem, string destino, int distancia, string t
 		fich << s.getCamioes()[i]->getMatricula() << " ";
 
 	fich.close();
+	actualizaFicheiro();
 }
 
 void Empresa::novoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, string nivel_p)
 {
 
-	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, camioes, nivel_p);
+	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, camioes, nivel_p, funcionarios);
 
 	servicos.push_back(s);
 
@@ -327,18 +329,24 @@ void Empresa::novoServico(string origem, string destino, int distancia, string t
 
 
 	fich.close();
+	actualizaFicheiro();
 }
 
-void Empresa::contrataFuncionario(Funcionario funcionario)
+void Empresa::contrataFuncionario()
 {
-	funcionarios.push_back(funcionario);
+	string nome;
+	int salario;
+	unsigned int BI;
+	cout << "Insira o nome do funcionario: ";
+	cin >> nome;
+	cout << "Insira o salario do funcionario: ";
+	cin >> salario;
+	cout << "Insira o BI do funcionario: ";
+	cin >> BI;
 
-	ofstream fich(ficfun.c_str(), ofstream::app);
+	Funcionario *f = new Funcionario(nome,salario,BI,"D");
+	funcionarios.push_back(f);
 
-	fich << endl;
-	fich << funcionario.getNome() << " " << funcionario.getSalario() << " " << funcionario.getBI();
-
-	fich.close();
 }
 
 long Empresa::getSaldo()
@@ -352,7 +360,7 @@ void Empresa::pagaSalario()
 	int salarios_total = 0;
 	for(unsigned int i = 0; i < funcionarios.size(); i++)
 	{
-		salarios_total = salarios_total + funcionarios[i].getSalario();
+		salarios_total = salarios_total + funcionarios[i]->getSalario();
 	}
 
 	if (salarios_total > saldo)
@@ -484,14 +492,23 @@ int Empresa::posCliente(unsigned long nif) const
 void Empresa::actualizaFicheiro()
 {
 	ofstream fich(ficca.c_str());
-	if (!fich)
-		cerr << "Ficheiro nao encontrado";
 
 	fich << nomeEmpresa << endl;
 	fich << "Saldo: " << saldo << endl;
 	fich << "Camioes:";
 	for(unsigned int i = 0; i < camioes.size(); i++)
 		fich << endl << camioes[i]->getMarca() << " " << camioes[i]->getTipo() << " " << camioes[i]->getCapacidade() << " " << camioes[i]->getMatricula();
+
+	ofstream fich1(ficfun.c_str());
+	fich1 << "Funcionarios: ";
+	for (unsigned int i = 0; i < funcionarios.size(); i++)
+	{
+		fich1 << endl << funcionarios[i]->getNome() << " " << funcionarios[i]->getSalario() << " " << funcionarios[i]->getBI();
+		if (funcionarios[i]->getDisponivel())
+			fich1 << " D" ;
+		else if (!funcionarios[i]->getDisponivel())
+			fich1 << " E" ;
+	}
 }
 
 void Empresa::terminaServico(int ID)
@@ -524,7 +541,7 @@ void Empresa::leNovoServico(string origem, string destino, int distancia, string
 		}
 	}
 
-	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, c);
+	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, c, funcionarios);
 
 	if (!ter)
 	{
@@ -537,9 +554,19 @@ void Empresa::leNovoServico(string origem, string destino, int distancia, string
 			}
 		}
 	}
+	int funcness = c.size();
 	if (ter)
-		s.setTermina();
-
+	{
+		s.termina_servico();
+		for (unsigned int i = 0; i < funcionarios.size() && funcness > 0; i++)
+		{
+			if(!funcionarios[i]->getDisponivel())
+			{
+				funcionarios[i]->setDisponibilidade(true);
+				funcness--;
+			}
+		}
+	}
 	servicos.push_back(s);
 
 }
@@ -556,7 +583,7 @@ void Empresa::leNovoServico(string origem, string destino, int distancia, string
 				c.push_back(camioes[j]);
 		}
 	}
-	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, c);
+	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, c, funcionarios);
 	if (!ter)
 	{
 		for (unsigned int i = 0; i < mat.size(); i++)
@@ -568,6 +595,20 @@ void Empresa::leNovoServico(string origem, string destino, int distancia, string
 			}
 		}
 	}
+	int funcness = c.size();
+	if (ter)
+	{
+		s.termina_servico();
+		for (unsigned int i = 0; i < funcionarios.size() && funcness > 0; i++)
+		{
+			if(!funcionarios[i]->getDisponivel())
+			{
+				funcionarios[i]->setDisponibilidade(true);
+				funcness--;
+			}
+		}
+	}
+
 	servicos.push_back(s);
 }
 
@@ -583,7 +624,7 @@ void Empresa::leNovoServico(string origem, string destino, int distancia, string
 		}
 	}
 
-	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, c);
+	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, c, funcionarios);
 
 	if (!ter)
 	{
@@ -596,6 +637,20 @@ void Empresa::leNovoServico(string origem, string destino, int distancia, string
 			}
 		}
 	}
+	int funcness = c.size();
+	if (ter)
+	{
+		s.termina_servico();
+		for (unsigned int i = 0; i < funcionarios.size() && funcness > 0; i++)
+		{
+			if(!funcionarios[i]->getDisponivel())
+			{
+				funcionarios[i]->setDisponibilidade(true);
+				funcness--;
+			}
+		}
+	}
+
 	servicos.push_back(s);
 }
 
@@ -625,6 +680,7 @@ void Empresa::EscreveServicoTerminado(int ID, string tipo)
 			}
 		}
 	}
+
 	ofstream fich(ficser.c_str());
 
 	fich << "Servicos: ";
@@ -658,9 +714,6 @@ void Empresa::EscreveServicoTerminado(int ID, string tipo)
 			else
 				fich << " E ";
 		}
-
-
-		//falta conseguir escrever a temperatura e o tipo de perigosidade nos seus casos respetivos
 
 		fich << endl << servicos[i].getNif() << endl;
 		for (unsigned int j = 0; j < servicos[i].getCamioes().size(); j++)
@@ -711,7 +764,7 @@ void Empresa::AdicionaCamiao()
 
 	cout << "Insira o tipo de camiao que pretende adicionar: ";
 	cin >> tipo;
-	if (tipo != "Perigoso" && tipo != "perigoso" && tipo != "Congelacao" && tipo != "congelacao" && tipo != "Animais" && tipo != "animais" && tipo != "Normal" && tipo != "normal")
+	if (tipo != "Perigosos" && tipo != "perigosos" && tipo != "Congelacao" && tipo != "congelacao" && tipo != "Animais" && tipo != "animais" && tipo != "Normal" && tipo != "normal")
 	{
 		cout << "Tipo de camiao invalido" << endl;
 		return;
@@ -729,7 +782,7 @@ void Empresa::AdicionaCamiao()
 		camioes.push_back(c);
 	}
 
-	else if (tipo == "Perigoso" || tipo == "perigoso")
+	else if (tipo == "Perigosos" || tipo == "perigosos")
 	{
 		Perigosos *c = new Perigosos(marca, tipo, capacidade, matricula);
 		camioes.push_back(c);
@@ -751,4 +804,21 @@ void Empresa::AdicionaCamiao()
 	actualizaFicheiro();
 
 	cout << "Camiao adicionado com sucesso" << endl << endl;
+}
+
+void Empresa::listaFuncionarios() const
+{
+	for (unsigned int i = 0; i < funcionarios.size(); i++)
+	{
+		cout << funcionarios[i]->getNome() << " - " << funcionarios[i]->getSalario() << " - " << funcionarios[i]->getBI() << endl;
+	}
+}
+
+void Empresa::listaFuncionariosDisponiveis() const
+{
+	for (unsigned int i = 0; i < funcionarios.size(); i++)
+	{
+		if(funcionarios[i]->getDisponivel())
+			cout << funcionarios[i]->getNome() << " - " << funcionarios[i]->getSalario() << " - " << funcionarios[i]->getBI() << endl;
+	}
 }

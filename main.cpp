@@ -44,13 +44,20 @@ void adicionaServico(Empresa &e)
 		cin >> cap;
 		Servico s;
 		vector<Camiao *> v = e.getCamioes();
+		vector<Funcionario *> func = e.getFuncionarios();
 		try
 		{
-			s = Servico(test, test, dist, "Normal", cap, 111, v);
+			s = Servico(test, test, dist, "Normal", cap, 111, v, func);
 		}
 		catch (camioesIndisponiveis &c)
 		{
 			cout << "Impossivel realizar servico, camioes insuficientes" << endl;
+			wait();
+			return;
+		}
+		catch(FuncionariosIndisponiveis &f)
+		{
+			cout << "Impossivel realizar servico, funcionarios insuficientes" << endl;
 			wait();
 			return;
 		}
@@ -106,13 +113,20 @@ void adicionaServico(Empresa &e)
 		}
 		Servico s;
 		vector<Camiao *> v = e.getCamioes();
+		vector<Funcionario *> func = e.getFuncionarios();
 		try
 		{
-			s = Servico(test, test, dist, "Congelacao", cap, 111, v, temp);
+			s = Servico(test, test, dist, "Congelacao", cap, 111, v, temp, func);
 		}
 		catch (camioesIndisponiveis &c)
 		{
 			cout << "Impossivel realizar servico, camioes insuficientes" << endl;
+			wait();
+			return;
+		}
+		catch(FuncionariosIndisponiveis &f)
+		{
+			cout << "Impossivel realizar servico, funcionarios insuficientes" << endl;
 			wait();
 			return;
 		}
@@ -169,13 +183,20 @@ void adicionaServico(Empresa &e)
 		}
 		Servico s;
 		vector<Camiao *> v = e.getCamioes();
+		vector<Funcionario *> func = e.getFuncionarios();
 		try
 		{
-			s = Servico(test, test, dist, "Perigosos", cap, 111, v, nivel);
+			s = Servico(test, test, dist, "Perigosos", cap, 111, v, nivel, func);
 		}
 		catch (camioesIndisponiveis &c)
 		{
 			cout << "Impossivel realizar servico, camioes insuficientes" << endl;
+			wait();
+			return;
+		}
+		catch(FuncionariosIndisponiveis &f)
+		{
+			cout << "Impossivel realizar servico, funcionarios insuficientes" << endl;
 			wait();
 			return;
 		}
@@ -223,13 +244,20 @@ void adicionaServico(Empresa &e)
 		cin >> cap;
 		Servico s;
 		vector<Camiao *> v = e.getCamioes();
+		vector<Funcionario *> func = e.getFuncionarios();
 		try
 		{
-			s = Servico(test, test, dist, "Animais", cap, 111, v);
+			s = Servico(test, test, dist, "Animais", cap, 111, v, func);
 		}
 		catch (camioesIndisponiveis &c)
 		{
 			cout << "Impossivel realizar servico, camioes insuficientes" << endl;
+			wait();
+			return;
+		}
+		catch(FuncionariosIndisponiveis &f)
+		{
+			cout << "Impossivel realizar servico, funcionarios insuficientes" << endl;
 			wait();
 			return;
 		}
@@ -401,6 +429,34 @@ void gestaoCamioes(Empresa &e)
 }
 
 
+void gestaoFuncionarios(Empresa &e)
+{
+	int op;
+	cout << "1 - Ver lista de funcionarios" << endl;
+	cout << "2 - Ver lista de funcionarios disponiveis" << endl;
+	cout << "3 - Contratar funcionario" << endl;
+	cout << endl;
+	cout << "Por favor escolha a opcao pretendida: ";
+	cin >> op;
+	cout << endl;
+
+	switch(op)
+	{
+	case 1:
+		e.listaFuncionarios();
+		break;
+	case 2:
+		e.listaFuncionariosDisponiveis();
+		break;
+	case 3:
+		e.contrataFuncionario();
+		break;
+	}
+
+	wait();
+
+}
+
 int main()
 {/*
 	string directorio;
@@ -411,7 +467,17 @@ int main()
 	//string directorio = "C:/Users/Acer-PC/git/AEDA-Project-1";
 	//string directorio = "C:/Users/POS/git/AEDA-Project-1";
 	string directorio = "C:/Users/fabio/Documents/workspace/AEDA-Project-1";
-	Empresa e = Empresa(directorio);
+	Empresa e;
+	try
+	{
+		e = Empresa(directorio);
+	}
+	catch(FicheiroInexistente &f)
+	{
+		cout << "Ficheiro " << f.getFicheiro() << " inexistente" << endl;
+		system("pause");
+		return 1;
+	}
 
 	do
 	{
@@ -421,8 +487,8 @@ int main()
 		cout << "2 - Gestao financeira" << endl;
 		cout << "3 - Consultar servicos" << endl;
 		cout << "4 - Gestao de clientes" << endl;
-		cout << "5 - Gestao de camioes" << endl << endl;
-		// falta adicionar contratar funcionario
+		cout << "5 - Gestao de camioes" << endl;
+		cout << "6 - Gestao de funcionarios" << endl << endl;
 
 		int op;
 		cout << "Por favor insira a opcao desejada: ";
@@ -449,24 +515,23 @@ int main()
 
 			break;
 		case 2:
-			//
 			gestaoFinanceira(e);
 			break;
 		case 3:
-			//
 			consultaServicos(e);
 			break;
 		case 4:
-			//
 			gestaoClientes(e);
 			break;
 		case 5:
-			//
 			gestaoCamioes(e);
 			break;
-		default:
+		case 6:
+			gestaoFuncionarios(e);
+			break;
+		default:/*
 			cin.clear();
-			cin.ignore(1000, '\n');
+			cin.ignore(1000, '\n');*/
 			system("CLS");
 			break;
 		}
