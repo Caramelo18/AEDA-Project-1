@@ -379,6 +379,7 @@ void Empresa::imprimeSaldo() const
 
 void  Empresa::imprimeServico(Servico s) const
 {
+	cout << endl;
 	cout << "Servico " << s.getID() <<":" << endl;
 	cout << "Cliente: " << clientes[posCliente(s.getNif())].getNome() << endl;
 	cout << s.getOrigem() << " - " << s.getDestino() << " - Distancia: " << s.getDistancia() << endl;
@@ -391,14 +392,27 @@ void  Empresa::imprimeServico(Servico s) const
 		cout << "Terminado" << endl;
 	else
 		cout << "Em curso" << endl;
-	cout << endl;
+
 }
 
-void Empresa::imprimeServicos() const
+void Empresa::imprimeServicos()
 {
 	for(unsigned int i = 0; i < servicos.size(); i++)
 	{
 		imprimeServico(servicos[i]);
+		unsigned int mot = servicos[i].getCamioes().size();
+
+		// precisa de ser continuado, para nao imprimir sempre o primeiro funcionario a ser utilizado
+		for(unsigned int j = 0; j < funcionarios.size() && mot > 0; j++)
+		{
+			if (!funcionarios[j]->getDisponivel())
+			{
+				cout << funcionarios[j]->getNome() << " - " << funcionarios[j]->getBI() << endl;
+				mot--;
+			}
+		}
+
+
 	}
 }
 
@@ -407,9 +421,7 @@ void Empresa::ListaServicosExecucao()const
 	for(unsigned i=0; i <servicos.size();i++)
 	{
 		if(!servicos[i].getTerminado())
-		{
 			imprimeServico(servicos[i]);
-		}
 	}
 }
 

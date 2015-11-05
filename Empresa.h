@@ -90,7 +90,7 @@ public:
 	void pagaSalario();
 	string getNome() const;
 	void imprimeSaldo() const;
-	void imprimeServicos() const;
+	void imprimeServicos();
 	void imprimeServico(Servico s) const;
 	void ListaServicosExecucao()const;
 	void ListaServicosCliente()const;
