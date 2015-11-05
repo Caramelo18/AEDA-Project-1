@@ -23,6 +23,23 @@ void wait()
 	return;
 }
 
+int pass()
+{
+	int i = 0;
+	string pass;
+	while(i < 3)
+	{
+		if (i > 0)
+			cout << "Tem " <<3 - i << " tentativas restantes" << endl;
+		cout << "Insira a password: ";
+		cin >> pass;
+		if (pass == "admin")
+			return 0;
+		i++;
+	}
+	return -1;
+}
+
 void adicionaServico(Empresa &e)
 {
 	string tipo;
@@ -346,7 +363,14 @@ void gestaoFinanceira(Empresa &e)
 	{
 		try
 		{
-			e.pagaSalario();
+			if (pass() == 0)
+				e.pagaSalario();
+			else
+			{
+				cout << "Password errada" << endl;
+				wait();
+				return;
+			}
 		}
 		catch(SaldoIndisponivel &s)
 		{
@@ -438,7 +462,14 @@ void gestaoCamioes(Empresa &e)
 	case 3:
 		try
 		{
-			e.AdicionaCamiao();
+			if (pass() == 0)
+				e.AdicionaCamiao();
+			else
+			{
+				cout << "Password errada" << endl;
+				wait();
+				return;
+			}
 		}
 		catch(SaldoIndisponivel &s)
 		{
@@ -471,10 +502,14 @@ void gestaoFuncionarios(Empresa &e)
 		e.listaFuncionariosDisponiveis();
 		break;
 	case 3:
-		e.contrataFuncionario();
+		if(pass() == 0)
+			e.contrataFuncionario();
+		else cout << "Password errada" << endl;
 		break;
 	case 4:
-		e.despedeFuncionario();
+		if (pass() == 0)
+			e.despedeFuncionario();
+		else cout << "Password errada" << endl;
 		break;
 	}
 
