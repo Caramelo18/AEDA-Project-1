@@ -55,6 +55,7 @@ Servico::Servico(string origem, string destino, int distancia, string tipo_produ
 			if(f[i]->getDisponivel())
 			{
 				f[i]->setDisponibilidade(false);
+				Funcionarios.push_back(f[i]);
 				funcness--;
 			}
 		}
@@ -111,6 +112,7 @@ Servico::Servico(string origem, string destino, int distancia, string tipo_produ
 			if(f[i]->getDisponivel())
 			{
 				f[i]->setDisponibilidade(false);
+				Funcionarios.push_back(f[i]);
 				funcness--;
 			}
 		}
@@ -170,6 +172,7 @@ Servico::Servico(string origem, string destino, int distancia, string tipo_produ
 			if(f[i]->getDisponivel())
 			{
 				f[i]->setDisponibilidade(false);
+				Funcionarios.push_back(f[i]);
 				funcness--;
 			}
 		}
@@ -244,6 +247,9 @@ void Servico::termina_servico()
 	for(unsigned int i=0; i <Camioes.size(); i++)
 		Camioes[i]->setDisponivel(true);
 
+	for(unsigned int i=0; i < Funcionarios.size(); i++)
+		Funcionarios[i]->setDisponibilidade(true);
+
 	terminado = true;
 }
 
@@ -277,3 +283,7 @@ int Servico::getID() const
 	return ID;
 }
 
+vector<Funcionario*> Servico::getFuncionarios()
+{
+	return Funcionarios;
+}

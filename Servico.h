@@ -35,6 +35,7 @@ public:
 	void termina_servico();//atualiza todo o vetor de camioes, pondo desocupado os camioes que estao em veiculos ocupados
 	bool operator < (const Servico &Ser)const;
 	vector<Camiao*> getCamioes();
+	vector<Funcionario*> getFuncionarios();
 	int getPreco() const;
 	int getID() const;
 	static void incGlobalID();
@@ -43,6 +44,7 @@ private:
 	static int globalID;
 	int ID;
 	vector<Camiao*> Camioes;
+	vector<Funcionario*> Funcionarios;
 	string origem;
 	string destino;
 	int distancia;

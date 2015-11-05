@@ -168,18 +168,24 @@ Empresa::Empresa(string doc)
 		string m;
 		while (matri >> m)
 			mat.push_back(m);
-		for (unsigned int i = 0; i < mat.size();i++)
+		/*for (unsigned int i = 0; i < mat.size();i++)
 		{
 			if(!funcionarios[i]->getDisponivel())
 				funcionarios[i]->setDisponibilidade(true);
-		}
+		}*/
+		getline(fich4, temp);
+		stringstream funcionarios(temp);
+		vector<unsigned long> funcs;
+		unsigned long f;
+		while (funcionarios >> f)
+			funcs.push_back(f);
 
 		if (tipo_produto == "Congelacao")
-			leNovoServico(origem, destino, distancia, tipo_produto, cap, nif, gr, mat, ter);
+			leNovoServico(origem, destino, distancia, tipo_produto, cap, nif, gr, mat, funcs, ter);
 		else if (tipo_produto == "Perigosos")
-			leNovoServico(origem, destino, distancia, tipo_produto, cap, nif, grp, mat, ter);
+			leNovoServico(origem, destino, distancia, tipo_produto, cap, nif, grp, mat, funcs, ter);
 		else
-			leNovoServico(origem, destino, distancia, tipo_produto, cap, nif, mat, ter);
+			leNovoServico(origem, destino, distancia, tipo_produto, cap, nif, mat, funcs, ter);
 	}
 }
 
@@ -272,6 +278,8 @@ void Empresa::novoServico(string origem, string destino, int distancia, string t
 	fich << endl << Nif << endl;
 	for (unsigned int i = 0; i < s.getCamioes().size(); i++)
 		fich << s.getCamioes()[i]->getMatricula() << " ";
+	for (unsigned int i = 0; i < s.getFuncionarios().size(); i++)
+		fich << s.getFuncionarios()[i]->getBI() << " ";
 
 	fich.close();
 	actualizaFicheiro();
@@ -300,6 +308,8 @@ void Empresa::novoServico(string origem, string destino, int distancia, string t
 	fich << endl << Nif << endl;
 	for (unsigned int i = 0; i < s.getCamioes().size(); i++)
 		fich << s.getCamioes()[i]->getMatricula() << " ";
+	for (unsigned int i = 0; i < s.getFuncionarios().size(); i++)
+		fich << s.getFuncionarios()[i]->getBI() << " ";
 
 	fich.close();
 	actualizaFicheiro();
@@ -328,6 +338,8 @@ void Empresa::novoServico(string origem, string destino, int distancia, string t
 	fich << endl << Nif << endl;
 	for (unsigned int i = 0; i < s.getCamioes().size(); i++)
 		fich << s.getCamioes()[i]->getMatricula() << " ";
+	for (unsigned int i = 0; i < s.getFuncionarios().size(); i++)
+		fich << s.getFuncionarios()[i]->getBI() << " ";
 
 
 	fich.close();
@@ -392,6 +404,10 @@ void  Empresa::imprimeServico(Servico s) const
 	for(unsigned int j = 0; j < s.getCamioes().size(); j++)
 	{
 		cout << "Camiao " << j+1 << ": " << s.getCamioes()[j]->getMarca() << " - " << s.getCamioes()[j]->getMatricula() << " - " <<s.getCamioes()[j]->getTipo() << endl;
+	}
+	for(unsigned int j = 0; j < s.getFuncionarios().size(); j++)
+	{
+		cout << "Funcionario " << j+1 << ": " << s.getFuncionarios()[j]->getNome() << " - " << s.getFuncionarios()[j]->getBI() << endl;
 	}
 	if (s.getTerminado())
 		cout << "Terminado" << endl;
@@ -528,22 +544,12 @@ void Empresa::terminaServico(int ID)
 		throw ServicoInexistente();
 
 	servicos[i].termina_servico();
-	unsigned int fne = servicos[i].getCamioes().size();
-	for (unsigned int i = 0; i < funcionarios.size() && fne > 0; i++)
-	{
-		if(!funcionarios[i]->getDisponivel())
-		{
-			funcionarios[i]->setDisponibilidade(true);
-			fne--;
-		}
-	}
-
 
 	EscreveServicoTerminado(ID, servicos[i].getTipo_produto());
 	actualizaFicheiro();
 }
 
-void Empresa::leNovoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, vector<string> mat, bool ter)
+void Empresa::leNovoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, vector<string> mat, vector<unsigned long> funcs, bool ter)
 {
 	vector<Camiao *> c;
 
@@ -552,11 +558,28 @@ void Empresa::leNovoServico(string origem, string destino, int distancia, string
 		for (unsigned int j = 0; j < camioes.size();j++)
 		{
 			if(camioes[j]->getMatricula() == mat[i])
+			{
 				c.push_back(camioes[j]);
+				camioes[j]->setDisponivel(true);
+			}
 		}
 	}
 
-	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, c, funcionarios);
+	vector<Funcionario *> f;
+
+	for (unsigned int i = 0; i < funcs.size(); i++)
+	{
+		for (unsigned int j = 0; j < funcionarios.size(); j++)
+		{
+			if(funcionarios[j]->getBI() == funcs[i])
+			{
+				f.push_back(funcionarios[j]);
+				funcionarios[j]->setDisponibilidade(true);
+			}
+		}
+	}
+
+	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, c, f);
 
 	if (!ter)
 	{
@@ -568,25 +591,23 @@ void Empresa::leNovoServico(string origem, string destino, int distancia, string
 					camioes[j]->setDisponivel(false);
 			}
 		}
-	}
-	int funcness = c.size();
-	if (ter)
-	{
-		s.termina_servico();
-		for (unsigned int i = 0; i < funcionarios.size() && funcness > 0; i++)
+
+		for (unsigned int i = 0; i < funcs.size(); i++)
 		{
-			if(!funcionarios[i]->getDisponivel())
+			for (unsigned int j = 0; j < funcionarios.size(); j++)
 			{
-				funcionarios[i]->setDisponibilidade(true);
-				funcness--;
+				if(funcionarios[j]->getBI() == funcs[i])
+					funcionarios[j]->setDisponibilidade(false);
 			}
 		}
 	}
+	if (ter)
+		s.termina_servico();
 	servicos.push_back(s);
 
 }
 
-void Empresa::leNovoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, int temp, vector<string> mat, bool ter)
+void Empresa::leNovoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, int temp, vector<string> mat, vector<unsigned long> funcs, bool ter)
 {
 	vector<Camiao *> c;
 
@@ -595,39 +616,54 @@ void Empresa::leNovoServico(string origem, string destino, int distancia, string
 		for (unsigned int j = 0; j < camioes.size(); j++)
 		{
 			if(camioes[j]->getMatricula() == mat[i])
+			{
 				c.push_back(camioes[j]);
+				camioes[j]->setDisponivel(true);
+			}
 		}
 	}
-	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, c, funcionarios);
+
+
+	vector<Funcionario *> f;
+
+	for (unsigned int i = 0; i < funcs.size(); i++)
+	{
+		for (unsigned int j = 0; j < funcionarios.size(); j++)
+		{
+			if(funcionarios[j]->getBI() == funcs[i])
+			{
+				f.push_back(funcionarios[j]);
+				funcionarios[j]->setDisponibilidade(true);
+			}
+		}
+	}
+	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, c, temp, f);
 	if (!ter)
 	{
 		for (unsigned int i = 0; i < mat.size(); i++)
 		{
-			for (unsigned int j = 0; j < camioes.size(); j++)
+			for (unsigned int j = 0; j < camioes.size();j++)
 			{
 				if(camioes[j]->getMatricula() == mat[i])
 					camioes[j]->setDisponivel(false);
 			}
 		}
-	}
-	int funcness = c.size();
-	if (ter)
-	{
-		s.termina_servico();
-		for (unsigned int i = 0; i < funcionarios.size() && funcness > 0; i++)
+
+		for (unsigned int i = 0; i < funcs.size(); i++)
 		{
-			if(!funcionarios[i]->getDisponivel())
+			for (unsigned int j = 0; j < funcionarios.size(); j++)
 			{
-				funcionarios[i]->setDisponibilidade(true);
-				funcness--;
+				if(funcionarios[j]->getBI() == funcs[i])
+					funcionarios[j]->setDisponibilidade(false);
 			}
 		}
 	}
-
+	if (ter)
+		s.termina_servico();
 	servicos.push_back(s);
 }
 
-void Empresa::leNovoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, string nivel_p, vector<string> mat, bool ter)
+void Empresa::leNovoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, string nivel_p, vector<string> mat, vector<unsigned long> funcs, bool ter)
 {
 	vector<Camiao *> c;
 	for (unsigned int i = 0; i < mat.size(); i++)
@@ -635,36 +671,52 @@ void Empresa::leNovoServico(string origem, string destino, int distancia, string
 		for (unsigned int j = 0; j < camioes.size(); j++)
 		{
 			if(camioes[j]->getMatricula() == mat[i])
+			{
 				c.push_back(camioes[j]);
+				camioes[j]->setDisponivel(true);
+			}
 		}
 	}
 
-	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, c, funcionarios);
+	vector<Funcionario *> f;
+
+	for (unsigned int i = 0; i < funcs.size(); i++)
+	{
+		for (unsigned int j = 0; j < funcionarios.size(); j++)
+		{
+			if(funcionarios[j]->getBI() == funcs[i])
+			{
+				f.push_back(funcionarios[j]);
+				funcionarios[j]->setDisponibilidade(true);
+			}
+		}
+	}
+
+	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, c, nivel_p, f);
 
 	if (!ter)
 	{
 		for (unsigned int i = 0; i < mat.size(); i++)
 		{
-			for (unsigned int j = 0; j < camioes.size(); j++)
+			for (unsigned int j = 0; j < camioes.size();j++)
 			{
 				if(camioes[j]->getMatricula() == mat[i])
 					camioes[j]->setDisponivel(false);
 			}
 		}
-	}
-	int funcness = c.size();
-	if (ter)
-	{
-		s.termina_servico();
-		for (unsigned int i = 0; i < funcionarios.size() && funcness > 0; i++)
+
+		for (unsigned int i = 0; i < funcs.size(); i++)
 		{
-			if(!funcionarios[i]->getDisponivel())
+			for (unsigned int j = 0; j < funcionarios.size(); j++)
 			{
-				funcionarios[i]->setDisponibilidade(true);
-				funcness--;
+				if(funcionarios[j]->getBI() == funcs[i])
+					funcionarios[j]->setDisponibilidade(false);
 			}
 		}
 	}
+
+	if (ter)
+		s.termina_servico();
 
 	servicos.push_back(s);
 }
@@ -733,6 +785,8 @@ void Empresa::EscreveServicoTerminado(int ID, string tipo)
 		fich << endl << servicos[i].getNif() << endl;
 		for (unsigned int j = 0; j < servicos[i].getCamioes().size(); j++)
 			fich << servicos[i].getCamioes()[j]->getMatricula() << " ";
+		for (unsigned int k = 0; k < servicos[i].getFuncionarios().size(); k++)
+			fich << servicos[i].getFuncionarios()[k]->getBI() << " ";
 
 	}
 	fich.close();
