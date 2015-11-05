@@ -278,6 +278,7 @@ void Empresa::novoServico(string origem, string destino, int distancia, string t
 	fich << endl << Nif << endl;
 	for (unsigned int i = 0; i < s.getCamioes().size(); i++)
 		fich << s.getCamioes()[i]->getMatricula() << " ";
+	fich << endl;
 	for (unsigned int i = 0; i < s.getFuncionarios().size(); i++)
 		fich << s.getFuncionarios()[i]->getBI() << " ";
 
@@ -298,16 +299,19 @@ void Empresa::novoServico(string origem, string destino, int distancia, string t
 	ofstream fich(ficser.c_str(), ofstream::app);
 
 	fich << endl;
-	fich << s.getID() << " " << origem << " " << destino << " " << distancia << " " << tipo_produto << " " << capacidade;
+	fich << s.getID() << " " << distancia << " " << tipo_produto << " " << capacidade;
 	if(s.getTerminado())
 		fich << " T";
 	else
 		fich << " E";
 	fich << " " << temp;
 
+	fich << endl <<  origem << endl << destino;
+
 	fich << endl << Nif << endl;
 	for (unsigned int i = 0; i < s.getCamioes().size(); i++)
 		fich << s.getCamioes()[i]->getMatricula() << " ";
+	fich << endl;
 	for (unsigned int i = 0; i < s.getFuncionarios().size(); i++)
 		fich << s.getFuncionarios()[i]->getBI() << " ";
 
@@ -327,17 +331,18 @@ void Empresa::novoServico(string origem, string destino, int distancia, string t
 	ofstream fich(ficser.c_str(), ofstream::app);
 
 	fich << endl;
-	fich << s.getID() << " " << origem << " " << destino << " " << distancia << " " << tipo_produto << " " << capacidade;
+	fich << s.getID() << " " << distancia << " " << tipo_produto << " " << capacidade;
 	if(s.getTerminado())
 		fich << " T";
 	else
 		fich << " E";
 
 	fich << " " << nivel_p;
-
+	fich << endl <<  origem << endl << destino;
 	fich << endl << Nif << endl;
 	for (unsigned int i = 0; i < s.getCamioes().size(); i++)
 		fich << s.getCamioes()[i]->getMatricula() << " ";
+	fich << endl;
 	for (unsigned int i = 0; i < s.getFuncionarios().size(); i++)
 		fich << s.getFuncionarios()[i]->getBI() << " ";
 
