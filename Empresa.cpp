@@ -92,16 +92,16 @@ Empresa::Empresa(string doc)
 
 	while(!fich2.eof())
 	{
-		getline(fich2,temp);
-
 		string nomeFunc;
+		getline(fich2,nomeFunc);
 		int salario;
 		string disp;
 		unsigned long BI;
 		stringstream ss;
+		getline(fich2,temp);
 
 		ss << temp;
-		ss >> nomeFunc >> salario >> BI >> disp;
+		ss >>  salario >> BI >> disp;
 
 		Funcionario *func = new Funcionario(nomeFunc, salario, BI, disp);
 		funcionarios.push_back(func);
@@ -340,7 +340,8 @@ void Empresa::contrataFuncionario()
 	int salario;
 	unsigned int BI;
 	cout << "Insira o nome do funcionario: ";
-	cin >> nome;
+	cin.ignore(1000,'\n');
+	getline(cin,nome);
 	cout << "Insira o salario do funcionario: ";
 	cin >> salario;
 	cout << "Insira o BI do funcionario: ";
@@ -348,6 +349,7 @@ void Empresa::contrataFuncionario()
 
 	Funcionario *f = new Funcionario(nome,salario,BI,"D");
 	funcionarios.push_back(f);
+	actualizaFicheiro();
 
 }
 
@@ -505,7 +507,7 @@ void Empresa::actualizaFicheiro()
 	fich1 << "Funcionarios: ";
 	for (unsigned int i = 0; i < funcionarios.size(); i++)
 	{
-		fich1 << endl << funcionarios[i]->getNome() << " " << funcionarios[i]->getSalario() << " " << funcionarios[i]->getBI();
+		fich1 << endl << funcionarios[i]->getNome() << endl << funcionarios[i]->getSalario() << " " << funcionarios[i]->getBI();
 		if (funcionarios[i]->getDisponivel())
 			fich1 << " D" ;
 		else if (!funcionarios[i]->getDisponivel())
