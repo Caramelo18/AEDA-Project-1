@@ -29,6 +29,7 @@ void adicionaServico(Empresa &e)
 	int dist;
 	cout << "Introduza o tipo de transporte (normal, congelacao, perigosos, animais): ";
 	cin >> tipo;
+	cin.clear();
 	if (tipo == "normal" || tipo == "Normal")
 	{
 		string conf;
@@ -83,9 +84,12 @@ void adicionaServico(Empresa &e)
 				return;
 			}
 			cout << "Insira a origem: ";
-			cin >> ori;
+			cin.ignore(1000, '\n');
+			getline(cin,ori);
+			cin.clear();
 			cout << "Insira o destino: ";
-			cin >> dest;
+			getline(cin,dest);
+			cin.clear();
 			e.novoServico(ori, dest, dist, "Normal", cap, nif);
 		}
 	}
@@ -152,9 +156,12 @@ void adicionaServico(Empresa &e)
 				return;
 			}
 			cout << "Insira a origem: ";
-			cin >> ori;
+			cin.ignore(1000, '\n');
+			getline(cin,ori);
+			cin.clear();
 			cout << "Insira o destino: ";
-			cin >> dest;
+			getline(cin,dest);
+			cin.clear();
 			e.novoServico(ori, dest, dist, "Congelacao", cap, nif, temp);
 		}
 
@@ -222,9 +229,12 @@ void adicionaServico(Empresa &e)
 				return;
 			}
 			cout << "Insira a origem: ";
-			cin >> ori;
+			cin.ignore(1000, '\n');
+			getline(cin,ori);
+			cin.clear();
 			cout << "Insira o destino: ";
-			cin >> dest;
+			getline(cin,dest);
+			cin.clear();
 			e.novoServico(ori, dest, dist, "Perigosos", cap, nif, nivel);
 		}
 
@@ -283,9 +293,12 @@ void adicionaServico(Empresa &e)
 				return;
 			}
 			cout << "Insira a origem: ";
-			cin >> ori;
+			cin.ignore(1000, '\n');
+			getline(cin,ori);
+			cin.clear();
 			cout << "Insira o destino: ";
-			cin >> dest;
+			getline(cin,dest);
+			cin.clear();
 			e.novoServico(ori, dest, dist, "Animais", cap, nif);
 		}
 	}
@@ -423,7 +436,14 @@ void gestaoCamioes(Empresa &e)
 		e.ImprimeListaCamioesDisponiveis();
 		break;
 	case 3:
-		e.AdicionaCamiao();
+		try
+		{
+			e.AdicionaCamiao();
+		}
+		catch(SaldoIndisponivel &s)
+		{
+			cout << "Impossivel adicionar camiao, saldo insuficiente" << endl;
+		}
 		break;
 	}
 

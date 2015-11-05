@@ -117,14 +117,13 @@ Empresa::Empresa(string doc)
 	getline(fich3, temp);
 	while (! fich3.eof())
 	{
-		getline(fich3,temp);
-
 		string nomeCli;
+		getline(fich3,nomeCli);
 		unsigned long Nif;
 		stringstream ss;
-
+		getline(fich3, temp);
 		ss << temp;
-		ss >> nomeCli >> Nif;
+		ss >> Nif;
 
 		Cliente cli = Cliente(nomeCli, Nif);
 		clientes.push_back(cli);
@@ -143,7 +142,9 @@ Empresa::Empresa(string doc)
 		int id, distancia, cap;
 		string origem, destino, tipo_produto, estado;
 		ss << temp;
-		ss >> id >> origem >> destino >> distancia >> tipo_produto >> cap >> estado;
+		ss >> id >> distancia >> tipo_produto >> cap >> estado;
+		getline(fich4, origem);
+		getline(fich4, destino);
 		bool ter;
 		if (estado == "T")
 			ter = true;
@@ -223,7 +224,8 @@ void Empresa::adicionaCliente()
 	cout << "Novo Cliente: " << endl;
 
 	cout << "Nome: ";
-	cin >> nome;
+	cin.ignore(1000,'\n');
+	getline(cin, nome);
 	cout << "Nif: ";
 	cin >> Nif;
 	cout << endl;
@@ -241,7 +243,7 @@ void Empresa::adicionaCliente()
 	ofstream fich(ficcli.c_str(), ofstream::app);
 
 	fich << endl;
-	fich << cliente.getNome() << " "  << cliente.getNif();//Ainda nao esta a ler
+	fich << cliente.getNome() << endl << cliente.getNif();
 
 	cout << "Cliente adicionado com sucesso" << endl;
 
@@ -260,12 +262,13 @@ void Empresa::novoServico(string origem, string destino, int distancia, string t
 	ofstream fich(ficser.c_str(), ofstream::app);
 
 	fich << endl;
-	fich << s.getID() << " " << origem << " " << destino << " " << distancia << " " << tipo_produto << " " << capacidade;
+	fich << s.getID() << " " << distancia << " " << tipo_produto << " " << capacidade;
 	if(s.getTerminado())
 		fich << " T";
 	else
 		fich << " E";
 
+	fich << endl << origem << endl << destino;
 	fich << endl << Nif << endl;
 	for (unsigned int i = 0; i < s.getCamioes().size(); i++)
 		fich << s.getCamioes()[i]->getMatricula() << " ";
@@ -382,7 +385,7 @@ void  Empresa::imprimeServico(Servico s) const
 	cout << endl;
 	cout << "Servico " << s.getID() <<":" << endl;
 	cout << "Cliente: " << clientes[posCliente(s.getNif())].getNome() << endl;
-	cout << s.getOrigem() << " - " << s.getDestino() << " - Distancia: " << s.getDistancia() << endl;
+	cout << s.getOrigem() << " - " << s.getDestino() << " - Distancia: " << s.getDistancia() << "km" <<endl;
 	cout << "Camioes Utilizados:" << endl;
 	for(unsigned int j = 0; j < s.getCamioes().size(); j++)
 	{
@@ -401,18 +404,6 @@ void Empresa::imprimeServicos()
 	{
 		imprimeServico(servicos[i]);
 		unsigned int mot = servicos[i].getCamioes().size();
-
-		// precisa de ser continuado, para nao imprimir sempre o primeiro funcionario a ser utilizado
-		for(unsigned int j = 0; j < funcionarios.size() && mot > 0; j++)
-		{
-			if (!funcionarios[j]->getDisponivel())
-			{
-				cout << funcionarios[j]->getNome() << " - " << funcionarios[j]->getBI() << endl;
-				mot--;
-			}
-		}
-
-
 	}
 }
 
@@ -535,8 +526,19 @@ void Empresa::terminaServico(int ID)
 		throw ServicoInexistente();
 
 	servicos[i].termina_servico();
+	unsigned int fne = servicos[i].getCamioes().size();
+	for (unsigned int i = 0; i < funcionarios.size() && fne > 0; i++)
+	{
+		if(!funcionarios[i]->getDisponivel())
+		{
+			funcionarios[i]->setDisponibilidade(true);
+			fne--;
+		}
+	}
+
 
 	EscreveServicoTerminado(ID, servicos[i].getTipo_produto());
+	actualizaFicheiro();
 }
 
 void Empresa::leNovoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, vector<string> mat, bool ter)
@@ -766,6 +768,7 @@ void Empresa::AdicionaCamiao()
 	string marca;
 	int capacidade;
 	string matricula;
+	int preco;
 
 	cout << "Insira o tipo de camiao que pretende adicionar: ";
 	cin >> tipo;
@@ -780,6 +783,10 @@ void Empresa::AdicionaCamiao()
 	cin >> capacidade;
 	cout << "Insira a matricula: ";
 	cin >> matricula;
+	cout << "Insira o preco do camiao: ";
+	cin >> preco;
+	if(preco > saldo)
+		throw SaldoIndisponivel();
 	cout << endl;
 	if (tipo == "Normal" || tipo == "normal")
 	{

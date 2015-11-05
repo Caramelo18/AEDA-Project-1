@@ -1,7 +1,16 @@
 Servicos: 
-1 Porto Corunha 457 Normal 14000 E
+1 457 Normal 14000 T
+Porto
+Corunha
 123456789
 57-26-DI 99-ZZ-99 
-2 Feira Porto 70 Congelacao 350 E -6
+2 70 Congelacao 350 T 0
+Feira
+Porto
 852741963
-42-CM-08 
+42-CM-08
+3 123 Normal 123 E
+AB CD
+CD AB
+123456789
+57-26-DI 
