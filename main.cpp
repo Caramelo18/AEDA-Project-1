@@ -525,10 +525,10 @@ int main()
 	cout << "Por favor insira o directorio da pasta que contem os ficheiros da Empresa: ";
 	cin >> directorio;
  */
-	string directorio = "C:/Users/Bruno/git/AEDA-Project";
+	//string directorio = "C:/Users/Bruno/git/AEDA-Project";
 	//string directorio = "C:/Users/Acer-PC/git/AEDA-Project-1";
 	//string directorio = "C:/Users/POS/git/AEDA-Project-1";
-	//string directorio = "C:/Users/fabio/Documents/workspace/AEDA-Project-1";
+	string directorio = "C:/Users/fabio/Documents/workspace/AEDA-Project-1";
 	Empresa e;
 	try
 	{

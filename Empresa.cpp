@@ -808,7 +808,7 @@ void Empresa::EscreveServicoTerminado(int ID, string tipo)
 		fich << endl;
 		if (servicos[i].getTipo_produto() == "Congelacao")
 		{
-			fich << servicos[i].getID() << " " << servicos[i].getOrigem() << " " << servicos[i].getDestino() << " " << servicos[i].getDistancia() << " " << servicos[i].getTipo_produto() << " " << servicos[i].getCapacidade();
+			fich << servicos[i].getID() << " " << servicos[i].getDistancia() << " " << servicos[i].getTipo_produto() << " " << servicos[i].getCapacidade();
 			if(servicos[i].getTerminado())
 				fich << " T ";
 			else
@@ -817,7 +817,7 @@ void Empresa::EscreveServicoTerminado(int ID, string tipo)
 		}
 		else if (servicos[i].getTipo_produto() == "Perigosos")
 		{
-			fich << servicos[i].getID() << " " << servicos[i].getOrigem() << " " << servicos[i].getDestino() << " " << servicos[i].getDistancia() << " " << servicos[i].getTipo_produto() << " " << servicos[i].getCapacidade();
+			fich << servicos[i].getID() << " " << servicos[i].getDistancia() << " " << servicos[i].getTipo_produto() << " " << servicos[i].getCapacidade();
 			if(servicos[i].getTerminado())
 				fich << " T ";
 			else
@@ -826,16 +826,18 @@ void Empresa::EscreveServicoTerminado(int ID, string tipo)
 		}
 		else
 		{
-			fich << servicos[i].getID() << " " << servicos[i].getOrigem() << " " << servicos[i].getDestino() << " " << servicos[i].getDistancia() << " " << servicos[i].getTipo_produto() << " " << servicos[i].getCapacidade();
+			fich << servicos[i].getID() << " " << servicos[i].getDistancia() << " " << servicos[i].getTipo_produto() << " " << servicos[i].getCapacidade();
 			if(servicos[i].getTerminado())
 				fich << " T ";
 			else
 				fich << " E ";
 		}
 
+		fich << endl << servicos[i].getOrigem() << endl << servicos[i].getDestino();
 		fich << endl << servicos[i].getNif() << endl;
 		for (unsigned int j = 0; j < servicos[i].getCamioes().size(); j++)
 			fich << servicos[i].getCamioes()[j]->getMatricula() << " ";
+		fich << endl;
 		for (unsigned int k = 0; k < servicos[i].getFuncionarios().size(); k++)
 			fich << servicos[i].getFuncionarios()[k]->getBI() << " ";
 
