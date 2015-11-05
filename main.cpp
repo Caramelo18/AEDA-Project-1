@@ -322,7 +322,9 @@ void adicionaServico(Empresa &e)
 	else
 		cout << "Tipo invalido" << endl;
 
-	wait();
+	cout << "Prima enter para regressar ao menu principal ";
+	cin.get();
+	return;
 }
 
 void terminaServico(Empresa &e)
