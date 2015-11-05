@@ -40,6 +40,7 @@ public:
 	void setDisponivel( bool bo);
 	string getMatricula() const;
 	void imprimeCamiao() const;
+
 };
 
 

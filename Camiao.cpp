@@ -94,3 +94,5 @@ void Camiao::imprimeCamiao() const
 	cout << "Capacidade: " << capacidade << " Kg" << endl;
 	cout << endl;
 }
+
+

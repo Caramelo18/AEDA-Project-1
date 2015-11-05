@@ -496,6 +496,38 @@ void Empresa::ListaServicosCamiao()const
 	}
 }
 
+bool ordenaApontaCamioes(Camiao *C1, Camiao *C2)
+{
+
+	if(C1->getMarca() < C2->getMarca())
+		return true;
+	if(C1->getMarca()==C2->getMarca())
+	{
+		if(C1->getCapacidade() < C2->getCapacidade())
+
+			return true;
+		else
+			return false;
+	}
+	else
+		return false;
+
+}
+void Empresa::ListaCamioesOrdenados()const
+{
+
+	vector<Camiao *> C =camioes;
+	sort(C.begin(),C.end(),ordenaApontaCamioes);
+
+	for (unsigned int i = 0; i < C.size(); i++)
+	{
+		cout << "Camiao " << i+1 << ":" << endl;
+		C[i]->imprimeCamiao();
+	}
+
+
+
+}
 void Empresa::listaClientes() const
 {
 	cout << "Clientes: " << endl;
@@ -503,6 +535,20 @@ void Empresa::listaClientes() const
 	{
 		cout << i + 1 << ": " << clientes[i].getNome() << " - " << clientes[i].getNif() << endl;
 	}
+}
+
+void Empresa::listaClientesOrdenados()
+{
+	vector<Cliente> cli= clientes;
+	sort(cli.begin(),cli.end());
+
+	cout << "Clientes: " << endl;
+	for (unsigned int i = 0; i < cli.size(); i++)
+	{
+		cout << i + 1 << ": " << cli[i].getNome() << " - " << cli[i].getNif() << endl;
+	}
+
+
 }
 
 int Empresa::posCliente(unsigned long nif) const

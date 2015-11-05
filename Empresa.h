@@ -15,6 +15,7 @@
 #include "Servico.h"
 #include "Funcionario.h"
 #include "Camiao.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -95,7 +96,9 @@ public:
 	void ListaServicosExecucao()const;
 	void ListaServicosCliente()const;
 	void ListaServicosCamiao()const;
+	void ListaCamioesOrdenados()const;
 	void listaClientes() const;
+	void listaClientesOrdenados();
 	int posCliente(unsigned long nif) const;
 	void actualizaFicheiro();
 	void terminaServico(int ID);
