@@ -40,3 +40,10 @@ void Funcionario::setDisponibilidade(bool disp)
 {
 	disponivel = disp;
 }
+
+void Funcionario::imprimeFuncionario() const
+{
+	cout << "Nome: "<< nome << endl;
+	cout << "Salario: " << salario << endl;
+	cout << "BI: " << BI << endl << endl;
+}

@@ -9,6 +9,7 @@
 #define FUNCIONARIO_H_
 
 #include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -34,6 +35,7 @@ public:
 	unsigned int getBI() const;
 	bool getDisponivel() const;
 	void setDisponibilidade(bool disp);
+	void imprimeFuncionario() const;
 };
 
 #endif /* FUNCIONARIO_H_ */

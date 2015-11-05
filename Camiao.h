@@ -39,6 +39,7 @@ public:
 	bool getDisponivel();
 	void setDisponivel( bool bo);
 	string getMatricula() const;
+	void imprimeCamiao() const;
 };
 
 

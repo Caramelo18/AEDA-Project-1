@@ -105,6 +105,7 @@ public:
 	void AdicionaCamiao();
 	void listaFuncionarios() const;
 	void listaFuncionariosDisponiveis() const;
+	void despedeFuncionario();
 };
 
 

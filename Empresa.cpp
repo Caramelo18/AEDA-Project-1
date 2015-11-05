@@ -131,6 +131,7 @@ Empresa::Empresa(string doc)
 	}
 	fich3.close();
 
+
 	ifstream fich4(ficser.c_str());
 	if (!fich4)
 		throw FicheiroInexistente(ficser);
@@ -159,6 +160,7 @@ Empresa::Empresa(string doc)
 		int nif;
 		stringstream ni(temp);
 		ni >> nif;
+
 		getline(fich4, temp); // matriculas dos camioes
 		stringstream matri(temp);
 		vector<string> mat;
@@ -170,6 +172,7 @@ Empresa::Empresa(string doc)
 			if(!funcionarios[i]->getDisponivel())
 				funcionarios[i]->setDisponibilidade(true);
 		}
+
 		if (tipo_produto == "Congelacao")
 			leNovoServico(origem, destino, distancia, tipo_produto, cap, nif, gr, mat, ter);
 		else if (tipo_produto == "Perigosos")
@@ -177,10 +180,6 @@ Empresa::Empresa(string doc)
 		else
 			leNovoServico(origem, destino, distancia, tipo_produto, cap, nif, mat, ter);
 	}
-
-
-
-
 }
 
 vector<Camiao *> Empresa::getCamioes()
@@ -729,30 +728,24 @@ void Empresa::ImprimeListaCamioes()
 	for (unsigned int i = 0; i < camioes.size(); i++)
 	{
 		cout << "Camiao " << i+1 << ":" << endl;
-		cout << "Marca: " << camioes[i]->getMarca() << endl;
-		cout << "Tipo: " << camioes[i]->getTipo() << endl;
-		cout << "Matricula: " << camioes[i]->getMatricula() << endl;
-		cout << "Capacidade: " << camioes[i]->getCapacidade() << " Kg" << endl;
-		cout << endl;
+		camioes[i]->imprimeCamiao();
 	}
 }
 
 void Empresa::ImprimeListaCamioesDisponiveis()
 {
-	unsigned int j = 1;
+	unsigned int cnt = 0;
 	for (unsigned int i = 0; i < camioes.size(); i++)
 	{
 		if(camioes[i]->getDisponivel())
 		{
-			cout << "Camiao " << j << ":" << endl;
-			cout << "Marca: " << camioes[i]->getMarca() << endl;
-			cout << "Tipo: " << camioes[i]->getTipo() << endl;
-			cout << "Matricula: " << camioes[i]->getMatricula() << endl;
-			cout << "Capacidade: " << camioes[i]->getCapacidade() << " Kg" << endl;
-			cout << endl;
-			j++;
+			cout << "Camiao " << i+1 << ":" << endl;
+			camioes[i]->imprimeCamiao();
+			cnt++;
 		}
 	}
+	if (cnt == 0)
+		cout << "Sem camioes disponiveis" << endl << endl;
 }
 
 void Empresa::AdicionaCamiao()
@@ -809,16 +802,42 @@ void Empresa::AdicionaCamiao()
 void Empresa::listaFuncionarios() const
 {
 	for (unsigned int i = 0; i < funcionarios.size(); i++)
-	{
-		cout << funcionarios[i]->getNome() << " - " << funcionarios[i]->getSalario() << " - " << funcionarios[i]->getBI() << endl;
-	}
+		funcionarios[i]->imprimeFuncionario();
 }
 
 void Empresa::listaFuncionariosDisponiveis() const
 {
+	unsigned int cnt = 0;
 	for (unsigned int i = 0; i < funcionarios.size(); i++)
 	{
 		if(funcionarios[i]->getDisponivel())
-			cout << funcionarios[i]->getNome() << " - " << funcionarios[i]->getSalario() << " - " << funcionarios[i]->getBI() << endl;
+		{
+			cnt++;
+			funcionarios[i]->imprimeFuncionario();
+		}
+	}
+	if (cnt == 0)
+		cout << "Sem funcionarios disponiveis" << endl;
+}
+
+void Empresa::despedeFuncionario()
+{
+	unsigned long BI;
+	cout << "Insira o BI do funcionario a despedir: ";
+	cin >> BI;
+	unsigned int i;
+	for (i = 0; i < funcionarios.size(); i++)
+	{
+		if (funcionarios[i]->getBI() == BI)
+		{
+			if(!funcionarios[i]->getDisponivel())
+				cout << "Impossivel despedir funcionario, transporte em curso" << endl;
+			else
+			{
+				funcionarios.erase(funcionarios.begin()+i);
+				actualizaFicheiro();
+				break;
+			}
+		}
 	}
 }

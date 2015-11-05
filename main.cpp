@@ -11,6 +11,8 @@
 #include "Servico.h"
 #include <cstdlib>
 #include <cstdio>
+#include <conio.h>
+#include <ctype.h>
 
 
 void wait()
@@ -428,13 +430,13 @@ void gestaoCamioes(Empresa &e)
 	wait();
 }
 
-
 void gestaoFuncionarios(Empresa &e)
 {
 	int op;
 	cout << "1 - Ver lista de funcionarios" << endl;
 	cout << "2 - Ver lista de funcionarios disponiveis" << endl;
 	cout << "3 - Contratar funcionario" << endl;
+	cout << "4 - Despedir funcionario" << endl;
 	cout << endl;
 	cout << "Por favor escolha a opcao pretendida: ";
 	cin >> op;
@@ -450,6 +452,9 @@ void gestaoFuncionarios(Empresa &e)
 		break;
 	case 3:
 		e.contrataFuncionario();
+		break;
+	case 4:
+		e.despedeFuncionario();
 		break;
 	}
 
@@ -479,6 +484,7 @@ int main()
 		return 1;
 	}
 
+	int opc;
 	do
 	{
 		cout << e.getNome() << endl << endl;
@@ -490,18 +496,17 @@ int main()
 		cout << "5 - Gestao de camioes" << endl;
 		cout << "6 - Gestao de funcionarios" << endl << endl;
 
-		int op;
-		cout << "Por favor insira a opcao desejada: ";
-		cin >> op;
-		cout << "" << endl;
+		cout << "Por favor insira a opcao desejada (0 para sair): ";
+		cin >> opc;
 
-		switch (op)
+		cout << endl;
+
+		switch (opc)
 		{
 		case 1:
 			//
 			cout << " 1 - Adicionar Servico" << endl;
 			cout << " 2 - Terminar Servico" << endl << endl;
-
 			int op;
 			cout << "Por favor insira a opcao desejada: ";
 			cin >> op;
@@ -529,14 +534,14 @@ int main()
 		case 6:
 			gestaoFuncionarios(e);
 			break;
-		default:/*
+		default:
 			cin.clear();
-			cin.ignore(1000, '\n');*/
+			cin.ignore(1000, '\n');
 			system("CLS");
 			break;
 		}
 		system("CLS");
-	}while(!cin.eof());
+	}while(opc != 0);
 
 	e.actualizaFicheiro();
 	return 0;

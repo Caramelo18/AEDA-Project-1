@@ -86,3 +86,11 @@ string Camiao::getMatricula() const
 	return matricula;
 }
 
+void Camiao::imprimeCamiao() const
+{
+	cout << "Marca: " << marca << endl;
+	cout << "Tipo: " << tipo << endl;
+	cout << "Matricula: " << matricula << endl;
+	cout << "Capacidade: " << capacidade << " Kg" << endl;
+	cout << endl;
+}
