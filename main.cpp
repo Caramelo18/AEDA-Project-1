@@ -30,7 +30,7 @@ int pass()
 	while(i < 3)
 	{
 		if (i > 0)
-			cout << "Tem " <<3 - i << " tentativas restantes" << endl;
+			cout << "Tem " << 3 - i << " tentativas restantes" << endl;
 		cout << "Insira a password: ";
 		cin >> pass;
 		if (pass == "admin")
@@ -62,6 +62,12 @@ void adicionaServico(Empresa &e)
 		}
 		cout << "Insira a quantidade da carga a transportar: ";
 		cin >> cap;
+		if (cap <= 0)
+		{
+			cout << "Quantidade de carga a transportar invalida" << endl;
+			wait();
+			return;
+		}
 		Servico s;
 		vector<Camiao *> v = e.getCamioes();
 		vector<Funcionario *> func = e.getFuncionarios();
@@ -126,6 +132,12 @@ void adicionaServico(Empresa &e)
 		}
 		cout << "Insira a quantidade da carga a transportar: ";
 		cin >> cap;
+		if (cap <= 0)
+		{
+			cout << "Quantidade de carga a transportar invalida" << endl;
+			wait();
+			return;
+		}
 		cout << "Insira a temperatura pretendida para o transporte: ";
 		cin >> temp;
 		if (temp > 20 || temp < -10)
@@ -199,6 +211,12 @@ void adicionaServico(Empresa &e)
 		}
 		cout << "Insira a quantidade da carga a transportar: ";
 		cin >> cap;
+		if (cap <= 0)
+		{
+			cout << "Quantidade de carga a transportar invalida" << endl;
+			wait();
+			return;
+		}
 		cout << "Insira o nivel de perigosidade do transporte (inflamavel, toxica, corrosiva ou radioactiva): ";
 		cin >> nivel;
 		if (nivel != "inflamavel" && nivel != "toxica" && nivel != "corrosiva" && nivel != "radioactiva")
@@ -271,6 +289,12 @@ void adicionaServico(Empresa &e)
 		}
 		cout << "Insira a quantidade da carga a transportar: ";
 		cin >> cap;
+		if (cap <= 0)
+		{
+			cout << "Quantidade de carga a transportar invalida" << endl;
+			wait();
+			return;
+		}
 		Servico s;
 		vector<Camiao *> v = e.getCamioes();
 		vector<Funcionario *> func = e.getFuncionarios();
@@ -355,6 +379,14 @@ void gestaoFinanceira(Empresa &e)
 	cout << " 2 - Pagar salarios" << endl << endl;
 	cout << "Por favor escolha a opcao pretendida: ";
 	cin >> op;
+	if(cin.eof())
+		cin.clear();
+	else if (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(1000,'\n');
+	}
+
 	cout << endl;
 
 	if (op == 1)
@@ -385,7 +417,10 @@ void gestaoFinanceira(Empresa &e)
 		e.imprimeSaldo();
 	}
 	else
-		cout << "Tipo invalido" << endl;
+	{
+		cout << "Opcao invalida" << endl;
+		return;
+	}
 
 	wait();
 }
@@ -399,6 +434,17 @@ void consultaServicos(Empresa &e)
 	cout << " 4 - Lista de servicos de um camiao" << endl << endl;
 	cout << "Por favor escolha a opcao pretendida: ";
 	cin >> op;
+	if(cin.eof())
+	{
+		cin.clear();
+		return;
+	}
+	else if (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(1000,'\n');
+		return;
+	}
 	cout << endl;
 
 	switch(op)
@@ -414,6 +460,9 @@ void consultaServicos(Empresa &e)
 		break;
 	case 4:
 		e.ListaServicosCamiao();
+		break;
+	default:
+		return;
 	}
 	wait();
 }
@@ -422,23 +471,44 @@ void gestaoClientes(Empresa &e)
 {
 	int op;
 	cout << " 1 - Lista de clientes" << endl;
-	cout << " 2 - Adicionar clientes" << endl << endl;
+	cout << " 2 - Lista de clientes ordenada" << endl;
+	cout << " 3 - Adicionar clientes" << endl << endl;
 	cout << "Por favor escolha a opcao pretendida: ";
 	cin >> op;
+	if(cin.eof())
+	{
+		cin.clear();
+		return;
+	}
+	else if (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(1000,'\n');
+		return;
+	}
 	cout << endl;
 
 	switch(op)
 	{
 	case 1:
-		//
 		e.listaClientes();
 		break;
 	case 2:
-		//
-		e.adicionaCliente();
+		e.listaClientesOrdenados();
 		break;
+	case 3:
+		try
+		{
+			e.adicionaCliente();
+		}
+		catch (ClienteJaExistente &c)
+		{
+			cout << "Cliente com o NIF " << c.getNif() << " ja existe." << endl;
+		}
+		break;
+	default:
+		return;
 	}
-
 	wait();
 }
 
@@ -447,10 +517,22 @@ void gestaoCamioes(Empresa &e)
 	int op;
 	cout << "1 - Ver lista de camioes" << endl;
 	cout << "2 - Ver lista de camioes disponiveis" << endl;
-	cout << "3 - Adicionar camiao" << endl;
+	cout << "3 - Ver lista de camioes ordenada" << endl;
+	cout << "4 - Adicionar camiao" << endl;
 	cout << endl;
 	cout << "Por favor escolha a opcao pretendida: ";
 	cin >> op;
+	if(cin.eof())
+	{
+		cin.clear();
+		return;
+	}
+	else if (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(1000,'\n');
+		return;
+	}
 	cout << endl;
 
 	switch(op)
@@ -462,6 +544,9 @@ void gestaoCamioes(Empresa &e)
 		e.ImprimeListaCamioesDisponiveis();
 		break;
 	case 3:
+		e.ListaCamioesOrdenados();
+		break;
+	case 4:
 		try
 		{
 			if (pass() == 0)
@@ -477,7 +562,13 @@ void gestaoCamioes(Empresa &e)
 		{
 			cout << "Impossivel adicionar camiao, saldo insuficiente" << endl;
 		}
+		catch(CamiaoJaExistente &c)
+		{
+			cout << "Impossivel adicionar camiao, ja existe um camiao com a matricula "<< c.getMatricula() << endl;
+		}
 		break;
+	default:
+		return;
 	}
 
 	wait();
@@ -493,6 +584,17 @@ void gestaoFuncionarios(Empresa &e)
 	cout << endl;
 	cout << "Por favor escolha a opcao pretendida: ";
 	cin >> op;
+	if(cin.eof())
+	{
+		cin.clear();
+		return;
+	}
+	else if (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(1000,'\n');
+		return;
+	}
 	cout << endl;
 
 	switch(op)
@@ -513,8 +615,9 @@ void gestaoFuncionarios(Empresa &e)
 			e.despedeFuncionario();
 		else cout << "Password errada" << endl;
 		break;
+	default:
+		return;
 	}
-
 	wait();
 
 }
@@ -541,7 +644,7 @@ int main()
 		return 1;
 	}
 
-	int opc;
+	int opc = 10;
 	do
 	{
 		cout << e.getNome() << endl << endl;
@@ -555,8 +658,14 @@ int main()
 
 		cout << "Por favor insira a opcao desejada (0 para sair): ";
 		cin >> opc;
-
-		cout << endl;
+		if(cin.eof())
+			cin.clear();
+		else if (cin.fail())
+		{
+			opc = 10;
+			cin.clear();
+			cin.ignore(1000,'\n');
+		}
 
 		switch (opc)
 		{
@@ -567,6 +676,15 @@ int main()
 			int op;
 			cout << "Por favor insira a opcao desejada: ";
 			cin >> op;
+			if(cin.eof())
+				cin.clear();
+			else if (cin.fail())
+			{
+				opc = 10;
+				cin.clear();
+				cin.ignore(1000,'\n');
+			}
+
 			cout << endl;
 
 			if (op == 1)
@@ -593,14 +711,13 @@ int main()
 			break;
 		default:
 			cin.clear();
-			cin.ignore(1000, '\n');
-			system("CLS");
 			break;
 		}
 		system("CLS");
 	}while(opc != 0);
 
 	e.actualizaFicheiro();
+	system("pause");
 	return 0;
 }
 

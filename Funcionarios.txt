@@ -1,15 +1,7 @@
 Funcionarios: 
-Jaime  
+Jaime
 740 12014374 D
 Jorge  
 780 13015886 D
 Miguel  
 747 15678321 D
-Suk  
-333 333333333 D
-Goncalo Brandao
-840 147156257 D
-Alberto
-749 159753852 D
-Teofilo
-789 154587986 D

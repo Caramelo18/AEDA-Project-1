@@ -209,18 +209,6 @@ vector<Funcionario *> Empresa::getFuncionarios()
 	return funcionarios;
 }
 
-void Empresa::adicionaCamiao(Camiao *camiao)
-{
-	camioes.push_back(camiao);
-
-	ofstream fich(ficca.c_str(), ofstream::app);
-
-	fich << endl;
-	fich << camiao->getMarca() << " " << camiao->getTipo() << " " << camiao->getCapacidade();
-
-	fich.close();
-
-}
 
 void Empresa::adicionaCliente()
 {
@@ -240,7 +228,7 @@ void Empresa::adicionaCliente()
 
 	for (unsigned int  i = 0; i < clientes.size(); i++)
 	{
-		if (clientes[i] == cliente)
+		if (clientes[i].getNif() == Nif)
 			throw ClienteJaExistente(nome, Nif);
 	}
 
@@ -379,13 +367,13 @@ long Empresa::getSaldo()
 void Empresa::pagaSalario()
 {
 	int salarios_total = 0;
+
 	for(unsigned int i = 0; i < funcionarios.size(); i++)
-	{
 		salarios_total = salarios_total + funcionarios[i]->getSalario();
-	}
 
 	if (salarios_total > saldo)
 		throw SaldoIndisponivel();
+
 	else saldo -= salarios_total;
 }
 
@@ -424,10 +412,8 @@ void  Empresa::imprimeServico(Servico s) const
 void Empresa::imprimeServicos()
 {
 	for(unsigned int i = 0; i < servicos.size(); i++)
-	{
 		imprimeServico(servicos[i]);
-		unsigned int mot = servicos[i].getCamioes().size();
-	}
+
 }
 
 void Empresa::ListaServicosExecucao()const
@@ -454,7 +440,6 @@ void Empresa::ListaServicosCliente()const
 				cout << "Distancia: " << servicos[j].getDistancia() << endl;
 				cout << "Tipo de produto: " << servicos[j].getTipo_produto() << endl;
 				cout << endl;
-
 			}
 		}
 	}
@@ -532,9 +517,8 @@ void Empresa::listaClientes() const
 {
 	cout << "Clientes: " << endl;
 	for (unsigned int i = 0; i < clientes.size(); i++)
-	{
 		cout << i + 1 << ": " << clientes[i].getNome() << " - " << clientes[i].getNif() << endl;
-	}
+
 }
 
 void Empresa::listaClientesOrdenados()
@@ -544,10 +528,7 @@ void Empresa::listaClientesOrdenados()
 
 	cout << "Clientes: " << endl;
 	for (unsigned int i = 0; i < cli.size(); i++)
-	{
 		cout << i + 1 << ": " << cli[i].getNome() << " - " << cli[i].getNif() << endl;
-	}
-
 
 }
 
@@ -890,8 +871,19 @@ void Empresa::AdicionaCamiao()
 	cin >> marca;
 	cout << "Insira a capacidade: ";
 	cin >> capacidade;
+	if (capacidade <= 0)
+	{
+		cerr << "Capacidade invalida" << endl;
+		return;
+	}
 	cout << "Insira a matricula: ";
 	cin >> matricula;
+	for(unsigned int i = 0; i < camioes.size(); i++)
+	{
+		if (camioes[i]->getMatricula() == matricula)
+			throw CamiaoJaExistente(matricula);
+	}
+
 	cout << "Insira o preco do camiao: ";
 	cin >> preco;
 	if(preco > saldo)
@@ -920,7 +912,6 @@ void Empresa::AdicionaCamiao()
 		Animais *c = new Animais(marca, tipo, capacidade, matricula);
 		camioes.push_back(c);
 	}
-
 
 	actualizaFicheiro();
 

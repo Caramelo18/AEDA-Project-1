@@ -19,6 +19,13 @@
 
 using namespace std;
 
+class CamiaoJaExistente
+{
+	string matricula;
+public:
+	CamiaoJaExistente(string matricula){this->matricula = matricula;}
+	string getMatricula(){return matricula;}
+};
 
 class ServicoInexistente
 {
@@ -78,7 +85,6 @@ public:
 	vector<Servico> getServicos();
 	vector<Cliente> getClientes();
 	vector<Funcionario *> getFuncionarios();
-	void adicionaCamiao(Camiao *camiao);
 	void adicionaCliente();
 	void novoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif);
 	void novoServico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, int temp);

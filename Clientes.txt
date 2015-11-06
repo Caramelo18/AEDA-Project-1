@@ -1,11 +1,7 @@
 Clientes:
-Geraldina 
+Geraldina
 123456789
-Alfredo 
+Alfredo Costa
 987654321
-Jorge 
+Jorge Barros
 147852369
-Jose 
-852741963
-Tiago Santos
-84629731
