@@ -113,6 +113,7 @@ public:
 	void ImprimeListaCamioesDisponiveis();
 	void AdicionaCamiao();
 	void listaFuncionarios() const;
+	void listaFuncionariosOrdenada()const;
 	void listaFuncionariosDisponiveis() const;
 	void despedeFuncionario();
 };

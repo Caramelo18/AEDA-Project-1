@@ -481,7 +481,7 @@ void Empresa::ListaServicosCamiao()const
 	}
 }
 
-bool ordenaApontaCamioes(Camiao *C1, Camiao *C2)
+bool ordenaApontaCamioes( Camiao *C1, Camiao *C2)
 {
 
 	if(C1->getMarca() < C2->getMarca())
@@ -922,6 +922,29 @@ void Empresa::listaFuncionarios() const
 {
 	for (unsigned int i = 0; i < funcionarios.size(); i++)
 		funcionarios[i]->imprimeFuncionario();
+}
+
+bool ordenaApontaFuncionarios( const Funcionario *f1,  const Funcionario *f2)
+{
+	if (f1->getNome()< f2->getNome())
+		return true;
+	if(f1->getNome()== f2->getNome())
+	{
+		if(f1->getBI()< f2->getBI())
+			return true;
+		else
+			return false;
+	}
+	else
+		return false;
+}
+void Empresa::listaFuncionariosOrdenada()const
+{
+	vector<Funcionario *> f = funcionarios;
+	sort(f.begin(), f.end(),ordenaApontaFuncionarios);
+
+	for (unsigned int i = 0; i < f.size(); i++)
+			f[i]->imprimeFuncionario();
 }
 
 void Empresa::listaFuncionariosDisponiveis() const
