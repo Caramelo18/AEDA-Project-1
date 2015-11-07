@@ -581,6 +581,7 @@ void gestaoFuncionarios(Empresa &e)
 	cout << "2 - Ver lista de funcionarios disponiveis" << endl;
 	cout << "3 - Contratar funcionario" << endl;
 	cout << "4 - Despedir funcionario" << endl;
+	cout << "5 - Ver lista de funcionarios ordenada" << endl;
 	cout << endl;
 	cout << "Por favor escolha a opcao pretendida: ";
 	cin >> op;
@@ -614,6 +615,9 @@ void gestaoFuncionarios(Empresa &e)
 		if (pass() == 0)
 			e.despedeFuncionario();
 		else cout << "Password errada" << endl;
+		break;
+	case 5:
+		e.listaFuncionariosOrdenada();
 		break;
 	default:
 		return;
