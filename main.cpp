@@ -579,9 +579,10 @@ void gestaoFuncionarios(Empresa &e)
 	int op;
 	cout << "1 - Ver lista de funcionarios" << endl;
 	cout << "2 - Ver lista de funcionarios disponiveis" << endl;
-	cout << "3 - Contratar funcionario" << endl;
-	cout << "4 - Despedir funcionario" << endl;
-	cout << "5 - Ver lista de funcionarios ordenada" << endl;
+	cout << "3 - Ver lista de funcionarios ordenada" << endl;
+	cout << "4 - Contratar funcionario" << endl;
+	cout << "5 - Despedir funcionario" << endl;
+
 	cout << endl;
 	cout << "Por favor escolha a opcao pretendida: ";
 	cin >> op;
@@ -607,18 +608,19 @@ void gestaoFuncionarios(Empresa &e)
 		e.listaFuncionariosDisponiveis();
 		break;
 	case 3:
+		e.listaFuncionariosOrdenada();
+		break;
+	case 4:
 		if(pass() == 0)
 			e.contrataFuncionario();
 		else cout << "Password errada" << endl;
 		break;
-	case 4:
+	case 5:
 		if (pass() == 0)
 			e.despedeFuncionario();
 		else cout << "Password errada" << endl;
 		break;
-	case 5:
-		e.listaFuncionariosOrdenada();
-		break;
+
 	default:
 		return;
 	}
@@ -627,13 +629,14 @@ void gestaoFuncionarios(Empresa &e)
 }
 
 int main()
-{/*
+{
 	string directorio;
 	cout << "Por favor insira o directorio da pasta que contem os ficheiros da Empresa: ";
 	cin >> directorio;
- */
+
+	system("cls");
 	//string directorio = "C:/Users/Bruno/git/AEDA-Project";
-	string directorio = "C:/Users/Acer-PC/git/AEDA-Project-1";
+	//string directorio = "C:/Users/Acer-PC/git/AEDA-Project-1";
 	//string directorio = "C:/Users/POS/git/AEDA-Project-1";
 	//string directorio = "C:/Users/fabio/Documents/workspace/AEDA-Project-1";
 	Empresa e;
@@ -721,7 +724,6 @@ int main()
 	}while(opc != 0);
 
 	e.actualizaFicheiro();
-	system("pause");
 	return 0;
 }
 

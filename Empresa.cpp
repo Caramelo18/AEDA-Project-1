@@ -427,22 +427,28 @@ void Empresa::ListaServicosExecucao()const
 
 void Empresa::ListaServicosCliente()const
 {
-
-	for (unsigned i=0; i < clientes.size();i++)
+	unsigned long nif;
+	cout << "Insira o NIF do cliente: ";
+	cin >> nif;
+	int i;
+	try
 	{
-		for(unsigned j=0; j < servicos.size();j++)
-		{
-			if(clientes[i].getNif()==servicos[j].getNif())
-			{
-				cout << clientes[i].getNome() << " :" << endl;
-				cout << "Origem: " <<  servicos[j].getOrigem() << endl;
-				cout << "Destino: " << servicos[j].getDestino() << endl;
-				cout << "Distancia: " << servicos[j].getDistancia() << endl;
-				cout << "Tipo de produto: " << servicos[j].getTipo_produto() << endl;
-				cout << endl;
-			}
-		}
+		i = posCliente(nif);
 	}
+	catch (ClienteNaoExistente &c)
+	{
+		cout << "Cliente nao existe. " << endl;
+		return;
+	}
+
+	cout << clientes[i].getNome() << ":" << endl;
+	for(unsigned j=0; j < servicos.size();j++)
+	{
+		if(clientes[i].getNif()==servicos[j].getNif())
+			imprimeServico(servicos[j]);
+	}
+	cout << endl;
+
 }
 
 void Empresa::ListaServicosCamiao()const
@@ -944,7 +950,7 @@ void Empresa::listaFuncionariosOrdenada()const
 	sort(f.begin(), f.end(),ordenaApontaFuncionarios);
 
 	for (unsigned int i = 0; i < f.size(); i++)
-			f[i]->imprimeFuncionario();
+		f[i]->imprimeFuncionario();
 }
 
 void Empresa::listaFuncionariosDisponiveis() const
