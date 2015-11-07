@@ -1,8 +1,5 @@
 /*
  * Empresa.h
- *
- *  Created on: 13/10/2015
- *      Author: fabio
  */
 
 #ifndef EMPRESA_H_

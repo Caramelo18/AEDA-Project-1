@@ -1,8 +1,5 @@
 /*
  * Camiao.h
- *
- *  Created on: 13/10/2015
- *      Author: fabio
  */
 
 #ifndef CAMIAO_H_

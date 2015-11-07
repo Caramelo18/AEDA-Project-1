@@ -1,3 +1,7 @@
+/*
+ * Funcionario.cpp
+ */
+
 #include "Funcionario.h"
 
 Funcionario::Funcionario(string nome, int salario, unsigned long BI, string disp)

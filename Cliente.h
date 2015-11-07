@@ -1,8 +1,5 @@
 /*
  * Cliente.h
- *
- *  Created on: 13/10/2015
- *      Author: POS
  */
 
 #ifndef CLIENTE_H_
