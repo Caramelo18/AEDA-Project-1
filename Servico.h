@@ -33,7 +33,7 @@ public:
 		  \param f Funcionarios que se encontram a executar o servico
 
 		  \return Nao possui retorno
-		 */
+	*/
 	Servico(string origem, string destino, int distancia, string tipo_produto, int quantidade, unsigned long Nif, vector<Camiao *> &c, vector<Funcionario *> &f);
 	/** \brief Criacao de um Servico para um camiao do tipo Congelaçao
 		 * \param origem Origem do servico
@@ -178,11 +178,5 @@ private:
 
 };
 
-class ServicoNaoIniciado
-{
-public:
-
-
-};
 
 #endif /* SERVICO_H_ */

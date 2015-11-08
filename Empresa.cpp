@@ -191,16 +191,6 @@ vector<Camiao *> Empresa::getCamioes()
 	return camioes;
 }
 
-vector<Servico> Empresa::getServicos()
-{
-	return servicos;
-}
-
-vector<Cliente> Empresa::getClientes()
-{
-	return clientes;
-}
-
 vector<Funcionario *> Empresa::getFuncionarios()
 {
 	return funcionarios;
@@ -353,12 +343,6 @@ void Empresa::contrataFuncionario()
 	funcionarios.push_back(f);
 	actualizaFicheiro();
 
-}
-
-long Empresa::getSaldo()
-{
-	cout << saldo << endl;
-	return saldo;
 }
 
 void Empresa::pagaSalario()
@@ -562,7 +546,7 @@ void Empresa::actualizaFicheiro()
 		if (funcionarios[i]->getDisponivel())
 			fich1 << " D" ;
 		else if (!funcionarios[i]->getDisponivel())
-			fich1 << " E" ;
+			fich1 << " N" ;
 	}
 }
 
