@@ -11,7 +11,9 @@
 #include <conio.h>
 #include <ctype.h>
 
-
+/**
+ * \brief Funcao que faz com que se tenha de premir a tecla enter para sair da pagina onde estamos e normalmente regressar para o menu principal de maneira a que quando se imprima algo fique impresso no ecra ate que algum de enter e nao saia logo para o menu principal
+ */
 void wait()
 {
 	cin.ignore(1000,'\n');
@@ -20,6 +22,10 @@ void wait()
 	return;
 }
 
+/**
+ * \brief Funcao que permite apenas ao gestor da Empresa, conhecedor da palavra-passe aceder a algumas funcoes do programa
+ * \return Retorna o sucesso ou nao da tentetiva de adivinhar a palavra-passe
+ */
 int pass()
 {
 	int i = 0;
@@ -37,6 +43,10 @@ int pass()
 	return -1;
 }
 
+/**
+ * \brief Funcao que adiciona um novo servico a empresa
+ * \param e Empresa a qual vai ser adicionada o novo servico
+ */
 void adicionaServico(Empresa &e)
 {
 	string tipo;
@@ -348,6 +358,10 @@ void adicionaServico(Empresa &e)
 	return;
 }
 
+/**
+ * \brief Funcao que termina um determinado Servico
+ * \param e Empresa na qual vai ser terminado o Servico
+ */
 void terminaServico(Empresa &e)
 {
 	int ID;
@@ -369,6 +383,10 @@ void terminaServico(Empresa &e)
 	wait();
 }
 
+/**
+ * \brief Funcao onde se gere a parte financeira da Empresa (Chama funcoes mais expecificas definidas nas suas classes)
+ * \param e Empresa onde se vai fazer a gestao financeira
+ */
 void gestaoFinanceira(Empresa &e)
 {
 	int op;
@@ -421,7 +439,9 @@ void gestaoFinanceira(Empresa &e)
 
 	wait();
 }
-
+/**
+ * \brief Funcao que permite fazer a consulta dos Servicos, como os Servicos todos da Empresa, os que estao em execucao, etc.
+ */
 void consultaServicos(Empresa &e)
 {
 	int op;
@@ -464,6 +484,10 @@ void consultaServicos(Empresa &e)
 	wait();
 }
 
+/**
+ * \brief Funcao que permite gerir os Clientes da Empresa, como verificaar os Clientes que existem, adicionar novos Clientes
+ * \param e Empresa na qual se vai gerir os Clientes
+ */
 void gestaoClientes(Empresa &e)
 {
 	int op;
@@ -509,6 +533,10 @@ void gestaoClientes(Empresa &e)
 	wait();
 }
 
+/**
+ * \brief Funcao que permite gerir os Camioes da Empresa, como verificar os Camioes disponiveis, adicionar Camioes novos
+ * \param e Empresa na qual se vai gerir os Camioes
+ */
 void gestaoCamioes(Empresa &e)
 {
 	int op;
@@ -571,6 +599,10 @@ void gestaoCamioes(Empresa &e)
 	wait();
 }
 
+/**
+ * \brief Funcao que permite gerir os Funcionarios da Empresa, como verificaar os Funcionarios que existem, adicionar novos Funcionarios, despedir Funcionarios tambem
+ * \param e Empresa na qual se vai gerir os Clientes
+ */
 void gestaoFuncionarios(Empresa &e)
 {
 	int op;
@@ -625,6 +657,9 @@ void gestaoFuncionarios(Empresa &e)
 
 }
 
+/**
+ * \brief Funcao principal onde se insere os ficheiros de configuracao da empresa toda e por onde se desenrola toda a aplicacao
+ */
 int main()
 {
 	string directorio;

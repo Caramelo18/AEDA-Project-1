@@ -18,35 +18,74 @@ using namespace std;
 
 class CamiaoJaExistente
 {
+	/**
+	 * Identificacao do Camiao que ja existe
+	 */
 	string matricula;
 public:
+	/**
+	 * \brief Construtor para lancar a excepcao de um Camiao ja existente
+	 * \param matricula Identifica o Camiao que ja existe e que nao pode ser adicionado
+	 */
 	CamiaoJaExistente(string matricula){this->matricula = matricula;}
+	/**
+	 * \brief Retorna a identificacao do Camiao ja existente
+	 * \return Matricula do Camiao	ja existente
+	 */
 	string getMatricula(){return matricula;}
 };
 
 class ServicoInexistente
 {
 public:
+	/**
+	 * \brief Construtor para lancar a excepcao de um Servico que nao existe, portanto impossivel de aceder
+	 */
 	ServicoInexistente(){}
 };
 
 
 class FicheiroInexistente
 {
+	/**
+	 * Nome do ficheiro que nao e possivel encontrar e aceder
+	 */
 	string ficheiro;
 public:
+	/**
+	 * \brief Construtor para lancar a excepcao de um Ficheiro que nao existe ou nao consegue aceder
+	 */
 	FicheiroInexistente(string nome){ficheiro = nome;}
+	/**
+	 * \brief Retorna o nome do Ficheiro que nao existe
+	 * \return Nome do Ficheiro que nao existe
+	 */
 	string getFicheiro(){return ficheiro;}
 };
 
 
 class ClienteJaExistente
 {
+	/** Nome do Cliente que ja pertence ao grupo de clientes */
 	string nome;
+	/** Numero de identificacao do Cliente ja existente */
 	unsigned long nif;
 public:
+	/**
+	 * \brief Construtor para lancar a excepcao de um cliente que nao pode ser adicionado porque ja pertence ao grupo de clientes
+	 * \param nome Nome do Cliente que ja existe
+	 * \param nif Numero de identificacao do Cliente ja existente
+	 */
 	ClienteJaExistente(string nome,unsigned long nif){this->nome = nome;this->nif = nif;};
+	/**
+	 * \brief Retorna o nome do Cliente ja existente
+	 * \return Nome do Cliente
+	 */
 	string getNome(){return nome;}
+	/**
+	 * \brief Retorna o numero de Identificacao do Cliente ja existente
+	 * \return Numero de identificacao do cliente
+	 */
 	unsigned long getNif(){return nif;}
 };
 
@@ -54,6 +93,9 @@ public:
 class ClienteNaoExistente
 {
 public:
+	/**
+	 * \brief Construtor para lancar a excepcao de um cliente que nao existe por isso nao pode ser utilizado para encomendar servicos
+	 */
 	ClienteNaoExistente(){}
 };
 
@@ -61,6 +103,9 @@ public:
 class SaldoIndisponivel
 {
 public:
+	/**
+	 * \brief Construtor para lancar a excepcao no caso de ocorrer a possibilidade de a empresa nao ter dinheiro para poder pagar os salarios aos funcionarios
+	 */
 	SaldoIndisponivel(){};
 };
 
@@ -68,11 +113,25 @@ public:
 class Empresa
 {
 private:
-	string nomeEmpresa, ficca, ficcli, ficfun, ficser;
+	/** Nome da empresa */
+	string nomeEmpresa;
+	/** Endereco da posicao do ficheiro de Camioes */
+	string ficca;
+	/** Endereco da posicao do ficheiro de Clientes */
+	string ficcli;
+	/** Endereco da posicao do ficheiro de Funcionarios */
+	string ficfun;
+	/** Endereco da posicao do ficheiro de Sercvicos */
+	string ficser;
+	/** Saldo atual da empresa */
 	long saldo;
+	/** Vector de Camioes pertencentes a empresa */
 	vector<Camiao *> camioes;
+	/** Vector de Servicos da empresa, em exucucao e ja terminados */
 	vector<Servico> servicos;
+	/** Vector de Clientes que tem conta na empresa */
 	vector<Cliente> clientes;
+	/** Vector de Funcionarios que trabalham na empresa */
 	vector<Funcionario *> funcionarios;
 
 public:
