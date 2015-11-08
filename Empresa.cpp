@@ -26,12 +26,33 @@ Empresa::Empresa(string doc)
 	ficser = doc + "/Servicos.txt";
 
 
-	ifstream fich(ficca.c_str());
-	if (!fich)
-		throw FicheiroInexistente(ficca);
-
+	fstream fich(ficca.c_str());
 	long sal;
 	string nome;
+	if (!fich)
+	{
+		string opt;
+		cout << "Nao existe empresa. Pretende criar uma nova empresa? ";
+		cin >> opt;
+		if (opt == "S" || opt == "s" || opt == "Sim" || opt == "sim")
+		{
+			cout << "Insira o nome da empresa: ";
+			cin.ignore(100, '\n');
+			getline(cin, nome);
+			cout << "Insira o saldo inicial da empresa: ";
+			cin >> sal;
+			nomeEmpresa = nome;
+			saldo = sal;
+			fich << nome << endl << "Saldo: " << sal << endl << "Camioes: " << endl;
+			ofstream fich2(ficfun.c_str());
+			fich2 << "Funcionarios: " << endl;
+			ofstream fich3(ficcli.c_str());
+			fich3 << "Clientes:";
+			ofstream fich4(ficser.c_str());
+			fich4 << "Servicos:" << endl;
+		}
+		return;
+	}
 	string temp;
 	getline(fich,nome);
 	nomeEmpresa = nome;
@@ -856,6 +877,12 @@ void Empresa::AdicionaCamiao()
 	cin >> preco;
 	if(preco > saldo)
 		throw SaldoIndisponivel();
+	else if (preco < 0)
+	{
+		cout << "Preco invalido" << endl;
+		return;
+	}
+	saldo -= preco;
 	cout << endl;
 	if (tipo == "Normal" || tipo == "normal")
 	{
