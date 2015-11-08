@@ -6,6 +6,7 @@
 #include <sstream>
 #include <vector>
 #include <string>
+#include <algorithm>
 
 Empresa::Empresa(string doc)
 {
@@ -339,6 +340,13 @@ void Empresa::contrataFuncionario()
 	cout << "Insira o BI do funcionario: ";
 	cin >> BI;
 
+	for (unsigned int i = 0; i < funcionarios.size(); i++)
+		if(funcionarios[i]->getBI() == BI)
+		{
+			cerr << "Funcionario com o BI " << BI << " ja existe." << endl;
+			return;
+		}
+
 	Funcionario *f = new Funcionario(nome,salario,BI,"D");
 	funcionarios.push_back(f);
 	actualizaFicheiro();
@@ -511,7 +519,7 @@ void Empresa::listaClientes() const
 void Empresa::listaClientesOrdenados()
 {
 	vector<Cliente> cli= clientes;
-	sort(cli.begin(),cli.end());
+	insertionSort(cli);
 
 	cout << "Clientes: " << endl;
 	for (unsigned int i = 0; i < cli.size(); i++)
@@ -742,6 +750,7 @@ void Empresa::leNovoServico(string origem, string destino, int distancia, string
 
 void Empresa::EscreveServicoTerminado(int ID, string tipo)
 {
+	/*
 	ifstream fchl(ficser.c_str());
 	int t = 0;
 	string nivelp = "";
@@ -755,17 +764,18 @@ void Empresa::EscreveServicoTerminado(int ID, string tipo)
 		ss >> iden;
 		if (iden == ID)
 		{
-			string temp;
+
+
 			if(tipo == "Congelacao")
 			{
-				ss >> temp >> temp >> temp >> temp >> temp >> temp >> t;
+
 			}
 			else if (tipo == "Perigosos")
 			{
 				ss >> temp >> temp >> temp >> temp >> temp >> temp >> nivelp;
 			}
 		}
-	}
+	}*/
 
 	ofstream fich(ficser.c_str());
 
@@ -781,7 +791,6 @@ void Empresa::EscreveServicoTerminado(int ID, string tipo)
 				fich << " T ";
 			else
 				fich << " E ";
-			fich << t;
 		}
 		else if (servicos[i].getTipo_produto() == "Perigosos")
 		{
@@ -790,7 +799,6 @@ void Empresa::EscreveServicoTerminado(int ID, string tipo)
 				fich << " T ";
 			else
 				fich << " E ";
-			fich << nivelp;
 		}
 		else
 		{
@@ -928,7 +936,7 @@ bool ordenaApontaFuncionarios( const Funcionario *f1,  const Funcionario *f2)
 void Empresa::listaFuncionariosOrdenada()const
 {
 	vector<Funcionario *> f = funcionarios;
-	sort(f.begin(), f.end(),ordenaApontaFuncionarios);
+	insertionSort(f);
 
 	for (unsigned int i = 0; i < f.size(); i++)
 		f[i]->imprimeFuncionario();

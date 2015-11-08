@@ -11,13 +11,13 @@ espanha
 123456789
 77-20-JH 
 12014374 
-3 743 Congelacao 5000 E -3
+3 743 Congelacao 10000 E 
 Feira
 Madrid
 987654321
 PO-15-04 
 12014374 
-4 231 Perigosos 5000 E inflamavel
+4 231 Perigosos 2000 T 
 Montijo
 Santa Maria da Feira
 147852369

@@ -1,9 +1,9 @@
 Funcionarios: 
 Jaime
-740 12014374 E
-Jorge  
+740 12014374 N
+Jorge
 780 13015886 D
-Miguel  
+Miguel 
 747 15678321 D
 Antonio
 500 111111111 D

@@ -74,7 +74,7 @@ Servico::Servico(string origem, string destino, int distancia, string tipo_produ
 Servico::Servico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, vector<Camiao *> &c, int temp, vector<Funcionario *> &f)
 {
 	unsigned int i = 0;
-
+	int cap = capacidade;
 	while(capacidade > 0 && i < c.size())
 	{
 		if (c[i]->getTipo() == tipo_produto && c[i]->getDisponivel())
@@ -119,7 +119,7 @@ Servico::Servico(string origem, string destino, int distancia, string tipo_produ
 	this->destino = destino;
 	this->distancia = distancia;
 	this->tipo_produto = tipo_produto;
-	this->capacidade = capacidade;
+	this->capacidade = cap;
 	terminado = false;
 	this->Nif=Nif;
 	preco = 0;
@@ -135,6 +135,7 @@ Servico::Servico(string origem, string destino, int distancia, string tipo_produ
 {
 	unsigned int i = 0;
 
+	int cap = capacidade;
 	while(capacidade > 0 && i < c.size())
 	{
 		if (c[i]->getTipo() == tipo_produto && c[i]->getDisponivel())
@@ -180,7 +181,7 @@ Servico::Servico(string origem, string destino, int distancia, string tipo_produ
 	this->destino = destino;
 	this->distancia = distancia;
 	this->tipo_produto = tipo_produto;
-	this->capacidade = capacidade;
+	this->capacidade = cap;
 	terminado = false;
 	this->Nif=Nif;
 	preco = 0;
