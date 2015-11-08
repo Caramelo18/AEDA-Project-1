@@ -750,33 +750,6 @@ void Empresa::leNovoServico(string origem, string destino, int distancia, string
 
 void Empresa::EscreveServicoTerminado(int ID, string tipo)
 {
-	/*
-	ifstream fchl(ficser.c_str());
-	int t = 0;
-	string nivelp = "";
-	while(!fchl.eof())
-	{
-		string line;
-		stringstream ss;
-		int iden;
-		getline(fchl, line);
-		ss << line;
-		ss >> iden;
-		if (iden == ID)
-		{
-
-
-			if(tipo == "Congelacao")
-			{
-
-			}
-			else if (tipo == "Perigosos")
-			{
-				ss >> temp >> temp >> temp >> temp >> temp >> temp >> nivelp;
-			}
-		}
-	}*/
-
 	ofstream fich(ficser.c_str());
 
 	fich << "Servicos: ";
