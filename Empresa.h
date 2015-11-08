@@ -258,7 +258,7 @@ public:
 	/**
 	\brief Mostra no ecra a informacao acerca de todos os servicos de um camiao
 	\return Nao possui retorno */
-	void ListaServicosCamiao()const;
+	void ListaServicosCamiao();
 	/**
 	\brief Mostra no ecra a informacao ordenada acerca de todos os camioes
 	\return Nao possui retorno */

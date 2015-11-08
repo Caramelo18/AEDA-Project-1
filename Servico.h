@@ -22,7 +22,7 @@ public:
 		\return Nao possui retorno
 	 */
 	Servico();
-	/**   \brief Criacao de um Servico para um camião do tipo Normal e Animais
+	/**   \brief Criacao de um Servico para um camiao do tipo Normal e Animais
 		  \param origem Origem do servico
 		  \param destino Destino do servico
 		  \param distancia Distancia total do servico
@@ -35,7 +35,7 @@ public:
 		  \return Nao possui retorno
 	*/
 	Servico(string origem, string destino, int distancia, string tipo_produto, int quantidade, unsigned long Nif, vector<Camiao *> &c, vector<Funcionario *> &f);
-	/** \brief Criacao de um Servico para um camiao do tipo Congelaçao
+	/** \brief Criacao de um Servico para um camiao do tipo Congelacao
 		 * \param origem Origem do servico
 		 * \param destino Destino do servico
 		 * \param distancia Distancia total do servico
@@ -50,7 +50,7 @@ public:
 		 */
 	Servico(string origem, string destino, int distancia, string tipo_produto, int quantidade, unsigned long Nif, vector<Camiao *> &c, int temp, vector<Funcionario *> &f);
 	/**
-	 * \brief Criação de um Servico para um camiao do tipo Perigosos
+	 * \brief Criacao de um Servico para um camiao do tipo Perigosos
 		 * \param origem Origem do servico
 		 * \param destino Destino do servico
 		 * \param distancia Distancia total do servico
@@ -79,7 +79,7 @@ public:
 	/**\brief Retorna a Distancia da viagem
 		 * \param Nao possui parametros
 		 *
-		 * @return Distancia do produto
+		 * \return Distancia do produto
 		 */
 	int getDistancia()const;
 	 /**\brief Retorna o Tipo de produto
@@ -91,7 +91,7 @@ public:
 	/**\brief Verifica se o servico esta terminado ou nao
 		 * \param Nao tem parametros
 		 *
-		 * \return Serviço terminado ou em execucao
+		 * \return Servico terminado ou em execucao
 		 */
 	bool getTerminado()const;
 	/** Retorna a Capacidade do produto
@@ -112,10 +112,10 @@ public:
 		 * \return Nao possui retorno
 		 */
 	void termina_servico();
-	/** \brief Compara dois servicos e diz se o primeiro é mais pequeno que o segundo, um servico é mais pequeno que o outro se a sua distancia for menor ou se esta for igual, qual delas usufrui de menos capacidade
+	/** \brief Compara dois servicos e diz se o primeiro e mais pequeno que o segundo, um servico e mais pequeno que o outro se a sua distancia for menor ou se esta for igual, qual delas usufrui de menos capacidade
 	 * \param Ser Servico com o qual o primeiro vai ser comparado
 		 *
-		 * \return se o servico e mais pequeno que o que recebe como argumento
+		 * \return Retornaa veracidade acerca de o servico ser mais pequeno que o que recebe como argumento
 		 */
 	bool operator < (const Servico &Ser)const;
 	/**

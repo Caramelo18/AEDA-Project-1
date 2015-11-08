@@ -461,38 +461,27 @@ void Empresa::ListaServicosCliente()const
 
 }
 
-void Empresa::ListaServicosCamiao()const
+void Empresa::ListaServicosCamiao()
 {
-	vector<string> v_tipo;
 
+unsigned int count = 0;
 	for (unsigned i=0; i < camioes.size();i++)
-		v_tipo.push_back(camioes[i]->getTipo());
-
-
-	for (unsigned i=0; i < v_tipo.size();i++)
 	{
-		for (unsigned j=i+1; j < v_tipo.size(); j++)
+
+		for(unsigned int j = 0; j < servicos.size(); j++)
 		{
-			if (v_tipo[i]==v_tipo[j])
+
+			for(unsigned int k = 0; k < servicos[j].getCamioes().size(); k++)
 			{
-				v_tipo.erase(v_tipo.begin()+j);//vou fazer um vetor só com os tipos de camioes que ha sem repetidos
-				j--;
+				if (camioes[i]->getMatricula() == servicos[j].getCamioes()[k]->getMatricula())
+				{
+					cout << "Camiao " << camioes[i]->getTipo() << " com matricula " << camioes[i]->getMatricula() << ":" << endl;
+					imprimeServico(servicos[j]);
+					count++;
+					cout << endl << endl;
+				}
 			}
-		}
-	}
-
-
-	//vou imprimir cada tipo de serviço com todos os camioes desse serviço juntos
-
-	for (unsigned i=0; i < v_tipo.size();i++)
-	{
-		for(unsigned j=0; j < camioes.size();j++)
-		{
-			if(v_tipo[i]==camioes[i]->getTipo())
-			{
-				cout << camioes[i]->getTipo() << " " << camioes[i]->getCapacidade() << " " << camioes[i]->getMarca() << endl;
-			}
-
+			count = 0;
 		}
 	}
 }
