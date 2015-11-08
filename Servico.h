@@ -13,178 +13,141 @@
 
 using namespace std;
 
-/*
- * Base para a criação e gestão de serviços
- */
+
 class Servico
 {
 public:
-	/*
-	 * Criação de um Serviço por definição
-	 *
-	 * @param
-	 *
-	 * @return
+	/** \brief Criacao de um Servico por definicao
+	    \param Nao possui parametros
+		\return Nao possui retorno
 	 */
 	Servico();
-	/*
-	 * Criação de um Serviço para um camião do tipo Normal e Animais
-	 *
-	 * @param origem Origem do serviço
-	 * @param destino Destino do serviço
-	 * @param distancia Distancia total do serviço
-	 * @param tipo_produto Tipo de produto a transportar
-	 * @param quantidade Quantidade de produto a transportar
-	 * @param Nif Nif do Cliente que encomendou o serviço
-	 * @param c Camioes que se encontram a executar o serviço
-	 * @param f Funcionarios que se encontram a executar o serviço
-	 *
-	 * @return
-	 */
+	/**   \brief Criacao de um Servico para um camião do tipo Normal e Animais
+		  \param origem Origem do servico
+		  \param destino Destino do servico
+		  \param distancia Distancia total do servico
+		  \param tipo_produto Tipo de produto a transportar
+		  \param quantidade Quantidade de produto a transportar
+		  \param Nif Nif do Cliente que encomendou o servico
+		  \param c Camioes que se encontram a executar o servico
+		  \param f Funcionarios que se encontram a executar o servico
+
+		  \return Nao possui retorno
+		 */
 	Servico(string origem, string destino, int distancia, string tipo_produto, int quantidade, unsigned long Nif, vector<Camiao *> &c, vector<Funcionario *> &f);
-	/*
-	 * Criação de um Serviço para um camião do tipo Congelação
-	 *
-	 * @param origem Origem do serviço
-	 * @param destino Destino do serviço
-	 * @param distancia Distancia total do serviço
-	 * @param tipo_produto Tipo de produto a transportar
-	 * @param quantidade Quantidade de produto a transportar
-	 * @param Nif Nif do Cliente que encomendou o serviço
-	 * @param c Camioes que se encontram a executar o serviço
-	 * @param temp Temperatura necessaria no transporte no produto
-	 * @param f Funcionarios que se encontram a executar o serviço
-	 *
-	 * @return
-	 */
+	/** \brief Criacao de um Servico para um camiao do tipo Congelaçao
+		 * \param origem Origem do servico
+		 * \param destino Destino do servico
+		 * \param distancia Distancia total do servico
+		 * \param tipo_produto Tipo de produto a transportar
+		 * \param quantidade Quantidade de produto a transportar
+		 * \param Nif Nif do Cliente que encomendou o servico
+		 * \param c Camioes que se encontram a executar o servico
+		 * \param temp Temperatura necessaria no transporte no produto
+		 * \param f Funcionarios que se encontram a executar o servico
+		 *
+		 * \return Nao possui retorno
+		 */
 	Servico(string origem, string destino, int distancia, string tipo_produto, int quantidade, unsigned long Nif, vector<Camiao *> &c, int temp, vector<Funcionario *> &f);
-	/*
-	 * Criação de um Serviço para um camião do tipo Perigosos
-	 *
-	 * @param origem Origem do serviço
-	 * @param destino Destino do serviço
-	 * @param distancia Distancia total do serviço
-	 * @param tipo_produto Tipo de produto a transportar
-	 * @param quantidade Quantidade de produto a transportar
-	 * @param Nif Nif do Cliente que encomendou o serviço
-	 * @param c Camioes que se encontram a executar o serviço
-	 * @param nivel_p Nivel de perigosidade do produto
-	 * @param f Funcionarios que se encontram a executar o serviço
-	 *
-	 * @return
-	 */
+	/**
+	 * \brief Criação de um Servico para um camiao do tipo Perigosos
+		 * \param origem Origem do servico
+		 * \param destino Destino do servico
+		 * \param distancia Distancia total do servico
+		 * \param tipo_produto Tipo de produto a transportar
+		 * \param quantidade Quantidade de produto a transportar
+		 * \param Nif Nif do Cliente que encomendou o servico
+		 * \param c Camioes que se encontram a executar o servico
+		 * \param nivel_p Nivel de perigosidade do produto
+		 * \param f Funcionarios que se encontram a executar o servico
+		 *
+		 * \return Nao possui retorno
+		 */
 	Servico(string origem, string destino, int distancia, string tipo_produto, int quantidade, unsigned long Nif, vector<Camiao *> &c, string nivel_p, vector<Funcionario *> &f);
-	/*
-	 * Retorna a Origem do produto
-	 *
-	 * @param
-	 *
-	 * @return Origem do produto
-	 */
+	/**\brief Retorna a Origem do produto
+		 * \param Nao possui parametros
+		 *
+		 * \return Origem do produto
+		 */
 	string getOrigem()const;
-	/*
-	 * Retorna o Destino do produto
-	 *
-	 * @param
-	 *
-	 * @return Destino do produto
-	 */
+	/**\brief Retorna o Destino do produto
+		 * \param Nao possui parametros
+		 *
+		 * \return Destino do produto
+		 */
 	string getDestino()const;
-	/*
-	 * Retorna a Distancia do produto
-	 *
-	 * @param
-	 *
-	 * @return Distancia do produto
-	 */
+	/**\brief Retorna a Distancia da viagem
+		 * \param Nao possui parametros
+		 *
+		 * @return Distancia do produto
+		 */
 	int getDistancia()const;
-	/*
-	 * Retorna o Tipo de produto
-	 *
-	 * @param
-	 *
-	 * @return Tipo de produto
-	 */
+	 /**\brief Retorna o Tipo de produto
+		 * \param Nao tem parametros
+		 *
+		 * \return Tipo de produto
+		 */
 	string getTipo_produto()const;
-	/*
-	 * Verifica se o serviço esta terminado ou não
-	 *
-	 * @param
-	 *
-	 * @return Serviço terminado ou em execução
-	 */
+	/**\brief Verifica se o servico esta terminado ou nao
+		 * \param Nao tem parametros
+		 *
+		 * \return Serviço terminado ou em execucao
+		 */
 	bool getTerminado()const;
-	/*
-	 * Retorna a Capacidade do produto
-	 *
-	 * @param
-	 *
-	 * @return Capacidade do produto
-	 */
+	/** Retorna a Capacidade do produto
+		 * \param Nao tem parametros
+		 *
+		 * \return Capacidade do produto
+		 */
 	int getCapacidade()const;
-	/*
-	 * Retorna o Nif do produto
-	 *
-	 * @param
-	 *
-	 * @return Nif do produto
-	 */
+	/**\brief Retorna o Nif do produto
+		 * \param Nao tem parametros
+		 *
+		 * \return Nif do produto
+		 */
 	unsigned long getNif()const;
-	/*
-	 * Termina o serviço e actualiza todo o vetor de camioes, pondo desocupado os camioes que estao em veiculos ocupados
-	 *
-	 * @param
-	 *
-	 * @return
-	 */
+	/** \brief Termina o servico e actualiza todo o vetor de camioes, pondo desocupado os camioes que estao em veiculos ocupados
+		 * \param Nao possui parametros
+		 *
+		 * \return Nao possui retorno
+		 */
 	void termina_servico();
-	/*
-	 * Compara dois serviços e diz se o primeiro é mais pequeno que o segundo, um serviçoi é mais pequeno que o outro se a sua distância for menor ou se esta for igual, qual delas usufrui de menos capacidade
-	 *
-	 * @param Ser Serviço com o qual o primeiro vai ser comparado
-	 *
-	 * @return se o serviço é mais pequeno que o que recebe como argumento
-	 */
+	/** \brief Compara dois servicos e diz se o primeiro é mais pequeno que o segundo, um servico é mais pequeno que o outro se a sua distancia for menor ou se esta for igual, qual delas usufrui de menos capacidade
+	 * \param Ser Servico com o qual o primeiro vai ser comparado
+		 *
+		 * \return se o servico e mais pequeno que o que recebe como argumento
+		 */
 	bool operator < (const Servico &Ser)const;
-	/*
-	 * Retorna os camioes utilizados no serviço
-	 *
-	 * @param
-	 *
-	 * @return Camioes utilizados no serviço
-	 */
+	/**
+	 * \brief Retorna os camioes utilizados no servico
+		 * \param Nao possui parametros
+		 *
+		 * \return Camioes utilizados no servico
+		 */
 	vector<Camiao*> getCamioes();
-	/*
-	 * Retorna os funcionarios que executraram o serviço
-	 *
-	 * @param
-	 *
-	 * @return Funcionarios que executraram o serviço
-	 */
+	/**\brief Retorna os funcionarios que executraram o servico
+		 * \param Nao possui parametros
+		 *
+		 * \return Funcionarios que executraram o servico
+		 */
 	vector<Funcionario*> getFuncionarios();
-	/*
-	 * Calcula o preço para um determinado serviço
-	 *
-	 * @param
-	 *
-	 * @return Preço do serviço a executar
-	 */
+	/** \brief Devolve o preco para um determinado servico
+		 * \param Nao possui parametros
+		 *
+		 * \return Preco do servico a executar
+		 */
 	int getPreco() const;
-	/*
-	 * Retorna o ID do serviço
-	 *
-	 * @param
-	 *
-	 * @return ID que identifica o serviço
-	 */
+	/**\brief Retorna o ID do servico
+		 * \param Nao possui parametros
+		 *
+		 * \return ID que identifica o servico
+		 */
 	int getID() const;
-	/*
-	 * Incrementa o ID global de maneira a que os ids surjam de forma sequencial
-	 *
-	 * @param
-	 *
-	 * @return
-	 */
+	/**\brief Incrementa o ID global de maneira a que os ids surjam de forma sequencial
+		 * \param Nao possui parametros
+		 *
+		 * \return Nao possui retorno
+		 */
 	static void incGlobalID();
 
 private:
