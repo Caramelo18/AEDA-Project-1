@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['gestaocamioes',['gestaoCamioes',['../main_8cpp.html#a4366dbcb73326c8f209590299b31536e',1,'main.cpp']]],
+  ['gestaoclientes',['gestaoClientes',['../main_8cpp.html#a19da1ba6f626bb24995cb5527ecbb89a',1,'main.cpp']]],
+  ['gestaofinanceira',['gestaoFinanceira',['../main_8cpp.html#af787891d66376e095215f3d14e30fb60',1,'main.cpp']]],
+  ['gestaofuncionarios',['gestaoFuncionarios',['../main_8cpp.html#abc7e0e37f5762e3a05df216b67e2903b',1,'main.cpp']]],
+  ['getbi',['getBI',['../class_funcionario.html#a5890c297cf18ef8b85c4a9956354a525',1,'Funcionario']]],
+  ['getcamioes',['getCamioes',['../class_empresa.html#a15150ed6999962b9044903b6e102a920',1,'Empresa::getCamioes()'],['../class_servico.html#a15150ed6999962b9044903b6e102a920',1,'Servico::getCamioes()']]],
+  ['getcapacidade',['getCapacidade',['../class_camiao.html#a139df1549380f50be0d2bcc3513143fb',1,'Camiao::getCapacidade()'],['../class_servico.html#a3dd3032e30346a870eb24a0851864332',1,'Servico::getCapacidade()']]],
+  ['getdestino',['getDestino',['../class_servico.html#a3bc652925daaabe4d27fa53b5e76be20',1,'Servico']]],
+  ['getdisponivel',['getDisponivel',['../class_camiao.html#a353395a4f4720389db97d269a233c635',1,'Camiao::getDisponivel()'],['../class_funcionario.html#abb5c35f1ae5d4637b2fa02e63312d6ec',1,'Funcionario::getDisponivel()']]],
+  ['getdistancia',['getDistancia',['../class_servico.html#a70ba56323a7c23df189ae82a1238da25',1,'Servico']]],
+  ['getficheiro',['getFicheiro',['../class_ficheiro_inexistente.html#a1068348ad777d0b46bd72b3017b96bf9',1,'FicheiroInexistente']]],
+  ['getfuncionarios',['getFuncionarios',['../class_empresa.html#a5cc3bcb304c49c5f5219bc1a15a0ebc8',1,'Empresa::getFuncionarios()'],['../class_servico.html#a5cc3bcb304c49c5f5219bc1a15a0ebc8',1,'Servico::getFuncionarios()']]],
+  ['getid',['getID',['../class_servico.html#af947cd10ac1bf98deb3ccce888ddd573',1,'Servico']]],
+  ['getmarca',['getMarca',['../class_camiao.html#a48b4271204637fd04aae2cbf8a7ddc53',1,'Camiao']]],
+  ['getmatricula',['getMatricula',['../class_camiao.html#a6f1db3b5d088d16456b1654a775b33a8',1,'Camiao::getMatricula()'],['../class_camiao_ja_existente.html#afb62a015248c6b482589c57784dbc710',1,'CamiaoJaExistente::getMatricula()']]],
+  ['getnif',['getNif',['../class_cliente.html#a293dfd9a0b750a67abdd89f490b1be24',1,'Cliente::getNif()'],['../class_cliente_ja_existente.html#aabbbbf5d23a0353c59ad7a46fe93e65f',1,'ClienteJaExistente::getNif()'],['../class_servico.html#a293dfd9a0b750a67abdd89f490b1be24',1,'Servico::getNif()']]],
+  ['getnome',['getNome',['../class_cliente.html#ae6ccab54f7e62ab0b8695b50df500e70',1,'Cliente::getNome()'],['../class_cliente_ja_existente.html#ac347dad72ea151f122cee30b4cad3376',1,'ClienteJaExistente::getNome()'],['../class_empresa.html#ae6ccab54f7e62ab0b8695b50df500e70',1,'Empresa::getNome()'],['../class_funcionario.html#ae6ccab54f7e62ab0b8695b50df500e70',1,'Funcionario::getNome()']]],
+  ['getorigem',['getOrigem',['../class_servico.html#af153c993b998071a95b9cad0687a8b83',1,'Servico']]],
+  ['getpreco',['getPreco',['../class_camiao.html#aded83ff075daf7ddbf308abf69bee9f6',1,'Camiao::getPreco()'],['../class_normal.html#aded83ff075daf7ddbf308abf69bee9f6',1,'Normal::getPreco()'],['../class_congelacao.html#aded83ff075daf7ddbf308abf69bee9f6',1,'Congelacao::getPreco()'],['../class_perigosos.html#ac7575c8e5ebe690e0853cc597c8c96ad',1,'Perigosos::getPreco()'],['../class_animais.html#aded83ff075daf7ddbf308abf69bee9f6',1,'Animais::getPreco()'],['../class_servico.html#a078b3196f93f89bfbf89ed454e0de672',1,'Servico::getPreco()']]],
+  ['getsalario',['getSalario',['../class_funcionario.html#af3aeff734d1f39ae827cf426510ef997',1,'Funcionario']]],
+  ['getterminado',['getTerminado',['../class_servico.html#a031ed4b68df784b1c5211b94e05846d5',1,'Servico']]],
+  ['gettipo',['getTipo',['../class_camiao.html#a424980ade3b21f69146d7518795fc651',1,'Camiao']]],
+  ['gettipo_5fproduto',['getTipo_produto',['../class_servico.html#af671512351f755cdb79def2b943b67e4',1,'Servico']]]
+];

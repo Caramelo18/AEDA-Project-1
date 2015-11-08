@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.10"/>
+<title>Empresa de Gestão de Entregas: Código-Fonte de Empresa.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Empresa de Gestão de Entregas
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.8.10 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Localizar');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;principal</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Ficheiros</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Localizar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;ficheiros</span></a></li>
+      <li><a href="globals.html"><span>Membros&#160;dos&#160;Ficheiros</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">Empresa.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_empresa_8h.html">Ir para a documentação deste ficheiro.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * Empresa.h</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#ifndef EMPRESA_H_</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#define EMPRESA_H_</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_cliente_8h.html">Cliente.h</a>&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_servico_8h.html">Servico.h</a>&quot;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_funcionario_8h.html">Funcionario.h</a>&quot;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_camiao_8h.html">Camiao.h</a>&quot;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_insertion_sort_8h.html">InsertionSort.h</a>&quot;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">using namespace </span><a class="code" href="namespacestd.html">std</a>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="class_camiao_ja_existente.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_camiao_ja_existente.html">CamiaoJaExistente</a></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">string</span> matricula;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_camiao_ja_existente.html#ad34a097346c09c15f70ae6bfd7a0c540">   30</a></span>&#160;    <a class="code" href="class_camiao_ja_existente.html#ad34a097346c09c15f70ae6bfd7a0c540">CamiaoJaExistente</a>(<span class="keywordtype">string</span> matricula){this-&gt;matricula = matricula;}</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="class_camiao_ja_existente.html#afb62a015248c6b482589c57784dbc710">   35</a></span>&#160;    <span class="keywordtype">string</span> <a class="code" href="class_camiao_ja_existente.html#afb62a015248c6b482589c57784dbc710">getMatricula</a>(){<span class="keywordflow">return</span> matricula;}</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;};</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="class_servico_inexistente.html">   38</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_servico_inexistente.html">ServicoInexistente</a></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;{</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="class_servico_inexistente.html#a2730583f233643d428b1972ee8365ea1">   44</a></span>&#160;    <a class="code" href="class_servico_inexistente.html#a2730583f233643d428b1972ee8365ea1">ServicoInexistente</a>(){}</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;};</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="class_ficheiro_inexistente.html">   48</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_ficheiro_inexistente.html">FicheiroInexistente</a></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;{</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">string</span> ficheiro;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="class_ficheiro_inexistente.html#a0ac2c0dd5800f77fa02f1693ea1f741b">   58</a></span>&#160;    <a class="code" href="class_ficheiro_inexistente.html#a0ac2c0dd5800f77fa02f1693ea1f741b">FicheiroInexistente</a>(<span class="keywordtype">string</span> nome){ficheiro = nome;}</div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="class_ficheiro_inexistente.html#a1068348ad777d0b46bd72b3017b96bf9">   63</a></span>&#160;    <span class="keywordtype">string</span> <a class="code" href="class_ficheiro_inexistente.html#a1068348ad777d0b46bd72b3017b96bf9">getFicheiro</a>(){<span class="keywordflow">return</span> ficheiro;}</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;};</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="class_cliente_ja_existente.html">   67</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_cliente_ja_existente.html">ClienteJaExistente</a></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;{</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">string</span> nome;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> nif;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="class_cliente_ja_existente.html#aebdf1a18b2e719e571a5cf4ddd4dfacb">   79</a></span>&#160;    <a class="code" href="class_cliente_ja_existente.html#aebdf1a18b2e719e571a5cf4ddd4dfacb">ClienteJaExistente</a>(<span class="keywordtype">string</span> nome,<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> nif){this-&gt;nome = nome;this-&gt;nif = nif;};</div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="class_cliente_ja_existente.html#ac347dad72ea151f122cee30b4cad3376">   84</a></span>&#160;    <span class="keywordtype">string</span> <a class="code" href="class_cliente_ja_existente.html#ac347dad72ea151f122cee30b4cad3376">getNome</a>(){<span class="keywordflow">return</span> nome;}</div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="class_cliente_ja_existente.html#aabbbbf5d23a0353c59ad7a46fe93e65f">   89</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code" href="class_cliente_ja_existente.html#aabbbbf5d23a0353c59ad7a46fe93e65f">getNif</a>(){<span class="keywordflow">return</span> nif;}</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;};</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="class_cliente_nao_existente.html">   93</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_cliente_nao_existente.html">ClienteNaoExistente</a></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;{</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="class_cliente_nao_existente.html#a1c4a8c97174c7946b864642848bd4297">   99</a></span>&#160;    <a class="code" href="class_cliente_nao_existente.html#a1c4a8c97174c7946b864642848bd4297">ClienteNaoExistente</a>(){}</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;};</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
+<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="class_saldo_indisponivel.html">  103</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_saldo_indisponivel.html">SaldoIndisponivel</a></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;{</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="class_saldo_indisponivel.html#aa9fad60762daa7043b08742d0eed8497">  109</a></span>&#160;    <a class="code" href="class_saldo_indisponivel.html#aa9fad60762daa7043b08742d0eed8497">SaldoIndisponivel</a>(){};</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;};</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;</div>
+<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="class_empresa.html">  113</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_empresa.html">Empresa</a></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;{</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordtype">string</span> nomeEmpresa;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordtype">string</span> ficca;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordtype">string</span> ficcli;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordtype">string</span> ficfun;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordtype">string</span> ficser;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordtype">long</span> saldo;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    vector&lt;Camiao *&gt; camioes;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    vector&lt;Servico&gt; servicos;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    vector&lt;Cliente&gt; clientes;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    vector&lt;Funcionario *&gt; funcionarios;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00141"></a><span class="lineno"><a class="line" href="class_empresa.html#aa650c26e80761cf08d7de589b03a115e">  141</a></span>&#160;    <a class="code" href="class_empresa.html#aa650c26e80761cf08d7de589b03a115e">Empresa</a>(){}</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <a class="code" href="class_empresa.html">Empresa</a>(<span class="keywordtype">string</span> doc);</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    vector&lt;Camiao *&gt; getCamioes();</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    vector&lt;Funcionario *&gt; getFuncionarios();</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordtype">void</span> adicionaCliente();</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keywordtype">void</span> novoServico(<span class="keywordtype">string</span> origem, <span class="keywordtype">string</span> destino, <span class="keywordtype">int</span> distancia, <span class="keywordtype">string</span> tipo_produto, <span class="keywordtype">int</span> capacidade, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> Nif);</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <span class="keywordtype">void</span> novoServico(<span class="keywordtype">string</span> origem, <span class="keywordtype">string</span> destino, <span class="keywordtype">int</span> distancia, <span class="keywordtype">string</span> tipo_produto, <span class="keywordtype">int</span> capacidade, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> Nif, <span class="keywordtype">int</span> temp);</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="keywordtype">void</span> novoServico(<span class="keywordtype">string</span> origem, <span class="keywordtype">string</span> destino, <span class="keywordtype">int</span> distancia, <span class="keywordtype">string</span> tipo_produto, <span class="keywordtype">int</span> capacidade, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> Nif, <span class="keywordtype">string</span> nivel_p);</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <span class="keywordtype">void</span> leNovoServico(<span class="keywordtype">string</span> origem, <span class="keywordtype">string</span> destino, <span class="keywordtype">int</span> distancia, <span class="keywordtype">string</span> tipo_produto, <span class="keywordtype">int</span> capacidade, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> Nif, vector&lt;string&gt; mat, vector&lt;unsigned long&gt; funcs, <span class="keywordtype">bool</span> ter);</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <span class="keywordtype">void</span> leNovoServico(<span class="keywordtype">string</span> origem, <span class="keywordtype">string</span> destino, <span class="keywordtype">int</span> distancia, <span class="keywordtype">string</span> tipo_produto, <span class="keywordtype">int</span> capacidade, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> Nif, <span class="keywordtype">int</span> temp, vector&lt;string&gt; mat, vector&lt;unsigned long&gt; funcs, <span class="keywordtype">bool</span> ter);</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    <span class="keywordtype">void</span> leNovoServico(<span class="keywordtype">string</span> origem, <span class="keywordtype">string</span> destino, <span class="keywordtype">int</span> distancia, <span class="keywordtype">string</span> tipo_produto, <span class="keywordtype">int</span> capacidade, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> Nif, <span class="keywordtype">string</span> nivel_p, vector&lt;string&gt; mat, vector&lt;unsigned long&gt; funcs, <span class="keywordtype">bool</span> ter);</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="keywordtype">void</span> contrataFuncionario();</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    <span class="keywordtype">void</span> pagaSalario();</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <span class="keywordtype">string</span> getNome() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <span class="keywordtype">void</span> imprimeSaldo() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <span class="keywordtype">void</span> imprimeServicos();</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    <span class="keywordtype">void</span> imprimeServico(<a class="code" href="class_servico.html">Servico</a> s) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    <span class="keywordtype">void</span> ListaServicosExecucao()<span class="keyword">const</span>;</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <span class="keywordtype">void</span> ListaServicosCliente()<span class="keyword">const</span>;</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    <span class="keywordtype">void</span> ListaServicosCamiao()<span class="keyword">const</span>;</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    <span class="keywordtype">void</span> ListaCamioesOrdenados()<span class="keyword">const</span>;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    <span class="keywordtype">void</span> listaClientes() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    <span class="keywordtype">void</span> listaClientesOrdenados();</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    <span class="keywordtype">int</span> posCliente(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> nif) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    <span class="keywordtype">void</span> actualizaFicheiro();</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="main_8cpp.html#a8c41859406004bbbf53bf2b1f3fe9a2e">terminaServico</a>(<span class="keywordtype">int</span> ID);</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    <span class="keywordtype">void</span> EscreveServicoTerminado(<span class="keywordtype">int</span> ID, <span class="keywordtype">string</span> tipo);</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="keywordtype">void</span> ImprimeListaCamioes();</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    <span class="keywordtype">void</span> ImprimeListaCamioesDisponiveis();</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    <span class="keywordtype">void</span> AdicionaCamiao();</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    <span class="keywordtype">void</span> listaFuncionarios() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    <span class="keywordtype">void</span> listaFuncionariosOrdenada()<span class="keyword">const</span>;</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    <span class="keywordtype">void</span> listaFuncionariosDisponiveis() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    <span class="keywordtype">void</span> despedeFuncionario();</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;};</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* EMPRESA_H_ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="class_cliente_ja_existente_html_aebdf1a18b2e719e571a5cf4ddd4dfacb"><div class="ttname"><a href="class_cliente_ja_existente.html#aebdf1a18b2e719e571a5cf4ddd4dfacb">ClienteJaExistente::ClienteJaExistente</a></div><div class="ttdeci">ClienteJaExistente(string nome, unsigned long nif)</div><div class="ttdoc">Construtor para lancar a excepcao de um cliente que nao pode ser adicionado porque ja pertence ao gru...</div><div class="ttdef"><b>Definition:</b> Empresa.h:79</div></div>
+<div class="ttc" id="_funcionario_8h_html"><div class="ttname"><a href="_funcionario_8h.html">Funcionario.h</a></div></div>
+<div class="ttc" id="main_8cpp_html_a8c41859406004bbbf53bf2b1f3fe9a2e"><div class="ttname"><a href="main_8cpp.html#a8c41859406004bbbf53bf2b1f3fe9a2e">terminaServico</a></div><div class="ttdeci">void terminaServico(Empresa &amp;e)</div><div class="ttdoc">Funcao que termina um determinado Servico. </div><div class="ttdef"><b>Definition:</b> main.cpp:365</div></div>
+<div class="ttc" id="_insertion_sort_8h_html"><div class="ttname"><a href="_insertion_sort_8h.html">InsertionSort.h</a></div></div>
+<div class="ttc" id="class_ficheiro_inexistente_html_a0ac2c0dd5800f77fa02f1693ea1f741b"><div class="ttname"><a href="class_ficheiro_inexistente.html#a0ac2c0dd5800f77fa02f1693ea1f741b">FicheiroInexistente::FicheiroInexistente</a></div><div class="ttdeci">FicheiroInexistente(string nome)</div><div class="ttdoc">Construtor para lancar a excepcao de um Ficheiro que nao existe ou nao consegue aceder. </div><div class="ttdef"><b>Definition:</b> Empresa.h:58</div></div>
+<div class="ttc" id="_camiao_8h_html"><div class="ttname"><a href="_camiao_8h.html">Camiao.h</a></div></div>
+<div class="ttc" id="class_ficheiro_inexistente_html"><div class="ttname"><a href="class_ficheiro_inexistente.html">FicheiroInexistente</a></div><div class="ttdef"><b>Definition:</b> Empresa.h:48</div></div>
+<div class="ttc" id="class_cliente_nao_existente_html_a1c4a8c97174c7946b864642848bd4297"><div class="ttname"><a href="class_cliente_nao_existente.html#a1c4a8c97174c7946b864642848bd4297">ClienteNaoExistente::ClienteNaoExistente</a></div><div class="ttdeci">ClienteNaoExistente()</div><div class="ttdoc">Construtor para lancar a excepcao de um cliente que nao existe por isso nao pode ser utilizado para e...</div><div class="ttdef"><b>Definition:</b> Empresa.h:99</div></div>
+<div class="ttc" id="class_ficheiro_inexistente_html_a1068348ad777d0b46bd72b3017b96bf9"><div class="ttname"><a href="class_ficheiro_inexistente.html#a1068348ad777d0b46bd72b3017b96bf9">FicheiroInexistente::getFicheiro</a></div><div class="ttdeci">string getFicheiro()</div><div class="ttdoc">Retorna o nome do Ficheiro que nao existe. </div><div class="ttdef"><b>Definition:</b> Empresa.h:63</div></div>
+<div class="ttc" id="class_cliente_ja_existente_html_ac347dad72ea151f122cee30b4cad3376"><div class="ttname"><a href="class_cliente_ja_existente.html#ac347dad72ea151f122cee30b4cad3376">ClienteJaExistente::getNome</a></div><div class="ttdeci">string getNome()</div><div class="ttdoc">Retorna o nome do Cliente ja existente. </div><div class="ttdef"><b>Definition:</b> Empresa.h:84</div></div>
+<div class="ttc" id="class_cliente_ja_existente_html"><div class="ttname"><a href="class_cliente_ja_existente.html">ClienteJaExistente</a></div><div class="ttdef"><b>Definition:</b> Empresa.h:67</div></div>
+<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div></div>
+<div class="ttc" id="class_servico_inexistente_html_a2730583f233643d428b1972ee8365ea1"><div class="ttname"><a href="class_servico_inexistente.html#a2730583f233643d428b1972ee8365ea1">ServicoInexistente::ServicoInexistente</a></div><div class="ttdeci">ServicoInexistente()</div><div class="ttdoc">Construtor para lancar a excepcao de um Servico que nao existe, portanto impossivel de aceder...</div><div class="ttdef"><b>Definition:</b> Empresa.h:44</div></div>
+<div class="ttc" id="class_empresa_html"><div class="ttname"><a href="class_empresa.html">Empresa</a></div><div class="ttdef"><b>Definition:</b> Empresa.h:113</div></div>
+<div class="ttc" id="class_cliente_nao_existente_html"><div class="ttname"><a href="class_cliente_nao_existente.html">ClienteNaoExistente</a></div><div class="ttdef"><b>Definition:</b> Empresa.h:93</div></div>
+<div class="ttc" id="class_cliente_ja_existente_html_aabbbbf5d23a0353c59ad7a46fe93e65f"><div class="ttname"><a href="class_cliente_ja_existente.html#aabbbbf5d23a0353c59ad7a46fe93e65f">ClienteJaExistente::getNif</a></div><div class="ttdeci">unsigned long getNif()</div><div class="ttdoc">Retorna o numero de Identificacao do Cliente ja existente. </div><div class="ttdef"><b>Definition:</b> Empresa.h:89</div></div>
+<div class="ttc" id="class_empresa_html_aa650c26e80761cf08d7de589b03a115e"><div class="ttname"><a href="class_empresa.html#aa650c26e80761cf08d7de589b03a115e">Empresa::Empresa</a></div><div class="ttdeci">Empresa()</div><div class="ttdoc">Construtor sem parametros. </div><div class="ttdef"><b>Definition:</b> Empresa.h:141</div></div>
+<div class="ttc" id="class_camiao_ja_existente_html_afb62a015248c6b482589c57784dbc710"><div class="ttname"><a href="class_camiao_ja_existente.html#afb62a015248c6b482589c57784dbc710">CamiaoJaExistente::getMatricula</a></div><div class="ttdeci">string getMatricula()</div><div class="ttdoc">Retorna a identificacao do Camiao ja existente. </div><div class="ttdef"><b>Definition:</b> Empresa.h:35</div></div>
+<div class="ttc" id="class_camiao_ja_existente_html_ad34a097346c09c15f70ae6bfd7a0c540"><div class="ttname"><a href="class_camiao_ja_existente.html#ad34a097346c09c15f70ae6bfd7a0c540">CamiaoJaExistente::CamiaoJaExistente</a></div><div class="ttdeci">CamiaoJaExistente(string matricula)</div><div class="ttdoc">Construtor para lancar a excepcao de um Camiao ja existente. </div><div class="ttdef"><b>Definition:</b> Empresa.h:30</div></div>
+<div class="ttc" id="_cliente_8h_html"><div class="ttname"><a href="_cliente_8h.html">Cliente.h</a></div></div>
+<div class="ttc" id="class_camiao_ja_existente_html"><div class="ttname"><a href="class_camiao_ja_existente.html">CamiaoJaExistente</a></div><div class="ttdef"><b>Definition:</b> Empresa.h:19</div></div>
+<div class="ttc" id="class_saldo_indisponivel_html_aa9fad60762daa7043b08742d0eed8497"><div class="ttname"><a href="class_saldo_indisponivel.html#aa9fad60762daa7043b08742d0eed8497">SaldoIndisponivel::SaldoIndisponivel</a></div><div class="ttdeci">SaldoIndisponivel()</div><div class="ttdoc">Construtor para lancar a excepcao no caso de ocorrer a possibilidade de a empresa nao ter dinheiro pa...</div><div class="ttdef"><b>Definition:</b> Empresa.h:109</div></div>
+<div class="ttc" id="class_servico_html"><div class="ttname"><a href="class_servico.html">Servico</a></div><div class="ttdef"><b>Definition:</b> Servico.h:17</div></div>
+<div class="ttc" id="class_saldo_indisponivel_html"><div class="ttname"><a href="class_saldo_indisponivel.html">SaldoIndisponivel</a></div><div class="ttdef"><b>Definition:</b> Empresa.h:103</div></div>
+<div class="ttc" id="class_servico_inexistente_html"><div class="ttname"><a href="class_servico_inexistente.html">ServicoInexistente</a></div><div class="ttdef"><b>Definition:</b> Empresa.h:38</div></div>
+<div class="ttc" id="_servico_8h_html"><div class="ttname"><a href="_servico_8h.html">Servico.h</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Gerado por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.10
+</small></address>
+</body>
+</html>
