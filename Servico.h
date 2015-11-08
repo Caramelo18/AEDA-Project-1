@@ -151,17 +151,29 @@ public:
 	static void incGlobalID();
 
 private:
+	/** Variavel estatica que permite incrementar de uma forma sequencial o ID dos servicos*/
 	static int globalID;
+	/** ID do servico */
 	int ID;
+	/** Vetor de camioes que executam o servico */
 	vector<Camiao*> Camioes;
+	/** Vetor de funcionarios que executam o servico */
 	vector<Funcionario*> Funcionarios;
+	/** Origem do servico */
 	string origem;
+	/** Destino do servico */
 	string destino;
+	/** Distancia da viagem */
 	int distancia;
+	/** Carga utilizada no total do servico */
 	int capacidade;
+	/** Tipo de produto transportado no servico */
 	string tipo_produto;
+	/** Variavel que define se o servico esta terminado ou nao */
 	bool terminado;
+	/** Variavel que identifica o cliente que encomendou o servico atraves do nif */
 	unsigned long Nif;
+	/** Custo do servico executado */
 	int preco;
 
 };
