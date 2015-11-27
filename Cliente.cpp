@@ -46,3 +46,13 @@ bool Cliente::operator ==(const Cliente &c)const
 		return true;
 	return false;
 }
+
+void Cliente::setNome(string nome)
+{
+	Nome = nome;
+}
+
+void Cliente::setNif(unsigned long nif)
+{
+	Nif = nif;
+}

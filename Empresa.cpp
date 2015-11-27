@@ -464,7 +464,7 @@ void Empresa::ListaServicosCliente()const
 void Empresa::ListaServicosCamiao()
 {
 
-unsigned int count = 0;
+	unsigned int count = 0;
 	for (unsigned i=0; i < camioes.size();i++)
 	{
 
@@ -966,4 +966,146 @@ void Empresa::despedeFuncionario()
 			}
 		}
 	}
+}
+
+void Empresa::retiraCamiao(string matricula)
+{
+	unsigned int i;
+	for (i = 0; i < camioes.size(); i++)
+	{
+		if(camioes[i]->getMatricula() == matricula)
+			break;
+	}
+
+	if(i == camioes.size())
+	{
+		cout << "Camiao inexistente" << endl;
+		return;
+	}
+
+	else
+		camioes.erase(camioes.begin() + i);
+
+	actualizaFicheiro();
+
+	cout << "Camiao retirado com sucesso" << endl;
+}
+
+void Empresa::retiraCliente(unsigned long Nif)
+{
+	unsigned int i;
+	for (i = 0; i < clientes.size(); i++)
+	{
+		if(clientes[i].getNif() == Nif)
+			break;
+	}
+
+	if(i == clientes.size())
+	{
+		cout << "Cliente inexistente" << endl;
+		return;
+	}
+
+	else
+		clientes.erase(clientes.begin() + i);
+
+	ofstream fich(ficcli.c_str());
+
+	fich << "Clientes:";
+	for (unsigned int i = 0; i < clientes.size(); i++)
+	{
+		fich << endl;
+		fich << clientes[i].getNome() << endl << clientes[i].getNif();
+	}
+	cout << "Cliente retirado com sucesso" << endl;
+
+	fich.close();
+}
+
+void Empresa::editaCliente()
+{
+	int op;
+	string nome;
+	unsigned long Nif;
+
+	cout << "1 - Alterar o nome" << endl;
+	cout << "2 - Alterar o Nif" << endl;
+	cout << endl;
+	cout << "Escolha a opção pretendida: ";
+	cin >> op;
+	cout << endl;
+
+	if (op == 1)
+	{
+		cout << "Insira o Nif do cliente ao qual pretende editar o mesmo: ";
+		cin >> Nif;
+
+		unsigned int i;
+
+		for(i = 0; i < clientes.size(); i++)
+		{
+			if (clientes[i].getNif() == Nif)
+				break;
+		}
+
+		if (i == clientes.size())
+		{
+			cout << "Nao existe nenhum cliente com o Nif " << Nif << endl;
+			return;
+		}
+
+		clientes[i].setNif(Nif);
+		cout << "Cliente alterado com sucesso" << endl;
+
+		ofstream fich(ficcli.c_str());
+
+		fich << "Clientes:";
+		for (unsigned int i = 0; i < clientes.size(); i++)
+		{
+			fich << endl;
+			fich << clientes[i].getNome() << endl << clientes[i].getNif();
+		}
+		cout << "Cliente retirado com sucesso" << endl;
+
+		fich.close();
+	}
+
+	else if (op == 2)
+	{
+
+		cout << "Insira o Nome do cliente ao qual pretende editar o mesmo: ";
+		cin >> nome;
+
+		unsigned int i;
+
+		for(i = 0; i < clientes.size(); i++)
+		{
+			if (clientes[i].getNome() == nome)
+				break;
+		}
+
+		if (i == clientes.size())
+		{
+			cout << "Nao existe nenhum cliente com o Nome " << nome << endl;
+			return;
+		}
+
+		clientes[i].setNome(nome);
+		cout << "Cliente alterado com sucesso" << endl;
+
+		ofstream fich(ficcli.c_str());
+
+		fich << "Clientes:";
+		for (unsigned int i = 0; i < clientes.size(); i++)
+		{
+			fich << endl;
+			fich << clientes[i].getNome() << endl << clientes[i].getNif();
+		}
+		cout << "Cliente retirado com sucesso" << endl;
+
+		fich.close();
+	}
+
+	else
+		cout << "Opcao Invalida" << endl;
 }

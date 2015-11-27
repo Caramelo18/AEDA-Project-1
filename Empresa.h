@@ -318,6 +318,12 @@ public:
 	\brief Permite despedir um funcionario
 	\return Nao possui retorno */
 	void despedeFuncionario();
+
+	void retiraCamiao(string matricula);
+
+	void retiraCliente(unsigned long Nif);
+
+	void editaCliente();
 };
 
 

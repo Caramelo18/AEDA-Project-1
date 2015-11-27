@@ -42,6 +42,10 @@ public:
 	 * \return Retorna em forma de booleano se os Clientes sao a mesma pessoa
 	 */
 	bool operator ==(const Cliente &c)const;
+
+	void setNome(string nome);
+
+	void setNif(unsigned long nif);
 protected:
 	/** Nome do Cliente */
 	string Nome;

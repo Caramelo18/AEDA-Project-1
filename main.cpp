@@ -756,8 +756,10 @@ int main()
 	}while(opc != 0);
 
 	e.actualizaFicheiro();
+
 	return 0;
 }
+
 
 
 
