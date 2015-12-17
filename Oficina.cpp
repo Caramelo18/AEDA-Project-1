@@ -1,13 +1,13 @@
 #include "Oficina.h"
 
-Oficina Oficina::(string nome, string marca, int disp)
+Oficina ::Oficina(string nome, string marca, int disp)
 {
 	this->nome=nome;
 	this->marca = marca;
 	this->disp = disp;
 }
 
-string Oficina::getNome()const;
+string Oficina::getNome()const
 {
 	return nome;
 }
