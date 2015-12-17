@@ -1,4 +1,5 @@
 /*
+
  * main.cpp
  */
 
@@ -493,7 +494,9 @@ void gestaoClientes(Empresa &e)
 	int op;
 	cout << " 1 - Lista de clientes" << endl;
 	cout << " 2 - Lista de clientes ordenada" << endl;
-	cout << " 3 - Adicionar clientes" << endl << endl;
+	cout << " 3 - Adicionar clientes" << endl;
+	cout << " 4 - Editar cliente" << endl;
+	cout << " 5 - Retirar cliente" << endl << endl;
 	cout << "Por favor escolha a opcao pretendida: ";
 	cin >> op;
 	if(cin.eof())
@@ -527,6 +530,22 @@ void gestaoClientes(Empresa &e)
 			cout << "Cliente com o NIF " << c.getNif() << " ja existe." << endl;
 		}
 		break;
+	case 4:
+		if (pass() == 0)
+			e.editaCliente();
+		else cout << "Password errada" << endl;
+		break;
+	case 5:
+		unsigned long Nif;
+		if (pass() == 0)
+		{
+			cout << "Insira o  Nif  do cliente a retirar: ";
+			cin >> Nif;
+			cout << endl;
+			e.retiraCliente(Nif);
+		}
+		else cout << "Password errada" << endl;
+		break;
 	default:
 		return;
 	}
@@ -544,6 +563,7 @@ void gestaoCamioes(Empresa &e)
 	cout << "2 - Ver lista de camioes disponiveis" << endl;
 	cout << "3 - Ver lista de camioes ordenada" << endl;
 	cout << "4 - Adicionar camiao" << endl;
+	cout << "5 - Retirar camiao" << endl;
 	cout << endl;
 	cout << "Por favor escolha a opcao pretendida: ";
 	cin >> op;
@@ -591,6 +611,17 @@ void gestaoCamioes(Empresa &e)
 		{
 			cout << "Impossivel adicionar camiao, ja existe um camiao com a matricula "<< c.getMatricula() << endl;
 		}
+		break;
+	case 5:
+		if (pass() == 0)
+		{
+			string matriculaAalterar;
+			cout << "Insira a matricula do camiao a retirar: ";
+			cin >> matriculaAalterar;
+			cout << endl;
+			e.retiraCamiao(matriculaAalterar);
+		}
+		else cout << "Password errada" << endl;
 		break;
 	default:
 		return;

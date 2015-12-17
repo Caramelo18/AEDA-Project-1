@@ -1035,12 +1035,13 @@ void Empresa::editaCliente()
 	cin >> op;
 	cout << endl;
 
+	unsigned int i;
+
 	if (op == 1)
 	{
-		cout << "Insira o Nif do cliente ao qual pretende editar o mesmo: ";
+		cout << "Insira o Nif do cliente ao qual pretende editar o nome: ";
 		cin >> Nif;
 
-		unsigned int i;
 
 		for(i = 0; i < clientes.size(); i++)
 		{
@@ -1054,8 +1055,14 @@ void Empresa::editaCliente()
 			return;
 		}
 
-		clientes[i].setNif(Nif);
-		cout << "Cliente alterado com sucesso" << endl;
+		cin.ignore(1000, '\n');
+		cout << "Insira o novo nome: ";
+		getline(cin, nome);
+		cin.clear();
+
+
+		clientes[i].setNome(nome);
+
 
 		ofstream fich(ficcli.c_str());
 
@@ -1065,16 +1072,20 @@ void Empresa::editaCliente()
 			fich << endl;
 			fich << clientes[i].getNome() << endl << clientes[i].getNif();
 		}
-		cout << "Cliente retirado com sucesso" << endl;
 
 		fich.close();
+
+		cout << "Cliente alterado com sucesso" << endl;
+
+
 	}
 
 	else if (op == 2)
 	{
 
-		cout << "Insira o Nome do cliente ao qual pretende editar o mesmo: ";
+		cout << "Insira o nome do cliente ao qual pretende editar o Nif: ";
 		cin >> nome;
+
 
 		unsigned int i;
 
@@ -1090,8 +1101,11 @@ void Empresa::editaCliente()
 			return;
 		}
 
-		clientes[i].setNome(nome);
-		cout << "Cliente alterado com sucesso" << endl;
+		cout << "Insira o novo Nif: ";
+		cin >> Nif;
+
+
+		clientes[i].setNif(Nif);
 
 		ofstream fich(ficcli.c_str());
 
@@ -1101,9 +1115,12 @@ void Empresa::editaCliente()
 			fich << endl;
 			fich << clientes[i].getNome() << endl << clientes[i].getNif();
 		}
-		cout << "Cliente retirado com sucesso" << endl;
 
 		fich.close();
+
+		cout << "Cliente alterado com sucesso" << endl;
+
+
 	}
 
 	else
