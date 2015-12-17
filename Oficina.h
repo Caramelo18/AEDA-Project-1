@@ -13,6 +13,12 @@ using namespace std;
 class Oficina
 {
 public:
+	/** \brief Criacao de uma Oficina por definicao
+	    \param Nao possui parametros
+		\return Nao possui retorno
+	 */
+	Oficina();
+
 	/**
 	 * \brief Construtor de uma Oficina
 	 * \param nome Nome da Oficina

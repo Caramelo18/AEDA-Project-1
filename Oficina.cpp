@@ -1,5 +1,9 @@
 #include "Oficina.h"
 
+
+Oficina ::Oficina()
+{}
+
 Oficina ::Oficina(string nome, string marca, int disp)
 {
 	this->nome=nome;

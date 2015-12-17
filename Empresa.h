@@ -13,6 +13,9 @@
 #include "Funcionario.h"
 #include "Camiao.h"
 #include "InsertionSort.h"
+#include <tr1/unordered_set>
+#include "Oficina.h"
+#include "BST.h"
 
 using namespace std;
 
@@ -133,6 +136,8 @@ private:
 	vector<Cliente> clientes;
 	/** Vector de Funcionarios que trabalham na empresa */
 	vector<Funcionario *> funcionarios;
+	/** Fila de prioridade de Oficinas da empresa */
+	priority_queue<Oficina> oficinas;
 
 public:
 	/**
@@ -324,6 +329,28 @@ public:
 	void retiraCliente(unsigned long Nif);
 
 	void editaCliente();
+
+	/**
+	\brief insere na uma nova oficina na fila de prioridade oficinas
+	\param F Oficina a adicionar na fila de prioridade oficinas
+	\return Nao possui retorno
+	 */
+	void addOficina(const Oficina F);
+
+	/**
+	\brief procura, retira da fila de prioridade a oficina que vai ficar com o servico usual daquele camiao
+	\param C veiculo que vai precisar do servico usuas
+	\return retorna a oficina que vai ficar com o servico usual
+	 */
+	Oficina serUsual(Camiao C);
+
+	/**
+	\brief procura, retira da fila de prioridade a oficina que vai ficar com o servico especifico daquele camiao
+	\param C veiculo que vai precisar do servico especifico
+	\return retorna a oficina que vai ficar com o servico especifico
+	 */
+	Oficina serEspeci(Camiao C);
+
 };
 
 

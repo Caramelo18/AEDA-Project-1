@@ -1126,3 +1126,44 @@ void Empresa::editaCliente()
 	else
 		cout << "Opcao Invalida" << endl;
 }
+
+void Empresa::addOficina(const Oficina F)
+{
+	oficinas.push(F);
+}
+
+Oficina Empresa::serUsual(Camiao C)
+{
+
+	Oficina F = oficinas.top();
+	oficinas.pop();
+
+	return F;
+}
+
+Oficina Empresa::serEspeci(Camiao C)
+{
+	priority_queue<Oficina>  copia;
+	string marca = C.getMarca();
+	Oficina F;
+
+	while(!oficinas.empty())
+	{
+		 F = oficinas.top();
+		oficinas.pop();
+
+		if(F.getMarca() == marca)
+			break;
+		else
+			copia.push(F);
+
+	}
+	while(!copia.empty())
+	{
+		Oficina FF = copia.top();
+		copia.pop();
+		oficinas.push(FF);
+	}
+
+	return F;
+}
