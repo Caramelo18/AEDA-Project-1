@@ -1,18 +1,12 @@
 /*
- * Empresa.h
+ * Oficina.h
  */
 
-#ifndef EMPRESA_H_
-#define EMPRESA_H_
+#ifndef OFICINA_H_
+#define OFICINA_H_
 
-#include <vector>
 #include <string>
 #include <iostream>
-#include "Cliente.h"
-#include "Servico.h"
-#include "Funcionario.h"
-#include "Camiao.h"
-#include "InsertionSort.h"
 
 using namespace std;
 
@@ -30,7 +24,5 @@ private:
 	string marca;
 	int disp;
 
-
-
 };
-#endif /* EMPRESA_H_ */
+#endif /* OFICINA_H_ */
