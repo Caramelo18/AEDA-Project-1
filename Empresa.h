@@ -19,6 +19,25 @@
 
 using namespace std;
 
+
+class OficinaOcupada
+{
+public:
+	/**
+	 * \brief Construtor para lancar a excepcao de uma oficina que esta ocupada por isso nao pode realizar outro servico
+	 */
+	OficinaOcupada(){}
+};
+
+class CamiaoNaoExistente
+{
+public:
+	/**
+	 * \brief Construtor para lancar a excepcao de um camiao que nao existe por isso nao pode ser utilizado para realizar servicos
+	 */
+	CamiaoNaoExistente(){}
+};
+
 class CamiaoJaExistente
 {
 	/**
@@ -309,19 +328,23 @@ public:
 	void AdicionaCamiao();
 	/**
 	\brief Mostra no ecra a informacao acerca de todos os funcionarios
-	\return Nao possui retorno */
+	\return Nao possui retorno
+	 */
 	void listaFuncionarios() const;
 	/**
 	\brief Mostra no ecra a informacao ordenada acerca de todos os funcionarios
-	\return Nao possui retorno */
+	\return Nao possui retorno
+	 */
 	void listaFuncionariosOrdenada()const;
 	/**
 	\brief Mostra no ecra a informacao acerca de todos os funcionarios disponiveis
-	\return Nao possui retorno */
+	\return Nao possui retorno
+	 */
 	void listaFuncionariosDisponiveis() const;
 	/**
 	\brief Permite despedir um funcionario
-	\return Nao possui retorno */
+	\return Nao possui retorno
+	 */
 	void despedeFuncionario();
 
 	void retiraCamiao(string matricula);
@@ -333,23 +356,64 @@ public:
 	/**
 	\brief insere na uma nova oficina na fila de prioridade oficinas
 	\param F Oficina a adicionar na fila de prioridade oficinas
+
 	\return Nao possui retorno
 	 */
 	void addOficina(const Oficina F);
 
 	/**
-	\brief procura, retira da fila de prioridade a oficina que vai ficar com o servico usual daquele camiao
-	\param C veiculo que vai precisar do servico usuas
+	\brief procura, retira da fila de prioridade a oficina que vai ficar com o servico
 	\return retorna a oficina que vai ficar com o servico usual
 	 */
-	Oficina serUsual(Camiao C);
+	Oficina serUsual();
 
 	/**
 	\brief procura, retira da fila de prioridade a oficina que vai ficar com o servico especifico daquele camiao
 	\param C veiculo que vai precisar do servico especifico
+
 	\return retorna a oficina que vai ficar com o servico especifico
 	 */
 	Oficina serEspeci(Camiao C);
+
+	/**
+	 *
+	 * \brief insere na fila de prioridade oficinas a oficina atualizada com o novo servico especial do camiao C
+	 * \param C camiao que vai receber o servico
+	 *
+	 * \return  Nao possui retorno
+	 */
+	void fazSerEspeci(Camiao C);
+
+	/**
+	 *
+	 * \brief insere na fila de prioridade oficinas a oficina atualizada com o novo servico usual do camiao C
+	 * \param C camiao que vai receber o servico
+	 *
+	 * \return  Nao possui retorno
+	 */
+	void fazSerUsual(Camiao C);
+
+	/**
+	 *
+	 * \brief procura na fila de prioridade(oficinas) uma oficina que tenha o camiao C agregado, retirando-a e retornando-a na funcao
+	 * \param C camiao que vai ser procurado na fila de prioridade oficinas
+	 *
+	 * \return retorna a oficina que estava a realizar o servico do camiao C
+	 */
+	Oficina procuraCamiaoNaFila(Camiao C);
+
+	/**
+	 *
+	 * \brief insere na fila de prioridade oficinas a oficina devidamente atualizada que estava a realizar o servico do camiao C
+	 * \param C camiao que recebeu o servico
+	 *
+	 * \return Nao possui retorno
+	 */
+	void termiServico(Camiao C);
+
+	Camiao procuraCamiao(string Matri);
+
+
 
 };
 

@@ -4,6 +4,9 @@
 
 #include "Camiao.h"
 
+Camiao::Camiao()
+{
+}
 
 Camiao::Camiao(string marca, string tipo, int capacidade, string matricula)
 {
@@ -88,3 +91,6 @@ void Camiao::imprimeCamiao() const
 	cout << "Capacidade: " << capacidade << " Kg" << endl;
 	cout << endl;
 }
+
+
+

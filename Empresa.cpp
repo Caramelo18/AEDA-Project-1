@@ -1132,9 +1132,8 @@ void Empresa::addOficina(const Oficina F)
 	oficinas.push(F);
 }
 
-Oficina Empresa::serUsual(Camiao C)
+Oficina Empresa::serUsual()
 {
-
 	Oficina F = oficinas.top();
 	oficinas.pop();
 
@@ -1149,7 +1148,7 @@ Oficina Empresa::serEspeci(Camiao C)
 
 	while(!oficinas.empty())
 	{
-		 F = oficinas.top();
+		F = oficinas.top();
 		oficinas.pop();
 
 		if(F.getMarca() == marca)
@@ -1166,4 +1165,95 @@ Oficina Empresa::serEspeci(Camiao C)
 	}
 
 	return F;
+}
+
+
+void Empresa::fazSerEspeci(Camiao C)
+{
+	Oficina F;
+	string matricula = C.getMatricula();
+	F = serEspeci(C);
+	F.fazServico(matricula);
+
+	addOficina(F);
+
+}
+
+void Empresa::fazSerUsual(Camiao C){
+
+	Oficina F;
+	string matricula = C.getMatricula();
+	F = serUsual();
+	F.fazServico(matricula);
+
+	addOficina(F);
+}
+
+Camiao Empresa::procuraCamiao(string Matri)
+{
+
+	string marca;
+	bool encontrou = false;
+	for(int i=0; i < camioes.size(); i++)
+	{
+		if(camioes[i]->getMatricula() == Matri)
+		{
+			encontrou = true;
+			marca = camioes[i]->getMarca();
+		}
+	}
+	if(! encontrou)
+		throw CamiaoNaoExistente();
+
+	Camiao C(marca, "" ,0, Matri);
+
+	return C;
+
+}
+
+Oficina Empresa::procuraCamiaoNaFila(Camiao C)
+{
+	priority_queue<Oficina> copia;
+	Oficina Of;
+
+	bool encontrou = false;
+
+	while(!oficinas.empty())
+	{
+		Of = oficinas.top();
+		oficinas.pop();
+
+		if(Of.getMatri() == C.getMatricula())
+		{
+			encontrou = true;
+			break;
+		}
+		else
+			copia.push(Of);
+	}
+
+	while(!copia.empty())
+	{
+		Oficina esta= copia.top();
+		copia.pop();
+		oficinas.push(esta);
+	}
+
+	if(! encontrou)
+		throw CamiaoNaoExistente();
+
+
+
+	return Of;
+}
+
+void Empresa::termiServico(Camiao C)
+{
+	Oficina Of;
+	Of = procuraCamiaoNaFila(C);
+	Of.termServico();
+
+	addOficina(Of);
+
+
 }

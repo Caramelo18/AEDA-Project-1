@@ -33,6 +33,12 @@ protected:
 	string matricula;
 public:
 	/**
+	 * \brief Criacao de um Camiao por definicao
+	 * \param Nao possui parametros
+	 * \return Nao possui retorno
+	 */
+	Camiao();
+	/**
 	 * \brief Construtor que inicia um novo camiao
 	 * \param marca Marca do camiao
 	 * \param tipo Tipo de produto que o camiao transporta

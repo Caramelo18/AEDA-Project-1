@@ -4,11 +4,12 @@
 Oficina ::Oficina()
 {}
 
-Oficina ::Oficina(string nome, string marca, int disp)
+Oficina ::Oficina(string nome, string marca, int disp , string matriculaCami)
 {
 	this->nome=nome;
 	this->marca = marca;
 	this->disp = disp;
+	this->matriculaCami = matriculaCami;
 }
 
 string Oficina::getNome()const
@@ -23,6 +24,11 @@ string Oficina::getMarca()const{
 int Oficina::getDisp()const
 {
 	return disp;
+}
+
+string Oficina::getMatri()const
+{
+	return matriculaCami;
 }
 
 bool Oficina::operator <(const Oficina F)const
@@ -40,4 +46,16 @@ bool Oficina::operator <(const Oficina F)const
 	}
 	else
 		return false;
+}
+
+void Oficina::fazServico(string Matri)
+{
+	disp += 5;
+	matriculaCami = Matri;
+}
+
+void Oficina::termServico()
+{
+	disp = 0;
+	matriculaCami = "";
 }
