@@ -496,7 +496,11 @@ void gestaoClientes(Empresa &e)
 	cout << " 2 - Lista de clientes ordenada" << endl;
 	cout << " 3 - Adicionar clientes" << endl;
 	cout << " 4 - Editar cliente" << endl;
-	cout << " 5 - Retirar cliente" << endl << endl;
+	cout << " 5 - Retirar cliente" << endl;
+	cout << " 6 - Definir cliente inactivo" << endl;
+	cout << " 7 - Definir cliente activo" << endl;
+	cout << " 8 - Lista de clientes inactivos" << endl;
+	cout << " 9 - Pesquisa de cliente inactivo" << endl << endl;
 	cout << "Por favor escolha a opcao pretendida: ";
 	cin >> op;
 	if(cin.eof())
@@ -536,15 +540,40 @@ void gestaoClientes(Empresa &e)
 		else cout << "Password errada" << endl;
 		break;
 	case 5:
-		unsigned long Nif;
+		unsigned long nif;
 		if (pass() == 0)
 		{
-			cout << "Insira o  Nif  do cliente a retirar: ";
-			cin >> Nif;
+			cout << "Insira o NIF do cliente a retirar: ";
+			cin >> nif;
 			cout << endl;
-			e.retiraCliente(Nif);
+			e.retiraCliente(nif);
 		}
 		else cout << "Password errada" << endl;
+		break;
+	case 6:
+		unsigned long nif1;
+		if (pass() == 0)
+		{
+			cout << "Insira o NIF do cliente a considerar inactivo: ";
+			cin >> nif1;
+			cout << endl;
+			e.defineClienteInactivo(nif1);
+		}
+		else cout << "Password errada" << endl;
+		break;
+	case 7:
+		unsigned long nif2;
+		if (pass() == 0)
+		{
+			cout << "Insira o NIF do cliente a considerar activo: ";
+			cin >> nif2;
+			cout << endl;
+			e.defineClienteActivo(nif2);
+		}
+		else cout << "Password errada" << endl;
+		break;
+	case 8:
+		e.imprimeClientesIn();
 		break;
 	default:
 		return;

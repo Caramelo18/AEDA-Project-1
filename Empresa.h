@@ -148,6 +148,18 @@ public:
 	SaldoIndisponivel(){};
 };
 
+struct hCliente {
+	int operator()(const Cliente& c1) const{
+		//TODO: Implementar a funcao de dispersao e substituir corretamente o valor do return!
+		return 1;
+	}
+	bool operator()(const Cliente& c1, const Cliente& c2) const {
+		return c1.getNif() == c2.getNif();
+	}
+};
+
+typedef tr1::unordered_set<Cliente, hCliente, hCliente> hashClientes;
+
 
 class Empresa
 {
@@ -174,6 +186,8 @@ private:
 	vector<Funcionario *> funcionarios;
 	/** Fila de prioridade de Oficinas da empresa */
 	priority_queue<Oficina> oficinas;
+	/** Tabela de dispersao de clientes inactivos */
+	hashClientes clInact;
 
 public:
 	/**
@@ -363,11 +377,20 @@ public:
 	\return Nao possui retorno
 	 */
 	void despedeFuncionario();
-
+	/**
+	\brief Permite remover um camiao
+	\return Nao possui retorno
+	 */
 	void retiraCamiao(string matricula);
-
+	/**
+	\brief Permite remover um cliente
+	\return Nao possui retorno
+	*/
 	void retiraCliente(unsigned long Nif);
-
+	/**
+	\brief Permite editar um cliente
+	\return Nao possui retorno
+    */
 	void editaCliente();
 
 	/**
@@ -438,6 +461,12 @@ public:
 	Oficina procuraOficina(Oficina F);
 
 	bool existeOficina(Oficina F);
+
+	void imprimeClientesIn() const;
+
+	void defineClienteInactivo(unsigned long nif);
+
+	void defineClienteActivo(unsigned long nif);
 
 
 

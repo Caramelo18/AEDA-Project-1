@@ -993,21 +993,19 @@ void Empresa::retiraCamiao(string matricula)
 
 void Empresa::retiraCliente(unsigned long Nif)
 {
-	unsigned int i;
-	for (i = 0; i < clientes.size(); i++)
-	{
-		if(clientes[i].getNif() == Nif)
-			break;
-	}
+	int pos;
 
-	if(i == clientes.size())
+	try
 	{
-		cout << "Cliente inexistente" << endl;
+		pos = posCliente(Nif);
+	}
+	catch (ClienteNaoExistente &c)
+	{
+		cout << "Cliente nao existe. " << endl;
 		return;
 	}
 
-	else
-		clientes.erase(clientes.begin() + i);
+	clientes.erase(clientes.begin() + pos);
 
 	ofstream fich(ficcli.c_str());
 
@@ -1396,6 +1394,56 @@ bool Empresa::existeOficina(Oficina F)
 
 	}
 	return false;
+}
+
+void Empresa::imprimeClientesIn () const
+{
+	if(clInact.empty())
+	{
+		cout << "Sem clientes inactivos" << endl;
+	}
+	hashClientes::const_iterator it;
+
+	for(it = clInact.begin(); it != clInact.end(); it++)
+		cout << it->getNome() << " - " << it->getNif() << endl;
 
 }
 
+void Empresa::defineClienteInactivo(unsigned long nif)
+{
+	int pos;
+
+	try
+	{
+		pos = posCliente(nif);
+	}
+	catch (ClienteNaoExistente &c)
+	{
+		cout << "Cliente nao existe. " << endl;
+		return;
+	}
+
+	Cliente c = clientes[pos];
+	clientes.erase(clientes.begin() + pos);
+	clInact.insert(c);
+}
+
+void Empresa::defineClienteActivo(unsigned long nif)
+{
+	hashClientes::iterator it;
+	string nome;
+	for(it = clInact.begin(); it != clInact.end(); it++)
+	{
+		if(it->getNif() == nif)
+		{
+			nome = it->getNome();
+			clInact.erase(*it);
+			Cliente c = Cliente(nome, nif);
+			clientes.push_back(c);
+			return;
+		}
+	}
+
+	cout << "Cliente nao esta inactivo" << endl;
+
+}
