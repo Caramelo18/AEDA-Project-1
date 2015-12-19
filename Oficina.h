@@ -79,6 +79,8 @@ public:
 	 */
 	void termServico();
 
+	friend ostream & operator<<(ostream & s, const Oficina  F);
+
 private:
 	/** Nome da Oficina */
 	string nome;

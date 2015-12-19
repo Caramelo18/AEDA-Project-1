@@ -1127,9 +1127,37 @@ void Empresa::editaCliente()
 		cout << "Opcao Invalida" << endl;
 }
 
-void Empresa::addOficina(const Oficina F)
+void Empresa::adicionaOficina()
 {
+	string marca;
+	string nome;
+
+	cout << "Insira o nome da Oficina" << endl;
+	cin >> nome;
+
+	cout << "Insira a marca da Oficina" << endl;
+	cin >> marca;
+
+	Oficina F(nome, marca, 0, "");
+
+	existeOficina(F);
+
 	oficinas.push(F);
+	cout << "Oficina adicionada com sucesso" << endl;
+
+	cout << "o adiciona oficina esta a dar erro pois se se adicionar varias oficinas a funcao lista oficina funciona";
+	cout << endl << "descomenta o codigo e explimenta" << endl;
+
+
+	//	Oficina Ff("sd", "as", 0, "");
+	//	oficinas.push(Ff);
+
+	//	Oficina Fff("sdf", "asf", 0, "");
+	//	oficinas.push(Fff);
+
+
+	//listaOficinas();
+
 }
 
 Oficina Empresa::serUsual()
@@ -1168,25 +1196,37 @@ Oficina Empresa::serEspeci(Camiao C)
 }
 
 
-void Empresa::fazSerEspeci(Camiao C)
+void Empresa::fazSerEspeci()
 {
+	cout << "Matricula do Camiao" << endl;
+	string matricula;
+
+	getline(cin, matricula);
+
+	Camiao C = procuraCamiao(matricula);
+
 	Oficina F;
-	string matricula = C.getMatricula();
 	F = serEspeci(C);
 	F.fazServico(matricula);
 
-	addOficina(F);
+	oficinas.push(F);
 
 }
 
-void Empresa::fazSerUsual(Camiao C){
+void Empresa::fazSerUsual(){
+
+	cout << "Matricula do Camiao" << endl;
+	string matricula;
+
+	getline(cin, matricula);
+
+	Camiao C = procuraCamiao(matricula);
 
 	Oficina F;
-	string matricula = C.getMatricula();
 	F = serUsual();
 	F.fazServico(matricula);
 
-	addOficina(F);
+	oficinas.push(F);
 }
 
 Camiao Empresa::procuraCamiao(string Matri)
@@ -1253,7 +1293,109 @@ void Empresa::termiServico(Camiao C)
 	Of = procuraCamiaoNaFila(C);
 	Of.termServico();
 
-	addOficina(Of);
+	oficinas.push(Of);
 
 
 }
+
+void Empresa::listaOficinas()
+{
+	if(oficinas.empty())
+		cout << "Sem oficinas para mostrar" << endl;
+
+	priority_queue<Oficina> copia = oficinas;
+	while(!copia.empty())
+	{
+		Oficina F = copia.top();
+		cout << F;
+		cout << endl << endl;
+		copia.pop();
+	}
+}
+
+void Empresa::listaOficinasDisponiveis()
+{
+	if(oficinas.empty())
+		cout << "Sem oficinas para mostrar" << endl;
+
+	priority_queue<Oficina> copia = oficinas;
+	while(!copia.empty())
+	{
+		Oficina F = copia.top();
+		copia.pop();
+
+		if(F.getDisp() != 0)
+			break;
+
+		cout << F;
+		cout << endl << endl;
+
+	}
+
+}
+
+Oficina Empresa::procuraOficina(Oficina F)
+{
+	priority_queue<Oficina> copia ;
+	bool encontrou = false;
+	Oficina esta;
+
+	while (!oficinas.empty())
+	{
+		esta = oficinas.top();
+		oficinas.pop();
+
+		if(F.getMarca() == esta.getMarca() && F.getNome() == esta.getNome())
+		{
+			encontrou = true;
+			break;
+		}
+		else copia.push(esta);
+	}
+	while(! copia.empty())
+	{
+		oficinas.push(copia.top());
+		copia.pop();
+	}
+
+	if(! encontrou)
+		throw OficinaInexistente();
+
+	return esta;
+}
+
+void Empresa::removeOficina()
+{
+	string marca;
+	string nome;
+
+	cout << "Insira o nome da Oficina" << endl;
+	getline(cin, nome);
+	cout << "Insira a marca da Oficina" << endl;
+
+	Oficina F(nome, marca, 0, "");
+
+	procuraOficina(F);
+
+	cout << "Oficina removida com sucesso" << endl;
+}
+
+bool Empresa::existeOficina(Oficina F)
+{
+	priority_queue<Oficina> copia = oficinas ;
+	bool encontrou = false;
+	Oficina esta;
+
+	while (!copia.empty())
+	{
+		esta = copia.top();
+		copia.pop();
+
+		if(F.getMarca() == esta.getMarca() && F.getNome() == esta.getNome())
+			throw OficinaJaExistente();
+
+	}
+	return false;
+
+}
+

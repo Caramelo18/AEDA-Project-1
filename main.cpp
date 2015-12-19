@@ -687,6 +687,63 @@ void gestaoFuncionarios(Empresa &e)
 	wait();
 
 }
+void gestaoOficinas(Empresa e)
+{
+	int op;
+	cout << "1 - Ver lista de Oficinas" << endl;
+	cout << "2 - Ver lista de Oficinas disponiveis" << endl;
+	cout << "3 - Adicionar Oficina" << endl;
+	cout << "4 - Remover Oficina" << endl;
+	cout << "5 - Fazer servico de reparacao especial a camiao" << endl;
+	cout << "6 - Fazer servico de reparacao usual a camiao" << endl;
+
+	cout << endl;
+	cout << "Por favor escolha a opcao pretendida: ";
+	cin >> op;
+	if(cin.eof())
+	{
+		cin.clear();
+		return;
+	}
+	else if (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(1000,'\n');
+		return;
+	}
+	cout << endl;
+
+	switch(op)
+	{
+	case 1:
+		e.listaOficinas();
+		break;
+	case 2:
+		e.listaOficinasDisponiveis();
+		break;
+	case 3:
+		if(pass() == 0)
+			e.adicionaOficina();
+		else cout << "Password errada" << endl;
+		break;
+	case 4:
+		if (pass() == 0)
+			e.removeOficina();
+		else cout << "Password errada" << endl;
+		break;
+	case 5:
+		e.fazSerEspeci();
+		break;
+	case 6:
+		e.fazSerUsual();
+		break;
+
+	default:
+		return;
+	}
+	wait();
+
+}
 
 /**
  * \brief Funcao principal onde se insere os ficheiros de configuracao da empresa toda e por onde se desenrola toda a aplicacao
@@ -724,7 +781,8 @@ int main()
 		cout << "3 - Consultar servicos" << endl;
 		cout << "4 - Gestao de clientes" << endl;
 		cout << "5 - Gestao de camioes" << endl;
-		cout << "6 - Gestao de funcionarios" << endl << endl;
+		cout << "6 - Gestao de funcionarios" << endl;
+		cout << "7 - Gestao de oficinas" << endl << endl;
 
 		cout << "Por favor insira a opcao desejada (0 para sair): ";
 		cin >> opc;
@@ -778,6 +836,9 @@ int main()
 			break;
 		case 6:
 			gestaoFuncionarios(e);
+			break;
+		case 7:
+			gestaoOficinas(e);
 			break;
 		default:
 			cin.clear();

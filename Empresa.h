@@ -19,6 +19,23 @@
 
 using namespace std;
 
+class OficinaJaExistente
+{
+public:
+	/**
+	 * \brief Construtor para lancar a excepcao de uma oficina que ja existe, dai nao poder ser novamente inserida na fila de prioridade oficinas;
+	 */
+	OficinaJaExistente(){}
+};
+
+class OficinaInexistente
+{
+public:
+	/**
+	 * \brief Construtor para lancar a excepcao de uma oficina que nao existe por isso nao pode ser removida da fila de prioridade oficinas
+	 */
+	OficinaInexistente(){}
+};
 
 class OficinaOcupada
 {
@@ -354,12 +371,11 @@ public:
 	void editaCliente();
 
 	/**
-	\brief insere na uma nova oficina na fila de prioridade oficinas
-	\param F Oficina a adicionar na fila de prioridade oficinas
+	\brief insere  uma nova oficina na fila de prioridade oficinas
 
 	\return Nao possui retorno
 	 */
-	void addOficina(const Oficina F);
+	void adicionaOficina();
 
 	/**
 	\brief procura, retira da fila de prioridade a oficina que vai ficar com o servico
@@ -382,7 +398,7 @@ public:
 	 *
 	 * \return  Nao possui retorno
 	 */
-	void fazSerEspeci(Camiao C);
+	void fazSerEspeci();
 
 	/**
 	 *
@@ -391,7 +407,7 @@ public:
 	 *
 	 * \return  Nao possui retorno
 	 */
-	void fazSerUsual(Camiao C);
+	void fazSerUsual();
 
 	/**
 	 *
@@ -412,6 +428,16 @@ public:
 	void termiServico(Camiao C);
 
 	Camiao procuraCamiao(string Matri);
+
+	void listaOficinas();
+
+	void listaOficinasDisponiveis();
+
+	void removeOficina();
+
+	Oficina procuraOficina(Oficina F);
+
+	bool existeOficina(Oficina F);
 
 
 

@@ -33,12 +33,12 @@ string Oficina::getMatri()const
 
 bool Oficina::operator <(const Oficina F)const
 {
-	if(disp < F.getDisp())
+	if(disp > F.getDisp())
 		return true;
 
 	if(disp == F.getDisp())
 	{
-		if(marca < F.getMarca())
+		if(marca > F.getMarca())
 
 			return true;
 		else
@@ -58,4 +58,21 @@ void Oficina::termServico()
 {
 	disp = 0;
 	matriculaCami = "";
+}
+
+ostream &operator<<(ostream &s, const Oficina  F)
+{
+	s << "Nome: " <<  F.getNome() << endl;
+	s << "Marca: " << F.getMarca() << endl;
+	s << "Disponibilidade: " << F.getDisp()<< endl;
+	s << "Matricula associada: ";
+
+
+	if(F.getMatri()== "")
+		s << "sem matricula associada";
+	else
+		s << F.getMatri();
+	s <<  endl;
+
+	return s;
 }
