@@ -193,7 +193,7 @@ public:
 	/**
 	\brief Construtor sem parametros
 	 */
-	Empresa(){}
+	Empresa();
 	/**
 	\brief Inicializa os dados da empresa
 	\param doc Directorio dos ficheiros que contem os dados da empresa
@@ -468,7 +468,7 @@ public:
 
 	void defineClienteActivo(unsigned long nif);
 
-
+	vector<Funcionario *> getFuncionariosvetor();
 
 };
 

@@ -4,6 +4,11 @@
 
 #include "Funcionario.h"
 
+Funcionario::Funcionario()
+{
+	disponivel = false;
+}
+
 Funcionario::Funcionario(string nome, int salario, unsigned long BI, string disp)
 {
 	this->nome = nome;
@@ -55,7 +60,8 @@ void Funcionario::imprimeFuncionario() const
 {
 	cout << "Nome: "<< nome << endl;
 	cout << "Salario: " << salario << endl;
-	cout << "BI: " << BI << endl << endl;
+	cout << "BI: " << BI << endl;
+	cout << "Horas diarias: " << horas << endl << endl;
 }
 
 bool Funcionario::operator<(Funcionario f)

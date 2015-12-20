@@ -34,6 +34,7 @@ private:
 	/** Horas diarias de um funcionario */
 	unsigned int horas;
 public:
+	Funcionario();
 	/**
 	 * \brief Construtor que cria o novo Funcionario
 	 * \param nome Nome do Funcionario

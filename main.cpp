@@ -7,7 +7,6 @@
 #include "Cliente.h"
 #include "Empresa.h"
 #include "Servico.h"
-#include "BST.h"
 #include <cstdlib>
 #include <cstdio>
 #include <conio.h>
@@ -79,7 +78,7 @@ void adicionaServico(Empresa &e)
 		}
 		Servico s;
 		vector<Camiao *> v = e.getCamioes();
-		BST<Funcionario *> func = e.getFuncionarios();
+		vector<Funcionario *> func = e.getFuncionariosvetor();
 		try
 		{
 			s = Servico(test, test, dist, "Normal", cap, 111, v, func);
@@ -157,7 +156,7 @@ void adicionaServico(Empresa &e)
 		}
 		Servico s;
 		vector<Camiao *> v = e.getCamioes();
-		BST<Funcionario *> func = e.getFuncionarios();
+		vector<Funcionario *> func = e.getFuncionariosvetor();
 		try
 		{
 			s = Servico(test, test, dist, "Congelacao", cap, 111, v, temp, func);
@@ -236,7 +235,7 @@ void adicionaServico(Empresa &e)
 		}
 		Servico s;
 		vector<Camiao *> v = e.getCamioes();
-		BST<Funcionario *> func = e.getFuncionarios();
+		vector<Funcionario *> func = e.getFuncionariosvetor();
 		try
 		{
 			s = Servico(test, test, dist, "Perigosos", cap, 111, v, nivel, func);
@@ -306,7 +305,7 @@ void adicionaServico(Empresa &e)
 		}
 		Servico s;
 		vector<Camiao *> v = e.getCamioes();
-		BST<Funcionario *> func = e.getFuncionarios();
+		vector<Funcionario *> func = e.getFuncionariosvetor();
 		try
 		{
 			s = Servico(test, test, dist, "Animais", cap, 111, v, func);

@@ -13,7 +13,7 @@ Servico::Servico()
 }
 
 
-Servico::Servico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, vector<Camiao *> &c , BST<Funcionario *> &f)
+Servico::Servico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, vector<Camiao *> &c , vector<Funcionario *> &f)
 {
 	unsigned int i = 0;
 
@@ -34,21 +34,9 @@ Servico::Servico(string origem, string destino, int distancia, string tipo_produ
 		throw camioesIndisponiveis();
 
 	unsigned int funcsdisp = 0;
-
-	BST<Funcionario *> func = f;
-	BSTItrIn<Funcionario *> it(func);
-
-	while(!it.isAtEnd())
-	{
-		Funcionario* funcionario = it.retrieve();
-
-		if(funcionario->getDisponivel())
+	for (unsigned int i = 0; i < f.size(); i++)
+		if(f[i]->getDisponivel())
 			funcsdisp++;
-
-		it.advance();
-	}
-
-
 
 	if (funcsdisp < Camioes.size())
 		throw FuncionariosIndisponiveis();
@@ -59,22 +47,15 @@ Servico::Servico(string origem, string destino, int distancia, string tipo_produ
 		for(unsigned int i = 0; i < Camioes.size(); i++)
 			Camioes[i]->setDisponivel(false);
 		ID = globalID++;
-
-		BST<Funcionario *> func = f;
-		BSTItrIn<Funcionario *> it(func);
-
-		while(!it.isAtEnd())
+		for (unsigned int i = 0; i < f.size() && funcness > 0; i++)
 		{
-			Funcionario* funcionario = it.retrieve();
-
-			if(funcionario->getDisponivel())
+			if(f[i]->getDisponivel())
 			{
-				funcionario->setDisponibilidade(false);
-				Funcionarios.insert(funcionario);
+				f[i]->incrementaHoras(distancia);
+				f[i]->setDisponibilidade(false);
+				Funcionarios.push_back(f[i]);
 				funcness--;
 			}
-
-			it.advance();
 		}
 	}
 
@@ -91,7 +72,7 @@ Servico::Servico(string origem, string destino, int distancia, string tipo_produ
 
 }
 
-Servico::Servico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, vector<Camiao *> &c, int temp, BST<Funcionario *> &f)
+Servico::Servico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, vector<Camiao *> &c, int temp, vector<Funcionario *> &f)
 {
 	unsigned int i = 0;
 	int cap = capacidade;
@@ -111,19 +92,9 @@ Servico::Servico(string origem, string destino, int distancia, string tipo_produ
 		throw camioesIndisponiveis();
 
 	unsigned int funcsdisp = 0;
-
-	BST<Funcionario *> func = f;
-	BSTItrIn<Funcionario *> it(func);
-
-	while(!it.isAtEnd())
-	{
-		Funcionario* funcionario = it.retrieve();
-
-		if(funcionario->getDisponivel())
+	for (unsigned int i = 0; i < f.size(); i++)
+		if(f[i]->getDisponivel())
 			funcsdisp++;
-
-		it.advance();
-	}
 
 	if (funcsdisp < Camioes.size())
 		throw FuncionariosIndisponiveis();
@@ -134,22 +105,15 @@ Servico::Servico(string origem, string destino, int distancia, string tipo_produ
 		for(unsigned int i = 0; i < Camioes.size(); i++)
 			Camioes[i]->setDisponivel(false);
 		ID = globalID++;
-
-		BST<Funcionario *> func = f;
-		BSTItrIn<Funcionario *> it(func);
-
-		while(!it.isAtEnd())
+		for (unsigned int i = 0; i < f.size() && funcness > 0; i++)
 		{
-			Funcionario* funcionario = it.retrieve();
-
-			if(funcionario->getDisponivel())
+			if(f[i]->getDisponivel())
 			{
-				funcionario->setDisponibilidade(false);
-				Funcionarios.insert(funcionario);
+				f[i]->incrementaHoras(distancia);
+				f[i]->setDisponibilidade(false);
+				Funcionarios.push_back(f[i]);
 				funcness--;
 			}
-
-			it.advance();
 		}
 	}
 
@@ -169,7 +133,7 @@ Servico::Servico(string origem, string destino, int distancia, string tipo_produ
 	}
 }
 
-Servico::Servico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, vector<Camiao *> &c, string nivel_p, BST<Funcionario *> &f)
+Servico::Servico(string origem, string destino, int distancia, string tipo_produto, int capacidade, unsigned long Nif, vector<Camiao *> &c, string nivel_p, vector<Funcionario *> &f)
 {
 	unsigned int i = 0;
 
@@ -190,19 +154,9 @@ Servico::Servico(string origem, string destino, int distancia, string tipo_produ
 		throw camioesIndisponiveis();
 
 	unsigned int funcsdisp = 0;
-
-	BST<Funcionario *> func = f;
-	BSTItrIn<Funcionario *> it(func);
-
-	while(!it.isAtEnd())
-	{
-		Funcionario* funcionario = it.retrieve();
-
-		if(funcionario->getDisponivel())
+	for (unsigned int i = 0; i < f.size(); i++)
+		if(f[i]->getDisponivel())
 			funcsdisp++;
-
-		it.advance();
-	}
 
 	if (funcsdisp < Camioes.size())
 		throw FuncionariosIndisponiveis();
@@ -213,23 +167,15 @@ Servico::Servico(string origem, string destino, int distancia, string tipo_produ
 		for(unsigned int i = 0; i < Camioes.size(); i++)
 			Camioes[i]->setDisponivel(false);
 		ID = globalID++;
-
-		BST<Funcionario *> func = f;
-		BSTItrIn<Funcionario *> it(func);
-
-		while(!it.isAtEnd())
+		for (unsigned int i = 0; i < f.size() && funcness > 0; i++)
 		{
-			Funcionario* funcionario = it.retrieve();
-
-			if(funcionario->getDisponivel())
+			if(f[i]->getDisponivel())
 			{
-				funcionario->setDisponibilidade(false);
-				Funcionarios.insert(funcionario);
+				f[i]->incrementaHoras(distancia);
+				f[i]->setDisponibilidade(false);
+				Funcionarios.push_back(f[i]);
 				funcness--;
 			}
-
-
-			it.advance();
 		}
 	}
 
@@ -302,17 +248,8 @@ void Servico::termina_servico()
 	for(unsigned int i=0; i <Camioes.size(); i++)
 		Camioes[i]->setDisponivel(true);
 
-	BST<Funcionario *> func = Funcionarios;
-	BSTItrIn<Funcionario *> it(func);
-
-	while(!it.isAtEnd())
-	{
-		Funcionario* funcionario = it.retrieve();
-
-		funcionario->setDisponibilidade(true);
-
-		it.advance();
-	}
+	for(unsigned int i=0; i < Funcionarios.size(); i++)
+		Funcionarios[i]->setDisponibilidade(true);
 
 	terminado = true;
 }
@@ -347,7 +284,7 @@ int Servico::getID() const
 	return ID;
 }
 
-BST<Funcionario*> Servico::getFuncionarios()
+vector<Funcionario*> Servico::getFuncionarios()
 {
 	return Funcionarios;
 }
