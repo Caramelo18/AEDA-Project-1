@@ -31,6 +31,8 @@ private:
 	unsigned long BI;
 	/** Booleano que define se o funcionario esta disponivel ou nao */
 	bool disponivel;
+	/** Horas diarias de um funcionario */
+	unsigned int horas;
 public:
 	/**
 	 * \brief Construtor que cria o novo Funcionario
@@ -65,6 +67,9 @@ public:
 	 * \return Disponibilidade do Funcionario
 	 */
 	bool getDisponivel() const;
+
+	unsigned int getHoras() const;
+
 	/**
 	 * \brief Define a disponibilidade do Funcionario
 	 * \param disp Booleano para o qual vai ser alterada a disponibilidade do Funcionario
@@ -74,6 +79,10 @@ public:
 	 * \brief Funcao que imprime as informacoes do Funcionario
 	 */
 	void imprimeFuncionario() const;
+
+	bool operator<(Funcionario f);
+
+	void incrementaHoras(int distancia);
 };
 
 #endif /* FUNCIONARIO_H_ */

@@ -183,7 +183,7 @@ private:
 	/** Vector de Clientes que tem conta na empresa */
 	vector<Cliente> clientes;
 	/** Vector de Funcionarios que trabalham na empresa */
-	vector<Funcionario *> funcionarios;
+	BST<Funcionario *> funcionarios;
 	/** Fila de prioridade de Oficinas da empresa */
 	priority_queue<Oficina> oficinas;
 	/** Tabela de dispersao de clientes inactivos */
@@ -206,7 +206,7 @@ public:
 	/**
 	\brief Devolve o vector de funcionarios da empresa
 	\return vector de funcionarios da empresa */
-	vector<Funcionario *> getFuncionarios();
+	BST<Funcionario *> getFuncionarios();
 	/**
 	\brief Permite adicionarum novo cliente a empresa
 	\return Nao possui retorno */

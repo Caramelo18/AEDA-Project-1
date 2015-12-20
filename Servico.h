@@ -10,6 +10,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "BST.h"
 
 using namespace std;
 
@@ -34,7 +35,7 @@ public:
 
 		  \return Nao possui retorno
 	 */
-	Servico(string origem, string destino, int distancia, string tipo_produto, int quantidade, unsigned long Nif, vector<Camiao *> &c, vector<Funcionario *> &f);
+	Servico(string origem, string destino, int distancia, string tipo_produto, int quantidade, unsigned long Nif, vector<Camiao *> &c, BST<Funcionario *> &f);
 	/** \brief Criacao de um Servico para um camiao do tipo Congelacao
 	 * \param origem Origem do servico
 	 * \param destino Destino do servico
@@ -48,7 +49,7 @@ public:
 	 *
 	 * \return Nao possui retorno
 	 */
-	Servico(string origem, string destino, int distancia, string tipo_produto, int quantidade, unsigned long Nif, vector<Camiao *> &c, int temp, vector<Funcionario *> &f);
+	Servico(string origem, string destino, int distancia, string tipo_produto, int quantidade, unsigned long Nif, vector<Camiao *> &c, int temp, BST<Funcionario *> &f);
 	/**
 	 * \brief Criacao de um Servico para um camiao do tipo Perigosos
 	 * \param origem Origem do servico
@@ -63,7 +64,7 @@ public:
 	 *
 	 * \return Nao possui retorno
 	 */
-	Servico(string origem, string destino, int distancia, string tipo_produto, int quantidade, unsigned long Nif, vector<Camiao *> &c, string nivel_p, vector<Funcionario *> &f);
+	Servico(string origem, string destino, int distancia, string tipo_produto, int quantidade, unsigned long Nif, vector<Camiao *> &c, string nivel_p, BST<Funcionario *> &f);
 	/**
 	 * \brief Retorna a Origem do produto
 	 * \param Nao possui parametros
@@ -140,7 +141,7 @@ public:
 	 *
 	 * \return Funcionarios que executraram o servico
 	 */
-	vector<Funcionario*> getFuncionarios();
+	BST<Funcionario*> getFuncionarios();
 	/**
 	 * \brief Devolve o preco para um determinado servico
 	 * \param Nao possui parametros
@@ -171,7 +172,7 @@ private:
 	/** Vetor de camioes que executam o servico */
 	vector<Camiao*> Camioes;
 	/** Vetor de funcionarios que executam o servico */
-	vector<Funcionario*> Funcionarios;
+	BST<Funcionario*> Funcionarios;
 	/** Origem do servico */
 	string origem;
 	/** Destino do servico */
