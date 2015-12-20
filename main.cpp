@@ -104,11 +104,10 @@ void adicionaServico(Empresa &e)
 			unsigned long nif;
 			cout << "Insira o NIF do cliente: ";
 			cin >> nif;
-			try
-			{
-				e.posCliente(nif);
-			}
-			catch(ClienteNaoExistente &c)
+			int pes = e.pesquisaCliente(nif, 0);
+			if(pes == 1)
+				e.defineClienteActivo(nif);
+			else if (pes == -1)
 			{
 				cout << "Cliente nao existente." << endl;
 				wait();
@@ -182,11 +181,10 @@ void adicionaServico(Empresa &e)
 			unsigned long nif;
 			cout << "Insira o NIF do cliente: ";
 			cin >> nif;
-			try
-			{
-				e.posCliente(nif);
-			}
-			catch(ClienteNaoExistente &c)
+			int pes = e.pesquisaCliente(nif, 0);
+			if(pes == 1)
+				e.defineClienteActivo(nif);
+			else if (pes == -1)
 			{
 				cout << "Cliente nao existente." << endl;
 				wait();
@@ -261,11 +259,10 @@ void adicionaServico(Empresa &e)
 			unsigned long nif;
 			cout << "Insira o NIF do cliente: ";
 			cin >> nif;
-			try
-			{
-				e.posCliente(nif);
-			}
-			catch(ClienteNaoExistente &c)
+			int pes = e.pesquisaCliente(nif, 0);
+			if(pes == 1)
+				e.defineClienteActivo(nif);
+			else if (pes == -1)
 			{
 				cout << "Cliente nao existente." << endl;
 				wait();
@@ -331,11 +328,10 @@ void adicionaServico(Empresa &e)
 			unsigned long nif;
 			cout << "Insira o NIF do cliente: ";
 			cin >> nif;
-			try
-			{
-				e.posCliente(nif);
-			}
-			catch(ClienteNaoExistente &c)
+			int pes = e.pesquisaCliente(nif, 0);
+			if(pes == 1)
+				e.defineClienteActivo(nif);
+			else if (pes == -1)
 			{
 				cout << "Cliente nao existente." << endl;
 				wait();
@@ -492,15 +488,15 @@ void consultaServicos(Empresa &e)
 void gestaoClientes(Empresa &e)
 {
 	int op;
-	cout << " 1 - Lista de clientes" << endl;
-	cout << " 2 - Lista de clientes ordenada" << endl;
-	cout << " 3 - Adicionar clientes" << endl;
+	cout << " 1 - Lista de clientes activos" << endl;
+	cout << " 2 - Lista de clientes activos ordenada" << endl;
+	cout << " 3 - Adicionar cliente" << endl;
 	cout << " 4 - Editar cliente" << endl;
-	cout << " 5 - Retirar cliente" << endl;
+	cout << " 5 - Retirar cliente" << endl << endl;
 	cout << " 6 - Definir cliente inactivo" << endl;
 	cout << " 7 - Definir cliente activo" << endl;
 	cout << " 8 - Lista de clientes inactivos" << endl;
-	cout << " 9 - Pesquisa de cliente inactivo" << endl << endl;
+	cout << " 9 - Pesquisa de cliente" << endl << endl;
 	cout << "Por favor escolha a opcao pretendida: ";
 	cin >> op;
 	if(cin.eof())
@@ -574,6 +570,13 @@ void gestaoClientes(Empresa &e)
 		break;
 	case 8:
 		e.imprimeClientesIn();
+		break;
+	case 9:
+		unsigned long nif3;
+		cout << "Insira o NIF do cliente a pesquisar: ";
+		cin >> nif3;
+		cout << endl;
+		e.pesquisaCliente(nif3,1);
 		break;
 	default:
 		return;

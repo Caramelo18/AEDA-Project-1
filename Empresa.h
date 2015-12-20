@@ -301,15 +301,15 @@ public:
 	/**
 	\brief Mostra no ecra a informacao acerca de um servico
 	\return Nao possui retorno */
-	void imprimeServico(Servico s) const;
+	void imprimeServico(Servico s) ;
 	/**
 	\brief Mostra no ecra a informacao acerca de todos os servicos em execucao
 	\return Nao possui retorno */
-	void ListaServicosExecucao()const;
+	void ListaServicosExecucao();
 	/**
 	\brief Mostra no ecra a informacao acerca de todos os servicos de um cliente
 	\return Nao possui retorno */
-	void ListaServicosCliente()const;
+	void ListaServicosCliente();
 	/**
 	\brief Mostra no ecra a informacao acerca de todos os servicos de um camiao
 	\return Nao possui retorno */
@@ -464,11 +464,15 @@ public:
 
 	void imprimeClientesIn() const;
 
+	void actualizaClientes();
+
 	void defineClienteInactivo(unsigned long nif);
 
 	void defineClienteActivo(unsigned long nif);
 
 	vector<Funcionario *> getFuncionariosvetor();
+
+	int pesquisaCliente(unsigned long nif, int show);
 
 };
 

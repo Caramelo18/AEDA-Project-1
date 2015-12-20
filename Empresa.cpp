@@ -7,26 +7,11 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+
+
 Empresa::Empresa(): funcionarios(new Funcionario())
 {
 	saldo = 0;
-}
-
-vector<Funcionario *> Empresa::getFuncionariosvetor()
-{
-	vector<Funcionario *> res;
-	BSTItrIn<Funcionario *> it(funcionarios);
-
-	while(!it.isAtEnd())
-	{
-		Funcionario *f = it.retrieve();
-
-		res.push_back(f);
-
-		it.advance();
-	}
-
-	return res;
 }
 
 Empresa::Empresa(string doc): funcionarios(new Funcionario())
@@ -159,12 +144,16 @@ Empresa::Empresa(string doc): funcionarios(new Funcionario())
 		getline(fich3,nomeCli);
 		unsigned long Nif;
 		stringstream ss;
+		string in;
 		getline(fich3, temp);
 		ss << temp;
-		ss >> Nif;
+		ss >> Nif >> in;
 
 		Cliente cli = Cliente(nomeCli, Nif);
-		clientes.push_back(cli);
+		if(in == "A")
+			clientes.push_back(cli);
+		else
+			clInact.insert(cli);
 	}
 	fich3.close();
 
@@ -237,6 +226,22 @@ BST<Funcionario *> Empresa::getFuncionarios()
 	return funcionarios;
 }
 
+vector<Funcionario *> Empresa::getFuncionariosvetor()
+{
+	vector<Funcionario *> res;
+	BSTItrIn<Funcionario *> it(funcionarios);
+
+	while(!it.isAtEnd())
+	{
+		Funcionario *f = it.retrieve();
+
+		res.push_back(f);
+
+		it.advance();
+	}
+
+	return res;
+}
 
 void Empresa::adicionaCliente()
 {
@@ -265,7 +270,7 @@ void Empresa::adicionaCliente()
 	ofstream fich(ficcli.c_str(), ofstream::app);
 
 	fich << endl;
-	fich << cliente.getNome() << endl << cliente.getNif();
+	fich << cliente.getNome() << endl << cliente.getNif() << "  A";
 
 	cout << "Cliente adicionado com sucesso" << endl;
 
@@ -468,11 +473,18 @@ void Empresa::imprimeSaldo() const
 	cout << "O seu saldo autal e de: " << saldo << " euros" << endl;
 }
 
-void  Empresa::imprimeServico(Servico s) const
+void  Empresa::imprimeServico(Servico s)
 {
 	cout << endl;
 	cout << "Servico " << s.getID() <<":" << endl;
-	cout << "Cliente: " << clientes[posCliente(s.getNif())].getNome() << endl;
+	if(pesquisaCliente(s.getNif(), 0) == 1)
+	{
+		defineClienteActivo(s.getNif());
+		cout << "Cliente: " << clientes[posCliente(s.getNif())].getNome() << endl;
+		defineClienteInactivo(s.getNif());
+	}
+	else
+		cout << "Cliente: " << clientes[posCliente(s.getNif())].getNome() << endl;
 	cout << s.getOrigem() << " - " << s.getDestino() << " - Distancia: " << s.getDistancia() << "km" <<endl;
 	cout << "Camioes Utilizados:" << endl;
 	for(unsigned int j = 0; j < s.getCamioes().size(); j++)
@@ -497,7 +509,7 @@ void Empresa::imprimeServicos()
 
 }
 
-void Empresa::ListaServicosExecucao()const
+void Empresa::ListaServicosExecucao()
 {
 	for(unsigned i=0; i <servicos.size();i++)
 	{
@@ -506,7 +518,7 @@ void Empresa::ListaServicosExecucao()const
 	}
 }
 
-void Empresa::ListaServicosCliente()const
+void Empresa::ListaServicosCliente()
 {
 	unsigned long nif;
 	cout << "Insira o NIF do cliente: ";
@@ -1159,7 +1171,7 @@ void Empresa::retiraCliente(unsigned long Nif)
 	for (unsigned int i = 0; i < clientes.size(); i++)
 	{
 		fich << endl;
-		fich << clientes[i].getNome() << endl << clientes[i].getNif();
+		fich << clientes[i].getNome() << endl << clientes[i].getNif() << " A";
 	}
 	cout << "Cliente retirado com sucesso" << endl;
 
@@ -1555,6 +1567,26 @@ void Empresa::imprimeClientesIn () const
 
 }
 
+void Empresa::actualizaClientes()
+{
+	ofstream fich(ficcli.c_str());
+
+	fich << "Clientes:";
+	for (unsigned int i = 0; i < clientes.size(); i++)
+	{
+		fich << endl;
+		fich << clientes[i].getNome() << endl << clientes[i].getNif() << " A";
+	}
+
+	hashClientes::iterator it;
+	for(it = clInact.begin(); it != clInact.end(); it++)
+	{
+		fich << endl;
+		fich << it->getNome() << endl << it->getNif() << " I";
+	}
+	fich.close();
+}
+
 void Empresa::defineClienteInactivo(unsigned long nif)
 {
 	int pos;
@@ -1572,6 +1604,7 @@ void Empresa::defineClienteInactivo(unsigned long nif)
 	Cliente c = clientes[pos];
 	clientes.erase(clientes.begin() + pos);
 	clInact.insert(c);
+	actualizaClientes();
 }
 
 void Empresa::defineClienteActivo(unsigned long nif)
@@ -1586,12 +1619,42 @@ void Empresa::defineClienteActivo(unsigned long nif)
 			clInact.erase(*it);
 			Cliente c = Cliente(nome, nif);
 			clientes.push_back(c);
+			actualizaClientes();
 			return;
 		}
 	}
 
 	cout << "Cliente nao esta inactivo" << endl;
 
+}
+
+int Empresa::pesquisaCliente(unsigned long nif, int show)
+{
+
+	for (unsigned int i = 0; i < clientes.size(); i++)
+	{
+		if (clientes[i].getNif() == nif)
+		{
+			if(show == 1)
+				cout << clientes[i].getNome() << " - " << nif << " - Activo" << endl;
+			return 0;
+		}
+	}
+
+	hashClientes::iterator it;
+	for(it = clInact.begin(); it != clInact.end(); it++)
+	{
+		if(it->getNif() == nif)
+		{
+			if(show == 1)
+				cout << it->getNome() << " - " << nif << " - Inactivo" << endl;
+			return 1;
+		}
+	}
+
+	if(show == 1)
+		cout << "Cliente nao encontrado" << endl;
+	return -1;
 }
 
 
