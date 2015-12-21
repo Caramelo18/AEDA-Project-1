@@ -9,12 +9,12 @@
 #include <algorithm>
 
 
-Empresa::Empresa(): funcionarios(new Funcionario())
+Empresa::Empresa()
 {
 	saldo = 0;
 }
 
-Empresa::Empresa(string doc): funcionarios(new Funcionario())
+Empresa::Empresa(string doc)
 {
 
 	vector<Servico> ser;
@@ -221,7 +221,7 @@ vector<Camiao *> Empresa::getCamioes()
 	return camioes;
 }
 
-BST<Funcionario *> Empresa::getFuncionarios()
+set<Funcionario *, classcomp> Empresa::getFuncionarios()
 {
 	return funcionarios;
 }
@@ -229,15 +229,12 @@ BST<Funcionario *> Empresa::getFuncionarios()
 vector<Funcionario *> Empresa::getFuncionariosvetor()
 {
 	vector<Funcionario *> res;
-	BSTItrIn<Funcionario *> it(funcionarios);
 
-	while(!it.isAtEnd())
+	set<Funcionario*, classcomp>::iterator iterator;
+
+	for(iterator = funcionarios.begin(); iterator != funcionarios.end(); iterator++)
 	{
-		Funcionario *f = it.retrieve();
-
-		res.push_back(f);
-
-		it.advance();
+		res.push_back(*iterator);
 	}
 
 	return res;
@@ -281,18 +278,30 @@ void Empresa::novoServico(string origem, string destino, int distancia, string t
 {
 
 	vector<Funcionario *> res;
-	BSTItrIn<Funcionario *> it(funcionarios);
 
-	while(!it.isAtEnd())
+	set<Funcionario*, classcomp>::iterator iterator;
+
+	for(iterator = funcionarios.begin(); iterator != funcionarios.end(); iterator++)
 	{
-		Funcionario *f = it.retrieve();
-
-		res.push_back(f);
-
-		it.advance();
+		res.push_back(*iterator);
 	}
 
 	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, camioes, res);
+
+	vector<Funcionario *> copia;
+
+	set<Funcionario*, classcomp>::iterator iterator2;
+
+	for(iterator2 = funcionarios.begin(); iterator2 != funcionarios.end(); iterator2++)
+	{
+		copia.push_back(*iterator2);
+		funcionarios.erase(*iterator2);
+	}
+
+	for(unsigned int i=0; i < copia.size(); i++)
+	{
+		funcionarios.insert(copia[i]);
+	}
 
 	servicos.push_back(s);
 
@@ -324,18 +333,31 @@ void Empresa::novoServico(string origem, string destino, int distancia, string t
 {
 
 	vector<Funcionario *> res;
-	BSTItrIn<Funcionario *> it(funcionarios);
 
-	while(!it.isAtEnd())
+	set<Funcionario*, classcomp>::iterator iterator;
+
+	for(iterator = funcionarios.begin(); iterator != funcionarios.end(); iterator++)
 	{
-		Funcionario *f = it.retrieve();
-
-		res.push_back(f);
-
-		it.advance();
+		res.push_back(*iterator);
 	}
 
 	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, camioes, temp, res);
+
+
+	vector<Funcionario *> copia;
+
+	set<Funcionario*, classcomp>::iterator iterator2;
+
+	for(iterator2 = funcionarios.begin(); iterator2 != funcionarios.end(); iterator2++)
+	{
+		copia.push_back(*iterator2);
+		funcionarios.erase(*iterator2);
+	}
+
+	for(unsigned int i=0; i < copia.size(); i++)
+	{
+		funcionarios.insert(copia[i]);
+	}
 
 	servicos.push_back(s);
 
@@ -368,18 +390,32 @@ void Empresa::novoServico(string origem, string destino, int distancia, string t
 {
 
 	vector<Funcionario *> res;
-	BSTItrIn<Funcionario *> it(funcionarios);
 
-	while(!it.isAtEnd())
+	set<Funcionario*, classcomp>::iterator iterator;
+
+	for(iterator = funcionarios.begin(); iterator != funcionarios.end(); iterator++)
 	{
-		Funcionario *f = it.retrieve();
-
-		res.push_back(f);
-
-		it.advance();
+		res.push_back(*iterator);
 	}
 
 	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, camioes, nivel_p, res);
+
+
+	vector<Funcionario *> copia;
+
+	set<Funcionario*, classcomp>::iterator iterator2;
+
+	for(iterator2 = funcionarios.begin(); iterator2 != funcionarios.end(); iterator2++)
+	{
+		copia.push_back(*iterator2);
+		funcionarios.erase(*iterator2);
+	}
+
+	for(unsigned int i=0; i < copia.size(); i++)
+	{
+		funcionarios.insert(copia[i]);
+	}
+
 
 	servicos.push_back(s);
 
@@ -421,19 +457,15 @@ void Empresa::contrataFuncionario()
 	cout << "Insira o BI do funcionario: ";
 	cin >> BI;
 
-	BSTItrIn<Funcionario *> it(funcionarios);
+	set<Funcionario*, classcomp>::iterator iterator;
 
-	while(!it.isAtEnd())
+	for(iterator = funcionarios.begin(); iterator != funcionarios.end(); iterator++)
 	{
-		Funcionario *funcionario = it.retrieve();
-
-		if(funcionario->getBI() == BI)
+		if((*iterator)->getBI() == BI)
 		{
 			cerr << "Funcionario com o BI " << BI << " ja existe." << endl;
 			return;
 		}
-
-		it.advance();
 	}
 
 	Funcionario *f = new Funcionario(nome,salario,BI,"D");
@@ -446,15 +478,11 @@ void Empresa::pagaSalario()
 {
 	int salarios_total = 0;
 
-	BSTItrIn<Funcionario *> it(funcionarios);
+	set<Funcionario*, classcomp>::iterator iterator;
 
-	while(!it.isAtEnd())
+	for(iterator = funcionarios.begin(); iterator != funcionarios.end(); iterator++)
 	{
-		Funcionario *funcionario = it.retrieve();
-
-		salarios_total = salarios_total + funcionario->getSalario();
-
-		it.advance();
+		salarios_total = salarios_total + (*iterator)->getSalario();
 	}
 
 	if (salarios_total > saldo)
@@ -642,19 +670,16 @@ void Empresa::actualizaFicheiro()
 	ofstream fich1(ficfun.c_str());
 	fich1 << "Funcionarios: ";
 
-	BSTItrIn<Funcionario *> it(funcionarios);
+	set<Funcionario*, classcomp>::iterator iterator;
 
-	while(!it.isAtEnd())
+	for(iterator = funcionarios.begin(); iterator != funcionarios.end(); iterator++)
 	{
-		Funcionario *funcionario = it.retrieve();
-
-		fich1 << endl << funcionario->getNome() << endl << funcionario->getSalario() << " " << funcionario->getBI();
-		if (funcionario->getDisponivel())
+		fich1 << endl << (*iterator)->getNome() << endl << (*iterator)->getSalario() << " " << (*iterator)->getBI();
+		if ((*iterator)->getDisponivel())
 			fich1 << " D" ;
-		else if (!funcionario->getDisponivel())
+		else if (!(*iterator)->getDisponivel())
 			fich1 << " N" ;
 
-		it.advance();
 	}
 }
 
@@ -696,23 +721,37 @@ void Empresa::leNovoServico(string origem, string destino, int distancia, string
 
 	for (unsigned int i = 0; i < funcs.size(); i++)
 	{
-		BSTItrIn<Funcionario *> it(funcionarios);
 
-		while(!it.isAtEnd())
+		set<Funcionario*, classcomp>::iterator iterator;
+
+		for(iterator = funcionarios.begin(); iterator != funcionarios.end(); iterator++)
 		{
-			Funcionario *funcionario = it.retrieve();
-
-			if(funcionario->getBI() == funcs[i])
+			if((*iterator)->getBI() == funcs[i])
 			{
-				f.push_back(funcionario);
-				funcionario->setDisponibilidade(true);
+				f.push_back(*iterator);
+				(*iterator)->setDisponibilidade(true);
 			}
-
-			it.advance();
 		}
 	}
 
 	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, c, f);
+
+
+	vector<Funcionario *> copia;
+
+	set<Funcionario*, classcomp>::iterator iterator2;
+
+	for(iterator2 = funcionarios.begin(); iterator2 != funcionarios.end(); iterator2++)
+	{
+		copia.push_back(*iterator2);
+		funcionarios.erase(*iterator2);
+	}
+
+	for(unsigned int i=0; i < copia.size(); i++)
+	{
+		funcionarios.insert(copia[i]);
+	}
+
 
 	if (!ter)
 	{
@@ -727,16 +766,12 @@ void Empresa::leNovoServico(string origem, string destino, int distancia, string
 
 		for (unsigned int i = 0; i < funcs.size(); i++)
 		{
-			BSTItrIn<Funcionario *> it(funcionarios);
+			set<Funcionario*, classcomp>::iterator iterator;
 
-			while(!it.isAtEnd())
+			for(iterator = funcionarios.begin(); iterator != funcionarios.end(); iterator++)
 			{
-				Funcionario *funcionario = it.retrieve();
-
-				if(funcionario->getBI() == funcs[i])
-					funcionario->setDisponibilidade(false);
-
-				it.advance();
+				if((*iterator)->getBI() == funcs[i])
+					(*iterator)->setDisponibilidade(false);
 			}
 		}
 	}
@@ -767,22 +802,36 @@ void Empresa::leNovoServico(string origem, string destino, int distancia, string
 
 	for (unsigned int i = 0; i < funcs.size(); i++)
 	{
-		BSTItrIn<Funcionario *> it(funcionarios);
+		set<Funcionario*, classcomp>::iterator iterator;
 
-		while(!it.isAtEnd())
+		for(iterator = funcionarios.begin(); iterator != funcionarios.end(); iterator++)
 		{
-			Funcionario *funcionario = it.retrieve();
-
-			if(funcionario->getBI() == funcs[i])
+			if((*iterator)->getBI() == funcs[i])
 			{
-				f.push_back(funcionario);
-				funcionario->setDisponibilidade(true);
+				f.push_back(*iterator);
+				(*iterator)->setDisponibilidade(true);
 			}
-
-			it.advance();
 		}
 	}
 	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, c, temp, f);
+
+
+	vector<Funcionario *> copia;
+
+	set<Funcionario*, classcomp>::iterator iterator2;
+
+	for(iterator2 = funcionarios.begin(); iterator2 != funcionarios.end(); iterator2++)
+	{
+		copia.push_back(*iterator2);
+		funcionarios.erase(*iterator2);
+	}
+
+	for(unsigned int i=0; i < copia.size(); i++)
+	{
+		funcionarios.insert(copia[i]);
+	}
+
+
 	if (!ter)
 	{
 		for (unsigned int i = 0; i < mat.size(); i++)
@@ -796,16 +845,12 @@ void Empresa::leNovoServico(string origem, string destino, int distancia, string
 
 		for (unsigned int i = 0; i < funcs.size(); i++)
 		{
-			BSTItrIn<Funcionario *> it(funcionarios);
+			set<Funcionario*, classcomp>::iterator iterator;
 
-			while(!it.isAtEnd())
+			for(iterator = funcionarios.begin(); iterator != funcionarios.end(); iterator++)
 			{
-				Funcionario *funcionario = it.retrieve();
-
-				if(funcionario->getBI() == funcs[i])
-					funcionario->setDisponibilidade(false);
-
-				it.advance();
+				if((*iterator)->getBI() == funcs[i])
+					(*iterator)->setDisponibilidade(false);
 			}
 		}
 	}
@@ -833,23 +878,21 @@ void Empresa::leNovoServico(string origem, string destino, int distancia, string
 
 	for (unsigned int i = 0; i < funcs.size(); i++)
 	{
-		BSTItrIn<Funcionario *> it(funcionarios);
+		set<Funcionario*, classcomp>::iterator iterator;
 
-		while(!it.isAtEnd())
+		for(iterator = funcionarios.begin(); iterator != funcionarios.end(); iterator++)
 		{
-			Funcionario *funcionario = it.retrieve();
-
-			if(funcionario->getBI() == funcs[i])
+			if((*iterator)->getBI() == funcs[i])
 			{
-				f.push_back(funcionario);
-				funcionario->setDisponibilidade(true);
+				f.push_back(*iterator);
+				(*iterator)->setDisponibilidade(true);
 			}
-
-			it.advance();
 		}
 	}
 
 	Servico s = Servico(origem, destino, distancia, tipo_produto, capacidade, Nif, c, nivel_p, f);
+
+	vector<Funcionario *> copia;
 
 	if (!ter)
 	{
@@ -864,16 +907,12 @@ void Empresa::leNovoServico(string origem, string destino, int distancia, string
 
 		for (unsigned int i = 0; i < funcs.size(); i++)
 		{
-			BSTItrIn<Funcionario *> it(funcionarios);
+			set<Funcionario*, classcomp>::iterator iterator;
 
-			while(!it.isAtEnd())
+			for(iterator = funcionarios.begin(); iterator != funcionarios.end(); iterator++)
 			{
-				Funcionario *funcionario = it.retrieve();
-
-				if(funcionario->getBI() == funcs[i])
-					funcionario->setDisponibilidade(false);
-
-				it.advance();
+				if((*iterator)->getBI() == funcs[i])
+					(*iterator)->setDisponibilidade(false);
 			}
 		}
 	}
@@ -1030,15 +1069,11 @@ void Empresa::AdicionaCamiao()
 
 void Empresa::listaFuncionarios() const
 {
-	BSTItrIn<Funcionario *> it(funcionarios);
+	set<Funcionario*, classcomp>::iterator iterator;
 
-	while(!it.isAtEnd())
+	for(iterator = funcionarios.begin(); iterator != funcionarios.end(); iterator++)
 	{
-		Funcionario *funcionario = it.retrieve();
-
-		funcionario->imprimeFuncionario();
-
-		it.advance();
+		(*iterator)->imprimeFuncionario();
 	}
 }
 
@@ -1058,40 +1093,31 @@ bool ordenaApontaFuncionarios( const Funcionario *f1,  const Funcionario *f2)
 }
 void Empresa::listaFuncionariosOrdenada()const
 {
-	vector<Funcionario *> res;
-	BSTItrIn<Funcionario *> it(funcionarios);
+	set<Funcionario*, classcomp>::iterator iterator;
 
-	while(!it.isAtEnd())
+	for(iterator = funcionarios.begin(); iterator != funcionarios.end(); iterator++)
 	{
-		Funcionario *f = it.retrieve();
+		(*iterator)->imprimeFuncionario();
 
-		res.push_back(f);
-
-		it.advance();
 	}
 
-	for (unsigned int i = 0; i < res.size(); i++)
-		res[i]->imprimeFuncionario();
 }
 
 void Empresa::listaFuncionariosDisponiveis() const
 {
 	unsigned int cnt = 0;
 
-	BSTItrIn<Funcionario *> it(funcionarios);
+	set<Funcionario*, classcomp>::iterator iterator;
 
-	while(!it.isAtEnd())
+	for(iterator = funcionarios.begin(); iterator != funcionarios.end(); iterator++)
 	{
-		Funcionario *funcionario = it.retrieve();
-
-		if(funcionario->getDisponivel())
+		if((*iterator)->getDisponivel())
 		{
 			cnt++;
-			funcionario->imprimeFuncionario();
+			(*iterator)->imprimeFuncionario();
 		}
-
-		it.advance();
 	}
+
 	if (cnt == 0)
 		cout << "Sem funcionarios disponiveis" << endl;
 }
@@ -1103,26 +1129,21 @@ void Empresa::despedeFuncionario()
 	cin >> BI;
 	unsigned int i;
 
-	BSTItrIn<Funcionario *> it(funcionarios);
+	set<Funcionario*, classcomp>::iterator iterator;
 
-	while(!it.isAtEnd())
+	for(iterator = funcionarios.begin(); iterator != funcionarios.end(); iterator++)
 	{
-		Funcionario *funcionario = it.retrieve();
-
-		if (funcionario->getBI() == BI)
+		if ((*iterator)->getBI() == BI)
 		{
-			if(!funcionario->getDisponivel())
+			if(!(*iterator)->getDisponivel())
 				cout << "Impossivel despedir funcionario, transporte em curso" << endl;
 			else
 			{
-				funcionarios.remove(funcionario);
+				funcionarios.erase(*iterator);
 				actualizaFicheiro();
 				break;
 			}
 		}
-
-
-		it.advance();
 	}
 }
 

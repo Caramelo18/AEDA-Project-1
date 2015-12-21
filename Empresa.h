@@ -8,6 +8,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <set>
 #include "Cliente.h"
 #include "Servico.h"
 #include "Funcionario.h"
@@ -166,6 +167,18 @@ struct hCliente {
 
 typedef tr1::unordered_set<Cliente, hCliente, hCliente> hashClientes;
 
+struct classcomp
+{
+	bool operator()(const Funcionario * f1, Funcionario * f2)
+	{
+		if (f1->getHoras() == f2->getHoras())
+		{
+			return (f1->getNome() < f2->getNome());
+		}
+
+		return (f1->getHoras() < f2->getHoras());
+	}
+};
 
 class Empresa
 {
@@ -189,7 +202,7 @@ private:
 	/** Vector de Clientes que tem conta na empresa */
 	vector<Cliente> clientes;
 	/** Vector de Funcionarios que trabalham na empresa */
-	BST<Funcionario *> funcionarios;
+	set<Funcionario *, classcomp> funcionarios;
 	/** Fila de prioridade de Oficinas da empresa */
 	priority_queue<Oficina> oficinas;
 	/** Tabela de dispersao de clientes inactivos */
@@ -213,7 +226,7 @@ public:
 	/**
 	\brief Devolve o vector de funcionarios da empresa
 	\return vector de funcionarios da empresa */
-	BST<Funcionario *> getFuncionarios();
+	set<Funcionario *, classcomp> getFuncionarios();
 	/**
 	\brief Permite adicionarum novo cliente a empresa
 	\return Nao possui retorno */
