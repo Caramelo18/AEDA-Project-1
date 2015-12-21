@@ -195,6 +195,7 @@ private:
 	/** Tabela de dispersao de clientes inactivos */
 	hashClientes clInact;
 
+
 public:
 	/**
 	\brief Construtor sem parametros
@@ -418,7 +419,7 @@ public:
 
 	\return retorna a oficina que vai ficar com o servico especifico
 	 */
-	Oficina serEspeci(Camiao C);
+	Oficina serEspeci(Camiao* C);
 
 	/*
 	 * \brief insere na fila de prioridade oficinas a oficina atualizada com o novo servico especial do camiao C
@@ -440,7 +441,7 @@ public:
 	 *
 	 * \return retorna a oficina que estava a realizar o servico do camiao C
 	 */
-	Oficina procuraCamiaoNaFila(Camiao C);
+	vector<Oficina> procuraCamiaoNaFila(Camiao* C);
 
 	/**
 	 *
@@ -449,13 +450,11 @@ public:
 	 *
 	 * \return Nao possui retorno
 	 */
-	void termiServico(Camiao C);
+	void termiServico();
 
-	Camiao procuraCamiao(string Matri);
+	Camiao* procuraCamiao(string Matri);
 
 	void listaOficinas();
-
-	void listaOficinasDisponiveis();
 
 	void removeOficina();
 
@@ -474,6 +473,8 @@ public:
 	vector<Funcionario *> getFuncionariosvetor();
 
 	int pesquisaCliente(unsigned long nif, int show);
+
+
 
 };
 

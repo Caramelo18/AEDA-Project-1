@@ -356,7 +356,8 @@ void adicionaServico(Empresa &e)
 }
 
 /**
- * \brief Funcao que termina um determinado Servico
+ * \brief Funcao que
+na um determinado Servico
  * \param e Empresa na qual vai ser terminado o Servico
  */
 void terminaServico(Empresa &e)
@@ -723,11 +724,11 @@ void gestaoOficinas(Empresa &e)
 {
 	int op;
 	cout << "1 - Ver lista de Oficinas" << endl;
-	cout << "2 - Ver lista de Oficinas disponiveis" << endl;
-	cout << "3 - Adicionar Oficina" << endl;
-	cout << "4 - Remover Oficina" << endl;
-	cout << "5 - Fazer servico de reparacao especial a camiao" << endl;
-	cout << "6 - Fazer servico de reparacao usual a camiao" << endl;
+	cout << "2 - Adicionar Oficina" << endl;
+	cout << "3 - Remover Oficina" << endl;
+	cout << "4 - Fazer servico de reparacao especial a camiao" << endl;
+	cout << "5 - Fazer servico de reparacao usual a camiao" << endl;
+	cout << "6 - Terminar o servico de um veiculo" << endl;
 
 	cout << endl;
 	cout << "Por favor escolha a opcao pretendida: ";
@@ -751,9 +752,6 @@ void gestaoOficinas(Empresa &e)
 		e.listaOficinas();
 		break;
 	case 2:
-		e.listaOficinasDisponiveis();
-		break;
-	case 3:
 		//		if(pass() == 0)
 		//		{
 		try
@@ -764,11 +762,10 @@ void gestaoOficinas(Empresa &e)
 		{
 			cout << "Ja existe essa oficina" << endl;
 		}
-		e.listaOficinas();
 		//	}
 		//	else cout << "Password errada" << endl;
 		break;
-	case 4:
+	case 3:
 		//	if (pass() == 0)
 		try
 		{
@@ -781,7 +778,7 @@ void gestaoOficinas(Empresa &e)
 
 		//else cout << "Password errada" << endl;
 		break;
-	case 5:
+	case 4:
 		try
 		{
 			e.fazSerEspeci();
@@ -791,7 +788,7 @@ void gestaoOficinas(Empresa &e)
 			cout << "Impossivel realizar o servico, o camiao nao existe" << endl;
 		}
 		break;
-	case 6:
+	case 5:
 		try
 		{
 			e.fazSerUsual();
@@ -800,6 +797,9 @@ void gestaoOficinas(Empresa &e)
 		{
 			cout << "Impossivel realizar o servico, o camiao nao existe" << endl;
 		}
+		break;
+	case 6:
+		e.termiServico();
 		break;
 
 	default:

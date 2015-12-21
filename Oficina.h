@@ -8,6 +8,7 @@
 #include <string>
 #include <iostream>
 #include "Camiao.h"
+#include <vector>
 
 using namespace std;
 
@@ -26,12 +27,11 @@ public:
 	 * \param nome Nome da Oficina
 	 * \param marca Marca da Oficina criada
 	 * \param disp tempo que a Oficina demora a ficar disponivel
-	 * \param C Camiao que vai receber o servico da oficina
 	 *
 	 * \return Nao possui retorno
 	 *
 	 */
-	Oficina(string nome, string marca, int disp, string matriculaCami);
+	Oficina(string nome, string marca, int disp);
 	/**
 	 * \brief Retorna o nome da Oficina
 	 * \param Nao possui parametros
@@ -48,6 +48,7 @@ public:
 	 */
 	string getMarca()const;
 
+	vector<Camiao*> getVeiculos()const;
 	/*
 	 * \brief Retorna a disponibilidade da Oficina
 	 * \param Nao possui parametros
@@ -55,15 +56,6 @@ public:
 	 * \return disp Disponibilidade da Oficina
 	 */
 	int getDisp()const;
-
-	/*
-	 * \brief Retorna a matricula do camiao que esta na oficina
-	 * \param Nao possui parametros
-	 *
-	 * \return matriculaCami matricula do camiao que esta na oficina
-	 */
-	string getMatri()const;
-
 	/*
 	 * \brief Overload do operador < entre oficinas para a comparacao das mesmas
 	 * \param F Oficina com o qual vais fazer a comparacao
@@ -78,7 +70,7 @@ public:
 	 *
 	 * \return Nao possui retorno
 	 */
-	void fazServico(string Matri);
+	void fazServico(Camiao* C);
 
 	/*
 	 * \brief termina o servico da oficina ficando a disponibilidade a zero e sem matriculas associadas
@@ -86,8 +78,9 @@ public:
 	 *
 	 * \return Nao possui retorno
 	 */
-	void termServico();
+	void termServico(Camiao* C);
 
+	bool camiaoNaOficina(Camiao* C);
 	/**
 	 * \brief Overload do operador << para fazer o cout de uma oficina
 	 * \param s, ostream onde vamos guardar a informacao da oficina que vamos fazer cout
@@ -95,7 +88,7 @@ public:
 	 *
 	 * \return Retorna em forma de ostream a informacao da oficina a imprimir
 	 */
-	friend ostream & operator<<(ostream & s, const Oficina  F);
+	friend ostream & operator<<(ostream & s, const Oficina  &F);
 
 private:
 	/** Nome da Oficina */
@@ -104,8 +97,9 @@ private:
 	string marca;
 	/** Disponibilidade da Oficina */
 	int disp;
-	/** Matricula do camiao que esta na oficina */
-	string matriculaCami;
+
+
+	vector<Camiao*> Camioes;
 
 };
 #endif /* OFICINA_H_ */
