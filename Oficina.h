@@ -31,7 +31,7 @@ public:
 	 * \return Nao possui retorno
 	 *
 	 */
-	Oficina(string nome, string marca, int disp);
+	Oficina(string nome, string marca, int disp, vector<Camiao*> camioes);
 	/**
 	 * \brief Retorna o nome da Oficina
 	 * \param Nao possui parametros
@@ -97,8 +97,6 @@ private:
 	string marca;
 	/** Disponibilidade da Oficina */
 	int disp;
-
-
 	vector<Camiao*> Cami;
 
 };

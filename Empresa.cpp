@@ -23,11 +23,14 @@ Empresa::Empresa(string doc)
 	camioes = cams;
 	vector<Cliente> clis;
 	clientes = clis;
+	vector<Oficina> ofi;
+
 
 	ficca = doc + "/Camioes.txt";
 	ficcli = doc + "/Clientes.txt";
 	ficfun = doc + "/Funcionarios.txt";
 	ficser = doc + "/Servicos.txt";
+	ficofi = doc + "/Oficinas.txt";
 
 
 	fstream fich(ficca.c_str());
@@ -54,6 +57,8 @@ Empresa::Empresa(string doc)
 			fich3 << "Clientes:";
 			ofstream fich4(ficser.c_str());
 			fich4 << "Servicos:" << endl;
+			ofstream fich5(ficofi.c_str());
+			fich5 << "Oficinas:" << endl;
 		}
 		return;
 	}
@@ -214,6 +219,47 @@ Empresa::Empresa(string doc)
 		else
 			leNovoServico(origem, destino, distancia, tipo_produto, cap, nif, mat, funcs, ter);
 	}
+
+	//
+	ifstream fich5(ficofi.c_str());
+	if (!fich5)
+		throw FicheiroInexistente(ficofi);
+	getline(fich5, temp);
+
+	while(!fich5.eof())
+	{
+		string nomeOfi;
+		getline(fich5,nomeOfi);
+
+		getline(fich5, temp);
+		stringstream ss;
+		int disp;
+		string marca;
+		ss << temp;
+		ss >> marca >> disp;
+
+		vector<string> matriculas;
+		string matri;
+		getline(fich5, temp);
+		ss << temp;
+		while(ss.eof())
+		{
+			ss >> matri;
+			matriculas.push_back(matri);
+		}
+	vector <Camiao*>cami;
+	for(int i=0; i < matriculas.size(); i++)
+	{
+		matri= matriculas[i];
+		cami.push_back(procuraCamiao(matri));
+	}
+
+		Oficina Ofi(nome, marca, disp, cami);
+		oficinas.push(Ofi);
+
+	}
+
+	fich5.close();
 }
 
 vector<Camiao *> Empresa::getCamioes()
@@ -1315,7 +1361,8 @@ void Empresa::adicionaOficina()
 	cout << "Insira a marca da Oficina" << endl;
 	getline(cin, marca);
 
-	Oficina F(nome, marca, 0);
+	vector<Camiao*> v;
+	Oficina F(nome, marca, 0,v);
 
 	existeOficina(F);
 
@@ -1482,7 +1529,7 @@ void Empresa::fazSerUsual(){
 
 Camiao* Empresa::procuraCamiao(string Matri)
 {
-	cout << "vai procirar" << endl;
+	cout << "vai procurar" << endl;
 
 	string marca;
 	bool encontrou = false;
@@ -1644,7 +1691,8 @@ void Empresa::removeOficina()
 	cout << "Insira a marca da Oficina" << endl;
 	getline(cin, marca);
 
-	Oficina F(nome, marca, 0);
+	vector<Camiao*> v;
+	Oficina F(nome, marca, 0, v);
 
 	try
 	{

@@ -193,6 +193,8 @@ private:
 	string ficfun;
 	/** Endereco da posicao do ficheiro de Sercvicos */
 	string ficser;
+	/** Endereco da posicao do ficheiro de Oficinas */
+	string ficofi;
 	/** Saldo atual da empresa */
 	long saldo;
 	/** Vector de Camioes pertencentes a empresa */

@@ -1,14 +1,16 @@
 #include "Oficina.h"
 
 
-Oficina ::Oficina()
+Oficina::Oficina()
 {}
 
-Oficina ::Oficina(string nome, string marca, int disp)
+Oficina::Oficina(string nome, string marca, int disp, vector<Camiao*> camioes)
 {
 	this->nome=nome;
 	this->marca = marca;
 	this->disp = disp;
+	this->Cami = camioes;
+
 }
 
 string Oficina::getNome()const
