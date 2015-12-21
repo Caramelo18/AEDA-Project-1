@@ -411,7 +411,7 @@ public:
 	\brief procura, retira da fila de prioridade a oficina que vai ficar com o servico
 	\return retorna a oficina que vai ficar com o servico usual
 	 */
-	Oficina serUsual();
+	Oficina serUsual(Camiao* C);
 
 	/*
 	\brief procura, retira da fila de prioridade a oficina que vai ficar com o servico especifico daquele camiao

@@ -99,7 +99,7 @@ private:
 	int disp;
 
 
-	vector<Camiao*> Camioes;
+	vector<Camiao*> Cami;
 
 };
 #endif /* OFICINA_H_ */
