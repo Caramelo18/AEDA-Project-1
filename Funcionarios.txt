@@ -1,11 +1,11 @@
 Funcionarios: 
-Miguel 
-747 15678321 N
 Jorge
 780 13015886 D
-Jose Alberto
-653 123456789 D
-Antonio
-500 111111111 D
 Jaime
 740 12014374 N
+Miguel 
+747 15678321 N
+Antonio
+500 111111111 D
+Jose Alberto
+653 123456789 D

@@ -719,7 +719,7 @@ void gestaoFuncionarios(Empresa &e)
 	wait();
 
 }
-void gestaoOficinas(Empresa e)
+void gestaoOficinas(Empresa &e)
 {
 	int op;
 	cout << "1 - Ver lista de Oficinas" << endl;
