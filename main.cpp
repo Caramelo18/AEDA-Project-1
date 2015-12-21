@@ -754,20 +754,52 @@ void gestaoOficinas(Empresa e)
 		e.listaOficinasDisponiveis();
 		break;
 	case 3:
-		if(pass() == 0)
+		//		if(pass() == 0)
+		//		{
+		try
+		{
 			e.adicionaOficina();
-		else cout << "Password errada" << endl;
+		}
+		catch(OficinaJaExistente & f)
+		{
+			cout << "Ja existe essa oficina" << endl;
+		}
+		e.listaOficinas();
+		//	}
+		//	else cout << "Password errada" << endl;
 		break;
 	case 4:
-		if (pass() == 0)
+		//	if (pass() == 0)
+		try
+		{
 			e.removeOficina();
-		else cout << "Password errada" << endl;
+		}
+		catch(OficinaInexistente & f)
+		{
+			cout << "Impossivel remover essa oficina, nao existe" << endl;
+		}
+
+		//else cout << "Password errada" << endl;
 		break;
 	case 5:
-		e.fazSerEspeci();
+		try
+		{
+			e.fazSerEspeci();
+		}
+		catch(CamiaoNaoExistente & C)
+		{
+			cout << "Impossivel realizar o servico, o camiao nao existe" << endl;
+		}
 		break;
 	case 6:
-		e.fazSerUsual();
+		try
+		{
+			e.fazSerUsual();
+		}
+		catch(CamiaoNaoExistente & C)
+		{
+			cout << "Impossivel realizar o servico, o camiao nao existe" << endl;
+		}
 		break;
 
 	default:

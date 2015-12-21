@@ -16,6 +16,7 @@ class Oficina
 public:
 	/** \brief Criacao de uma Oficina por definicao
 	    \param Nao possui parametros
+
 		\return Nao possui retorno
 	 */
 	Oficina();
@@ -27,16 +28,21 @@ public:
 	 * \param disp tempo que a Oficina demora a ficar disponivel
 	 * \param C Camiao que vai receber o servico da oficina
 	 *
+	 * \return Nao possui retorno
+	 *
 	 */
 	Oficina(string nome, string marca, int disp, string matriculaCami);
 	/**
 	 * \brief Retorna o nome da Oficina
+	 * \param Nao possui parametros
+	 *
 	 * \return nome Nome da Oficina
 	 */
 	string getNome()const;
 
 	/*
 	 * \brief Retorna a marca da Oficina
+	 * \param Nao possui parametros
 	 *
 	 * \return marca Marca da Oficina
 	 */
@@ -44,6 +50,7 @@ public:
 
 	/*
 	 * \brief Retorna a disponibilidade da Oficina
+	 * \param Nao possui parametros
 	 *
 	 * \return disp Disponibilidade da Oficina
 	 */
@@ -51,6 +58,7 @@ public:
 
 	/*
 	 * \brief Retorna a matricula do camiao que esta na oficina
+	 * \param Nao possui parametros
 	 *
 	 * \return matriculaCami matricula do camiao que esta na oficina
 	 */
@@ -74,11 +82,19 @@ public:
 
 	/*
 	 * \brief termina o servico da oficina ficando a disponibilidade a zero e sem matriculas associadas
+	 * \param Nao possui parametros
 	 *
 	 * \return Nao possui retorno
 	 */
 	void termServico();
 
+	/**
+	 * \brief Overload do operador << para fazer o cout de uma oficina
+	 * \param s, ostream onde vamos guardar a informacao da oficina que vamos fazer cout
+	 * \param F, oficina a que vamos fazer o cout
+	 *
+	 * \return Retorna em forma de ostream a informacao da oficina a imprimir
+	 */
 	friend ostream & operator<<(ostream & s, const Oficina  F);
 
 private:

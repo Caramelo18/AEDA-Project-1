@@ -19,6 +19,12 @@
 
 using namespace std;
 
+class OficinaNaoApropriada
+{
+public:
+	OficinaNaoApropriada(){};
+};
+
 class OficinaJaExistente
 {
 public:
@@ -385,28 +391,28 @@ public:
 	/**
 	\brief Permite remover um cliente
 	\return Nao possui retorno
-	*/
+	 */
 	void retiraCliente(unsigned long Nif);
 	/**
 	\brief Permite editar um cliente
 	\return Nao possui retorno
-    */
+	 */
 	void editaCliente();
 
-	/**
+	/*
 	\brief insere  uma nova oficina na fila de prioridade oficinas
 
 	\return Nao possui retorno
 	 */
 	void adicionaOficina();
 
-	/**
+	/*
 	\brief procura, retira da fila de prioridade a oficina que vai ficar com o servico
 	\return retorna a oficina que vai ficar com o servico usual
 	 */
 	Oficina serUsual();
 
-	/**
+	/*
 	\brief procura, retira da fila de prioridade a oficina que vai ficar com o servico especifico daquele camiao
 	\param C veiculo que vai precisar do servico especifico
 
@@ -414,27 +420,22 @@ public:
 	 */
 	Oficina serEspeci(Camiao C);
 
-	/**
-	 *
+	/*
 	 * \brief insere na fila de prioridade oficinas a oficina atualizada com o novo servico especial do camiao C
-	 * \param C camiao que vai receber o servico
 	 *
 	 * \return  Nao possui retorno
 	 */
 	void fazSerEspeci();
 
-	/**
-	 *
+	/*
 	 * \brief insere na fila de prioridade oficinas a oficina atualizada com o novo servico usual do camiao C
-	 * \param C camiao que vai receber o servico
 	 *
 	 * \return  Nao possui retorno
 	 */
 	void fazSerUsual();
 
-	/**
-	 *
-	 * \brief procura na fila de prioridade(oficinas) uma oficina que tenha o camiao C agregado, retirando-a e retornando-a na funcao
+	/*
+	 * \brief procura na fila de prioridade(oficinas) uma oficina que esteja a realizar o servico ao camiao C, retirando-a e retornando-a na funcao
 	 * \param C camiao que vai ser procurado na fila de prioridade oficinas
 	 *
 	 * \return retorna a oficina que estava a realizar o servico do camiao C

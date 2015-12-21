@@ -1288,11 +1288,13 @@ void Empresa::adicionaOficina()
 	string marca;
 	string nome;
 
+
 	cout << "Insira o nome da Oficina" << endl;
-	cin >> nome;
+	cin.ignore(1000,'\n');
+	getline(cin, nome);
 
 	cout << "Insira a marca da Oficina" << endl;
-	cin >> marca;
+	getline(cin, marca);
 
 	Oficina F(nome, marca, 0, "");
 
@@ -1301,24 +1303,33 @@ void Empresa::adicionaOficina()
 	oficinas.push(F);
 	cout << "Oficina adicionada com sucesso" << endl;
 
-	cout << "o adiciona oficina esta a dar erro pois se se adicionar varias oficinas a funcao lista oficina funciona";
-	cout << endl << "descomenta o codigo e explimenta" << endl;
+	//cout << "o adiciona oficina esta a dar erro pois se se adicionar varias oficinas a funcao lista oficina funciona";
+	//	cout << endl << "descomenta o codigo e explimenta" << endl;
 
 
-	//	Oficina Ff("sd", "as", 0, "");
-	//	oficinas.push(Ff);
 
-	//	Oficina Fff("sdf", "asf", 0, "");
-	//	oficinas.push(Fff);
 
+	priority_queue<Oficina> copia = oficinas;
+	while(!copia.empty())
+	{
+		Oficina F = copia.top();
+		cout << F;
+		cout << endl << endl;
+		copia.pop();
+	}
 
 	//listaOficinas();
+
 
 }
 
 Oficina Empresa::serUsual()
 {
-	Oficina F = oficinas.top();
+	Oficina F;
+	if(oficinas.empty())
+		throw OficinaInexistente ();
+
+	F = oficinas.top();
 	oficinas.pop();
 
 	return F;
@@ -1329,6 +1340,10 @@ Oficina Empresa::serEspeci(Camiao C)
 	priority_queue<Oficina>  copia;
 	string marca = C.getMarca();
 	Oficina F;
+	bool encontrou = false;
+
+	if(oficinas.empty())
+		throw OficinaNaoApropriada();
 
 	while(!oficinas.empty())
 	{
@@ -1336,7 +1351,10 @@ Oficina Empresa::serEspeci(Camiao C)
 		oficinas.pop();
 
 		if(F.getMarca() == marca)
+		{
+			encontrou = true;
 			break;
+		}
 		else
 			copia.push(F);
 
@@ -1348,6 +1366,9 @@ Oficina Empresa::serEspeci(Camiao C)
 		oficinas.push(FF);
 	}
 
+	if(!encontrou)
+		throw OficinaNaoApropriada();
+
 	return F;
 }
 
@@ -1357,15 +1378,24 @@ void Empresa::fazSerEspeci()
 	cout << "Matricula do Camiao" << endl;
 	string matricula;
 
+	cin.ignore(1000, '\n');
 	getline(cin, matricula);
-
 	Camiao C = procuraCamiao(matricula);
 
 	Oficina F;
-	F = serEspeci(C);
+	try
+	{
+		F = serEspeci(C);
+	}
+	catch(OficinaNaoApropriada & FF)
+	{
+		cout << "Nao existe oficina apropriada para este tipo de servico" << endl;
+	}
+
 	F.fazServico(matricula);
 
 	oficinas.push(F);
+
 
 }
 
@@ -1374,12 +1404,19 @@ void Empresa::fazSerUsual(){
 	cout << "Matricula do Camiao" << endl;
 	string matricula;
 
+	cin.ignore(1000, '\n');
 	getline(cin, matricula);
 
 	Camiao C = procuraCamiao(matricula);
 
 	Oficina F;
-	F = serUsual();
+	try{
+		F = serUsual();
+	}
+	catch(OficinaInexistente & f)
+	{
+		cout << "Nao existe oficinas" << endl;
+	}
 	F.fazServico(matricula);
 
 	oficinas.push(F);
@@ -1508,6 +1545,7 @@ Oficina Empresa::procuraOficina(Oficina F)
 		}
 		else copia.push(esta);
 	}
+
 	while(! copia.empty())
 	{
 		oficinas.push(copia.top());
@@ -1526,8 +1564,11 @@ void Empresa::removeOficina()
 	string nome;
 
 	cout << "Insira o nome da Oficina" << endl;
+	cin.ignore(1000,'\n');
 	getline(cin, nome);
+
 	cout << "Insira a marca da Oficina" << endl;
+	getline(cin, marca);
 
 	Oficina F(nome, marca, 0, "");
 

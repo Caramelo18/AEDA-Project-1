@@ -72,7 +72,7 @@ ostream &operator<<(ostream &s, const Oficina  F)
 		s << "sem matricula associada";
 	else
 		s << F.getMatri();
-	s <<  endl;
+	s <<  endl << endl;
 
 	return s;
 }
