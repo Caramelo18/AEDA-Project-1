@@ -42,7 +42,7 @@ public:
 	 * \param BI Numero de identificacao do Funcionario
 	 * \param disp Disponibilidade do funcionario para executar o servico
 	 */
-	Funcionario(string nome, int salario, unsigned long BI, string disp);
+	Funcionario(string nome, int salario, unsigned long BI, string disp, unsigned int hr);
 	/**
 	 * \brief Retorna o nome do Funcionario
 	 * \return Nome do Funcionario
@@ -84,6 +84,8 @@ public:
 	bool operator<(Funcionario f);
 
 	void incrementaHoras(int distancia);
+
+	void setHoras(unsigned int hr);
 };
 
 #endif /* FUNCIONARIO_H_ */

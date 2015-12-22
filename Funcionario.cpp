@@ -9,7 +9,7 @@ Funcionario::Funcionario()
 	disponivel = false;
 }
 
-Funcionario::Funcionario(string nome, int salario, unsigned long BI, string disp)
+Funcionario::Funcionario(string nome, int salario, unsigned long BI, string disp, unsigned int hr)
 {
 	this->nome = nome;
 	this->salario = salario;
@@ -18,7 +18,7 @@ Funcionario::Funcionario(string nome, int salario, unsigned long BI, string disp
 		disponivel = true;
 	else if (disp == "N")
 		disponivel = false;
-	horas = 0;
+	horas = hr;
 }
 
 string Funcionario::getNome() const
@@ -64,6 +64,7 @@ void Funcionario::imprimeFuncionario() const
 	cout << "Horas diarias: " << horas << endl << endl;
 }
 
+
 bool Funcionario::operator<(Funcionario f)
 {
 	if (horas == f.horas)
@@ -76,5 +77,11 @@ bool Funcionario::operator<(Funcionario f)
 
 void Funcionario::incrementaHoras(int distancia)
 {
-	horas = distancia / 80;
+	horas += distancia / 80;
 }
+
+void Funcionario::setHoras(unsigned int hr)
+{
+	horas = hr;
+}
+

@@ -1,11 +1,11 @@
 Funcionarios: 
-Antonio
-500 111111111 D
-Jose Alberto
-653 123456789 D
-Miguel 
-747 15678321 D
-Jorge
-780 13015886 D
 Jaime
-740 12014374 D
+740 12014374 D 1
+Miguel 
+747 15678321 D 2
+Jose Alberto
+653 123456789 D 4
+Jorge
+780 13015886 D 7
+Jesus Faria
+586 574698123 D 9

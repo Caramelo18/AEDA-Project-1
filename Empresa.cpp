@@ -113,6 +113,8 @@ Empresa::Empresa(string doc)
 
 	fich.close();
 
+	vector<Funcionario> vec;
+
 	ifstream fich2(ficfun.c_str());
 	if (!fich2)
 		throw FicheiroInexistente(ficfun);
@@ -125,15 +127,18 @@ Empresa::Empresa(string doc)
 		getline(fich2,nomeFunc);
 		int salario;
 		string disp;
+		unsigned int horas;
 		unsigned long BI;
 		stringstream ss;
 		getline(fich2,temp);
 
 		ss << temp;
-		ss >>  salario >> BI >> disp;
+		ss >>  salario >> BI >> disp >> horas;
 
-		Funcionario *func = new Funcionario(nomeFunc, salario, BI, disp);
+		Funcionario *func = new Funcionario(nomeFunc, salario, BI, disp, horas);
 		funcionarios.insert(func);
+		Funcionario copia = *func;
+		vec.push_back(copia);
 
 	}
 
@@ -263,6 +268,35 @@ Empresa::Empresa(string doc)
 	}
 
 	fich5.close();
+	set<Funcionario*, classcomp>::iterator it;
+
+	for(it = funcionarios.begin(); it != funcionarios.end(); it++)
+	{
+		for(unsigned int i = 0; i < vec.size(); i++)
+		{
+			if ((*it)->getNome() == vec[i].getNome())
+			{
+				(*it)->setHoras(vec[i].getHoras());
+				break;
+			}
+		}
+	}
+
+	vector<Funcionario *> copia;
+
+	set<Funcionario*, classcomp>::iterator iterator2;
+
+	for(iterator2 = funcionarios.begin(); iterator2 != funcionarios.end(); iterator2++)
+	{
+		copia.push_back(*iterator2);
+		funcionarios.erase(*iterator2);
+	}
+
+	for(unsigned int i=0; i < copia.size(); i++)
+	{
+		funcionarios.insert(copia[i]);
+	}
+
 }
 
 vector<Camiao *> Empresa::getCamioes()
@@ -517,7 +551,7 @@ void Empresa::contrataFuncionario()
 		}
 	}
 
-	Funcionario *f = new Funcionario(nome,salario,BI,"D");
+	Funcionario *f = new Funcionario(nome,salario,BI,"D",0);
 	funcionarios.insert(f);
 	actualizaFicheiro();
 
@@ -725,9 +759,10 @@ void Empresa::actualizaFicheiro()
 	{
 		fich1 << endl << (*iterator)->getNome() << endl << (*iterator)->getSalario() << " " << (*iterator)->getBI();
 		if ((*iterator)->getDisponivel())
-			fich1 << " D" ;
+			fich1 << " D " ;
 		else if (!(*iterator)->getDisponivel())
-			fich1 << " N" ;
+			fich1 << " N " ;
+		fich1 << (*iterator)->getHoras();
 
 	}
 	ofstream fich2(ficofi.c_str());
