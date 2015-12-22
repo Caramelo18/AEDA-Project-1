@@ -11,7 +11,7 @@ Espanha
 123456789
 77-20-JH 
 12014374 
-3 743 Congelacao 10000 E 
+3 743 Congelacao 10000 T 
 Feira
 Madrid
 987654321
@@ -23,9 +23,21 @@ Santa Maria da Feira
 147852369
 30-40-CD 
 13015886 
-5 145 Animais 145 E
+5 145 Animais 145 T 
 Alcobaca
 Evor
 987654321
 10-AB-20 
 15678321 
+6 157 Congelacao 4500 T 
+Braga
+Chaves
+123456789
+PO-15-04 
+111111111 
+7 154 Congelacao 154 T 
+Braga
+Sagres
+123456789
+PO-15-04 
+123456789 

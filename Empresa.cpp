@@ -227,7 +227,6 @@ Empresa::Empresa(string doc)
 		throw FicheiroInexistente(ficofi);
 	getline(fich5, temp);
 
-	cout << "chegou" << endl;
 	while(!fich5.eof())
 	{
 		string nomeOfi;
@@ -242,21 +241,23 @@ Empresa::Empresa(string doc)
 
 		vector<string> matriculas;
 		string matri;
-		getline(fich5, temp);
-		ss << temp;
-		while(ss.eof())
+
+		while(ss >> matri)
 		{
-			ss >> matri;
+			cout << matri << endl;
 			matriculas.push_back(matri);
 		}
-		vector <Camiao*>cami;
-		for(int i=0; i < matriculas.size(); i++)
+		vector<Camiao*>cami;
+		for(unsigned int i=0; i < matriculas.size(); i++)
 		{
 			matri= matriculas[i];
 			cami.push_back(procuraCamiao(matri));
 		}
 
-		Oficina Ofi(nome, marca, disp, cami);
+		for(unsigned int i = 0; i < cami.size(); i++)
+			cami[i]->setDisponivel(false);
+
+		Oficina Ofi(nomeOfi, marca, disp, cami);
 		oficinas.push(Ofi);
 
 	}
@@ -737,13 +738,11 @@ void Empresa::actualizaFicheiro()
 	{
 		Oficina F=copia.top();
 		copia.pop();
-		fich2 << F.getNome();
+		fich2 << endl << F.getNome() << endl;
 		fich2 << F.getMarca() << " " << F.getDisp();
 
-		for (int i=0; i < F.getVeiculos().size(); i++)
-		{
-			fich2 <<  F.getVeiculos()[i]->getMatricula()<< " ";
-		}
+		for (unsigned int i=0; i < F.getVeiculos().size(); i++)
+			fich2 << " " << F.getVeiculos()[i]->getMatricula();
 	}
 }
 
@@ -1283,7 +1282,6 @@ void Empresa::editaCliente()
 		cout << "Insira o Nif do cliente ao qual pretende editar o nome: ";
 		cin >> Nif;
 
-
 		for(i = 0; i < clientes.size(); i++)
 		{
 			if (clientes[i].getNif() == Nif)
@@ -1301,9 +1299,7 @@ void Empresa::editaCliente()
 		getline(cin, nome);
 		cin.clear();
 
-
 		clientes[i].setNome(nome);
-
 
 		ofstream fich(ficcli.c_str());
 
@@ -1313,12 +1309,9 @@ void Empresa::editaCliente()
 			fich << endl;
 			fich << clientes[i].getNome() << endl << clientes[i].getNif();
 		}
-
 		fich.close();
 
 		cout << "Cliente alterado com sucesso" << endl;
-
-
 	}
 
 	else if (op == 2)
@@ -1326,7 +1319,6 @@ void Empresa::editaCliente()
 
 		cout << "Insira o nome do cliente ao qual pretende editar o Nif: ";
 		cin >> nome;
-
 
 		unsigned int i;
 
@@ -1372,11 +1364,11 @@ void Empresa::adicionaOficina()
 	string nome;
 
 
-	cout << "Insira o nome da Oficina" << endl;
+	cout << "Insira o nome da Oficina: ";
 	cin.ignore(1000,'\n');
 	getline(cin, nome);
 
-	cout << "Insira a marca da Oficina" << endl;
+	cout << "Insira a marca da Oficina: ";
 	getline(cin, marca);
 
 	vector<Camiao*> v;
@@ -1400,7 +1392,6 @@ Oficina Empresa::serUsual(Camiao* C)
 
 	if(oficinas.empty())
 		throw OficinaInexistente ();
-	//
 
 	while(!oficinas.empty())
 	{
@@ -1409,7 +1400,6 @@ Oficina Empresa::serUsual(Camiao* C)
 
 		if(!F.camiaoNaOficina(C))
 		{
-			cout << "encontrou oficina no serUsua";
 			encontrou = true;
 			break;
 		}
@@ -1437,12 +1427,10 @@ Oficina Empresa::serEspeci(Camiao* C)
 {
 	priority_queue<Oficina>  copia;
 
-	cout << "entrou no servico especial, se bloquear e por causa do parametro serEspeci" << endl;
 	string marca = C->getMarca();
 	Oficina F;
 	bool encontrou = false;
 
-	cout << "vai procurar serEs" << endl;
 	if(oficinas.empty())
 		throw OficinaNaoApropriada();
 
@@ -1482,13 +1470,18 @@ Oficina Empresa::serEspeci(Camiao* C)
 
 void Empresa::fazSerEspeci()
 {
-	cout << "Matricula do Camiao" << endl;
+	cout << "Matricula do Camiao: ";
 	string matricula;
 
 	cin.ignore(1000, '\n');
 	getline(cin, matricula);
 
 	Camiao* C = procuraCamiao(matricula);
+	if(!C->getDisponivel())
+	{
+		cout << "Camiao indisponivel" << endl;
+		return;
+	}
 
 	Oficina F;
 	try
@@ -1501,13 +1494,13 @@ void Empresa::fazSerEspeci()
 		return;
 	}
 
-	for(int i=0; i < camioes.size(); i++)
+	for(unsigned int i=0; i < camioes.size(); i++)
 	{
-		if(camioes[i]==C)
+		if(camioes[i]->getMatricula() == C->getMatricula())
+		{
 			camioes[i]->setDisponivel(false);
-		break;
-
-
+			break;
+		}
 	}
 	F.fazServico(C);
 
@@ -1517,13 +1510,18 @@ void Empresa::fazSerEspeci()
 
 void Empresa::fazSerUsual(){
 
-	cout << "Matricula do Camiao" << endl;
+	cout << "Matricula do Camiao: ";
 	string matricula;
 
 	cin.ignore(1000, '\n');
 	getline(cin, matricula);
 
 	Camiao* C = procuraCamiao(matricula);
+	if(!C->getDisponivel())
+	{
+		cout << "Camiao indisponivel" << endl;
+		return;
+	}
 
 	Oficina F;
 	try
@@ -1534,18 +1532,17 @@ void Empresa::fazSerUsual(){
 	{
 		cout << "Nao existe oficinas" << endl;
 		return;
-
 	}
 
 	try
 	{
-		for(int i=0; i < camioes.size(); i++)
+		for(unsigned int i=0; i < camioes.size(); i++)
 		{
-			if(camioes[i]==C)
+			if(camioes[i]->getMatricula() == C->getMatricula())
+			{
 				camioes[i]->setDisponivel(false);
-			break;
-
-
+				break;
+			}
 		}
 		F.fazServico(C);
 	}
@@ -1563,8 +1560,8 @@ Camiao* Empresa::procuraCamiao(string Matri)
 {
 	string marca;
 	bool encontrou = false;
-	int i=0;
-	for(; i < camioes.size(); i++)
+	unsigned int i;
+	for(i = 0; i < camioes.size(); i++)
 	{
 		if(camioes[i]->getMatricula() == Matri)
 		{
@@ -1610,16 +1607,13 @@ vector<Oficina> Empresa::procuraCamiaoNaFila(Camiao* C)
 		oficinas.push(esta);
 	}
 
-	if(! encontrou)
-
-
-
+	if(!encontrou)
 		return oficinasAtualizar;
 }
 
 void Empresa::termiServico()
 {
-	cout << "Matricula do veiculo que pretende terminar o servico" << endl;
+	cout << "Matricula do veiculo que pretende terminar o servico: ";
 
 	string matricula;
 	cin.ignore(1000, '\n');
@@ -1639,14 +1633,14 @@ void Empresa::termiServico()
 	vector<Oficina> ofi;
 	ofi= procuraCamiaoNaFila(C);
 
-	for(int i=0; i < camioes.size(); i++)
+	for(unsigned int i=0; i < camioes.size(); i++)
 	{
-		if(camioes[i]==C)
+		if(camioes[i]->getMatricula() == C->getMatricula())
 			camioes[i]->setDisponivel(true);
 		break;
 	}
 
-	for(int i=0; i < ofi.size(); i++)
+	for(unsigned int i=0; i < ofi.size(); i++)
 	{
 		ofi[i].termServico(C);
 		oficinas.push(ofi[i]);
@@ -1717,11 +1711,11 @@ void Empresa::removeOficina()
 	string marca;
 	string nome;
 
-	cout << "Insira o nome da Oficina" << endl;
+	cout << "Insira o nome da Oficina: ";
 	cin.ignore(1000,'\n');
 	getline(cin, nome);
 
-	cout << "Insira a marca da Oficina" << endl;
+	cout << "Insira a marca da Oficina: ";
 	getline(cin, marca);
 
 	vector<Camiao*> v;

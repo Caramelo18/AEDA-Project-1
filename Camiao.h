@@ -167,4 +167,5 @@ public:
 	int getPreco(int dist);
 };
 
+
 #endif /* CAMIAO_H_ */
