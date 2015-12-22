@@ -53,12 +53,7 @@ void Oficina::fazServico(Camiao* C)
 {
 
 		disp += 5;
-
-		cout << Cami.size();
 		Cami.push_back(C);
-		cout << Cami.size();
-
-
 
 }
 
@@ -79,20 +74,13 @@ void Oficina::termServico(Camiao* C)
 
 bool Oficina::camiaoNaOficina(Camiao* C)
 {
-	cout << "entrou na oficina" << endl;
 	for(int i=0; i < Cami.size(); i++)
 	{
 
-		cout << Cami.size();
-		cout << getVeiculos()[i]->getMarca();
 		if((Cami[i]->getMarca() == C->getMarca()) && (Cami[i]->getMatricula() == C->getMatricula()))
-		{
-			cout << "esta na fila" << endl;
 			return true;
-		}
 
 	}
-	cout << "nao esta na fila" << endl;
 	return false;
 
 }

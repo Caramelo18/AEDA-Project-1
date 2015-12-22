@@ -1501,6 +1501,14 @@ void Empresa::fazSerEspeci()
 		return;
 	}
 
+	for(int i=0; i < camioes.size(); i++)
+	{
+		if(camioes[i]==C)
+			camioes[i]->setDisponivel(false);
+		break;
+
+
+	}
 	F.fazServico(C);
 
 	oficinas.push(F);
@@ -1531,6 +1539,14 @@ void Empresa::fazSerUsual(){
 
 	try
 	{
+		for(int i=0; i < camioes.size(); i++)
+		{
+			if(camioes[i]==C)
+				camioes[i]->setDisponivel(false);
+			break;
+
+
+		}
 		F.fazServico(C);
 	}
 	catch(OficinaNaoApropriada & f)
@@ -1598,7 +1614,7 @@ vector<Oficina> Empresa::procuraCamiaoNaFila(Camiao* C)
 
 
 
-	return oficinasAtualizar;
+		return oficinasAtualizar;
 }
 
 void Empresa::termiServico()
@@ -1622,6 +1638,13 @@ void Empresa::termiServico()
 
 	vector<Oficina> ofi;
 	ofi= procuraCamiaoNaFila(C);
+
+	for(int i=0; i < camioes.size(); i++)
+	{
+		if(camioes[i]==C)
+			camioes[i]->setDisponivel(true);
+		break;
+	}
 
 	for(int i=0; i < ofi.size(); i++)
 	{
