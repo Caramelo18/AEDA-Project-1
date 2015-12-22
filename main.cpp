@@ -1,5 +1,4 @@
 /*
-
  * main.cpp
  */
 
@@ -752,8 +751,6 @@ void gestaoOficinas(Empresa &e)
 		e.listaOficinas();
 		break;
 	case 2:
-		//		if(pass() == 0)
-		//		{
 		try
 		{
 			e.adicionaOficina();
@@ -762,11 +759,8 @@ void gestaoOficinas(Empresa &e)
 		{
 			cout << "Ja existe essa oficina" << endl;
 		}
-		//	}
-		//	else cout << "Password errada" << endl;
 		break;
 	case 3:
-		//	if (pass() == 0)
 		try
 		{
 			e.removeOficina();
@@ -775,8 +769,6 @@ void gestaoOficinas(Empresa &e)
 		{
 			cout << "Impossivel remover essa oficina, nao existe" << endl;
 		}
-
-		//else cout << "Password errada" << endl;
 		break;
 	case 4:
 		try

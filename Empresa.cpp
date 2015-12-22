@@ -206,11 +206,6 @@ Empresa::Empresa(string doc)
 		string m;
 		while (matri >> m)
 			mat.push_back(m);
-		/*for (unsigned int i = 0; i < mat.size();i++)
-		{
-			if(!funcionarios[i]->getDisponivel())
-				funcionarios[i]->setDisponibilidade(true);
-		}*/
 		getline(fich4, temp);
 		stringstream funcionarios(temp);
 		vector<unsigned long> funcs;
@@ -226,7 +221,7 @@ Empresa::Empresa(string doc)
 			leNovoServico(origem, destino, distancia, tipo_produto, cap, nif, mat, funcs, ter);
 	}
 
-	//
+
 	ifstream fich5(ficofi.c_str());
 	if (!fich5)
 		throw FicheiroInexistente(ficofi);
@@ -1455,7 +1450,6 @@ Oficina Empresa::serUsual(Camiao* C)
 		copia.pop();
 		oficinas.push(FF);
 	}
-	//
 
 	if(!encontrou)
 		throw OficinaNaoApropriada();
@@ -1520,7 +1514,7 @@ void Empresa::fazSerEspeci()
 	Camiao* C = procuraCamiao(matricula);
 	if(!C->getDisponivel())
 	{
-		cout << "Camiao indisponivel" << endl;
+		cout << "Camiao indisponivel." << endl;
 		return;
 	}
 
@@ -1531,7 +1525,7 @@ void Empresa::fazSerEspeci()
 	}
 	catch(OficinaNaoApropriada & FF)
 	{
-		cout << "Nao existe oficina apropriada para este tipo de servico" << endl;
+		cout << "Nao existe oficina apropriada para este tipo de servico." << endl;
 		return;
 	}
 

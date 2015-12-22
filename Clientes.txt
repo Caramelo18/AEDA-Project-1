@@ -1,9 +1,9 @@
 Clientes:
-Geraldina
-123456789 A
 Ruben Macedo
 111111111 A
 Jorge Barros
 147852369 A
 Alfredo Costa
-987654321 A
+987654321 I
+Geraldina
+123456789 I

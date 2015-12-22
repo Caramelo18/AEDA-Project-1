@@ -157,8 +157,7 @@ public:
 
 struct hCliente {
 	int operator()(const Cliente& c1) const{
-		//TODO: Implementar a funcao de dispersao e substituir corretamente o valor do return!
-		return 1;
+		return 7;
 	}
 	bool operator()(const Cliente& c1, const Cliente& c2) const {
 		return c1.getNif() == c2.getNif();
