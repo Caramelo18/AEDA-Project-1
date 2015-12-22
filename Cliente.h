@@ -42,9 +42,15 @@ public:
 	 * \return Retorna em forma de booleano se os Clientes sao a mesma pessoa
 	 */
 	bool operator ==(const Cliente &c)const;
-
+	/**
+	 * \brief Define o novo nome do cliente
+	 * \param nome Novo nome do cliente
+	 */
 	void setNome(string nome);
-
+	/**
+	 * \brief Define o novo Nif do cliente
+	 * \param nif Novo nif do cliente
+	 */
 	void setNif(unsigned long nif);
 protected:
 	/** Nome do Cliente */

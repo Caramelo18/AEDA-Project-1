@@ -167,6 +167,9 @@ struct hCliente {
 
 typedef tr1::unordered_set<Cliente, hCliente, hCliente> hashClientes;
 
+/**
+ * \brief Classe que vai comparar os funcionarios, visto estes serem apontadores e nao objetos e por consequente ordena a BST
+ */
 struct classcomp
 {
 	bool operator()(const Funcionario * f1, Funcionario * f2)
@@ -385,10 +388,10 @@ public:
 	 */
 	void listaFuncionarios() const;
 	/**
-	\brief Mostra no ecra a informacao ordenada acerca de todos os funcionarios
+	\brief Mostra no ecra a informacao ordenada por nome acerca de todos os funcionarios
 	\return Nao possui retorno
 	 */
-	void listaFuncionariosOrdenada()const;
+	void listaFuncionariosOrdenada();
 	/**
 	\brief Mostra no ecra a informacao acerca de todos os funcionarios disponiveis
 	\return Nao possui retorno
@@ -466,27 +469,61 @@ public:
 	 * \return Nao possui retorno
 	 */
 	void termiServico();
-
+	/**
+	 * \brief Funcao que procura no vetor de camioes o camiao pretendido
+	 * \param Matri Matricula do camiao que se pretende encontrar
+	 * \return Apontador para o camiao pretendido
+	 */
 	Camiao* procuraCamiao(string Matri);
-
+	/**
+	 * \brief Lista das oficinas existentes
+	 */
 	void listaOficinas();
-
+	/**
+	 * \brief Remove uma determinada oficina posteriormente identificada
+	 */
 	void removeOficina();
-
+	/**
+	 * \brief Funcao que procura na fila de prioridade a oficina determinada
+	 * \param F Oficina que se pretende encontrar
+	 * \return Retorna a oficina pretendida
+	 */
 	Oficina procuraOficina(Oficina F);
-
+	/**
+	 * \brief Funcao que verifica se uma determinada oficina existe
+	 * \param F Oficina que se pretende encontrar
+	 * \return Retorna verdadeiro ou falso mediante exista ou nao a oficina pretendida
+	 */
 	bool existeOficina(Oficina F);
-
+	/**
+	 * \brief Funcao que imprime os clienes inativos
+	 */
 	void imprimeClientesIn() const;
-
+	/**
+	 * \brief Funcao que
+	 */
 	void actualizaClientes();
-
+	/**
+	 * \brief Funcao que define um cliente como inativo
+	 * \param nif Nif do cliente que se pretende tornar inativo
+	 */
 	void defineClienteInactivo(unsigned long nif);
-
+	/**
+	 * \brief Funcao que define um cliente como ativo
+	 * \param nif Nif do cliente que se pretende tornar ativo
+	 */
 	void defineClienteActivo(unsigned long nif);
-
+	/**
+	 * \brief Funcao que transforma a BST de Funcionarios num vetor de Funcionarios
+	 * \return Vetor de funcionarios
+	 */
 	vector<Funcionario *> getFuncionariosvetor();
-
+	/**
+	 * \Funcao que pesquisa um cliente quer no vetor de clientes ativos quer na tabela de expressao de clientes inativos
+	 * \param nif Nif do cliente que pretendemos encontrar
+	 * \param show Variavel que define se ha impressao de informacao ou nao
+	 * \return Retorna 0 se o cliente for ativo, 1 se for inativo e -1 se nao existir
+	 */
 	int pesquisaCliente(unsigned long nif, int show);
 
 

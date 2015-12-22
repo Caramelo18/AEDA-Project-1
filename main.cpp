@@ -670,9 +670,9 @@ void gestaoCamioes(Empresa &e)
 void gestaoFuncionarios(Empresa &e)
 {
 	int op;
-	cout << "1 - Ver lista de funcionarios" << endl;
+	cout << "1 - Ver lista de funcionarios ordenada por horas" << endl;
 	cout << "2 - Ver lista de funcionarios disponiveis" << endl;
-	cout << "3 - Ver lista de funcionarios ordenada" << endl;
+	cout << "3 - Ver lista de funcionarios ordenada por nomes" << endl;
 	cout << "4 - Contratar funcionario" << endl;
 	cout << "5 - Despedir funcionario" << endl;
 

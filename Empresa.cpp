@@ -1189,16 +1189,22 @@ bool ordenaApontaFuncionarios( const Funcionario *f1,  const Funcionario *f2)
 	else
 		return false;
 }
-void Empresa::listaFuncionariosOrdenada()const
+
+bool ordenaFuncionariosPorNome(Funcionario* f1, Funcionario* f2)
 {
-	set<Funcionario*, classcomp>::iterator iterator;
+	return (f1->getNome() < f2->getNome());
+}
 
-	for(iterator = funcionarios.begin(); iterator != funcionarios.end(); iterator++)
+void Empresa::listaFuncionariosOrdenada()
+{
+	vector<Funcionario *> vec = getFuncionariosvetor();
+
+	sort(vec.begin(), vec.end(), ordenaFuncionariosPorNome);
+
+	for(unsigned int i = 0; i < vec.size(); i++)
 	{
-		(*iterator)->imprimeFuncionario();
-
+		vec[i]->imprimeFuncionario();
 	}
-
 }
 
 void Empresa::listaFuncionariosDisponiveis() const

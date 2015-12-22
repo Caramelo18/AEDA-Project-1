@@ -80,11 +80,20 @@ public:
 	 * \brief Funcao que imprime as informacoes do Funcionario
 	 */
 	void imprimeFuncionario() const;
-
+	/**
+	 * \brief Definicao do operador menor
+	 * \param f Funcionario ao qual se compara o objeto principal
+	 */
 	bool operator<(Funcionario f);
-
+	/**
+	 * \brief Aumenta as horas diaria de um trabalhador mediante a distancia
+	 * \param distancia Distancia a partir da qual e calculada as horas de trabalho
+	 */
 	void incrementaHoras(int distancia);
-
+	/**
+	 * \brief Define as horas de trabalho de um funcionario
+	 * \param hr Horas que vao definir as horas diarias de um trabalhador
+	 */
 	void setHoras(unsigned int hr);
 };
 
