@@ -23,7 +23,8 @@ Empresa::Empresa(string doc)
 	camioes = cams;
 	vector<Cliente> clis;
 	clientes = clis;
-	vector<Oficina> ofi;
+	priority_queue<Oficina> ofi;
+	oficinas = ofi;
 
 
 	ficca = doc + "/Camioes.txt";
@@ -226,6 +227,7 @@ Empresa::Empresa(string doc)
 		throw FicheiroInexistente(ficofi);
 	getline(fich5, temp);
 
+	cout << "chegou" << endl;
 	while(!fich5.eof())
 	{
 		string nomeOfi;
@@ -247,12 +249,12 @@ Empresa::Empresa(string doc)
 			ss >> matri;
 			matriculas.push_back(matri);
 		}
-	vector <Camiao*>cami;
-	for(int i=0; i < matriculas.size(); i++)
-	{
-		matri= matriculas[i];
-		cami.push_back(procuraCamiao(matri));
-	}
+		vector <Camiao*>cami;
+		for(int i=0; i < matriculas.size(); i++)
+		{
+			matri= matriculas[i];
+			cami.push_back(procuraCamiao(matri));
+		}
 
 		Oficina Ofi(nome, marca, disp, cami);
 		oficinas.push(Ofi);
@@ -726,6 +728,22 @@ void Empresa::actualizaFicheiro()
 		else if (!(*iterator)->getDisponivel())
 			fich1 << " N" ;
 
+	}
+	ofstream fich2(ficofi.c_str());
+	fich2 << "Oficinas: ";
+
+	priority_queue<Oficina> copia=oficinas;
+	while(!copia.empty())
+	{
+		Oficina F=copia.top();
+		copia.pop();
+		fich2 << F.getNome();
+		fich2 << F.getMarca() << " " << F.getDisp();
+
+		for (int i=0; i < F.getVeiculos().size(); i++)
+		{
+			fich2 <<  F.getVeiculos()[i]->getMatricula()<< " ";
+		}
 	}
 }
 
@@ -1367,6 +1385,8 @@ void Empresa::adicionaOficina()
 	existeOficina(F);
 
 	oficinas.push(F);
+
+	actualizaFicheiro();
 	cout << "Oficina adicionada com sucesso" << endl;
 
 
@@ -1468,10 +1488,8 @@ void Empresa::fazSerEspeci()
 	cin.ignore(1000, '\n');
 	getline(cin, matricula);
 
-	cout << "procura camiao" << endl;
 	Camiao* C = procuraCamiao(matricula);
 
-	cout << "encontrou o camiao, vai fazer o servico" << endl;
 	Oficina F;
 	try
 	{
@@ -1487,7 +1505,6 @@ void Empresa::fazSerEspeci()
 
 	oficinas.push(F);
 
-
 }
 
 void Empresa::fazSerUsual(){
@@ -1499,8 +1516,7 @@ void Empresa::fazSerUsual(){
 	getline(cin, matricula);
 
 	Camiao* C = procuraCamiao(matricula);
-	cout << "fazSerUsual--marca do camiao:"<< endl;
-	cout << C->getMarca()<< endl;
+
 	Oficina F;
 	try
 	{
@@ -1529,8 +1545,6 @@ void Empresa::fazSerUsual(){
 
 Camiao* Empresa::procuraCamiao(string Matri)
 {
-	cout << "vai procurar" << endl;
-
 	string marca;
 	bool encontrou = false;
 	int i=0;
@@ -1546,7 +1560,6 @@ Camiao* Empresa::procuraCamiao(string Matri)
 	if(! encontrou)
 		throw CamiaoNaoExistente();
 
-	cout << "procura camiao :marca-" <<camioes[i]->getMarca() ;
 	return camioes[i];
 
 
@@ -1564,12 +1577,11 @@ vector<Oficina> Empresa::procuraCamiaoNaFila(Camiao* C)
 	{
 		F = oficinas.top();
 		oficinas.pop();
-		cout << "vai procurar na classe oficina" << endl;
+
 		if(F.camiaoNaOficina(C))
 		{
 			oficinasAtualizar.push_back(F);
 			encontrou = true;
-			cout << "esta nas oficinas" << endl;
 		}
 		else
 			copia.push(F);
@@ -1583,7 +1595,6 @@ vector<Oficina> Empresa::procuraCamiaoNaFila(Camiao* C)
 	}
 
 	if(! encontrou)
-		cout << "nao esta nas oficinas" << endl;
 
 
 
@@ -1611,7 +1622,6 @@ void Empresa::termiServico()
 
 	vector<Oficina> ofi;
 	ofi= procuraCamiaoNaFila(C);
-	cout << "procurou na fila" << endl;
 
 	for(int i=0; i < ofi.size(); i++)
 	{
