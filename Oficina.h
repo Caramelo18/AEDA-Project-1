@@ -27,6 +27,7 @@ public:
 	 * \param nome Nome da Oficina
 	 * \param marca Marca da Oficina criada
 	 * \param disp tempo que a Oficina demora a ficar disponivel
+	 * \param camioes veiculos que estao na oficina
 	 *
 	 * \return Nao possui retorno
 	 *
@@ -48,6 +49,12 @@ public:
 	 */
 	string getMarca()const;
 
+	/*
+	 * \brief Retorna os veiculos da oficina
+	 * \param Nao possui parametros
+	 *
+	 * \return cami os veiculos da oficina
+	 */
 	vector<Camiao*> getVeiculos()const;
 	/*
 	 * \brief Retorna a disponibilidade da Oficina
@@ -65,21 +72,26 @@ public:
 	bool operator <(const Oficina F)const;
 
 	/*
-	 * \brief realiza o servico ao camiao de matricula Matri , adicionando a disponibilidade e agregando a Matri a oficina
-	 * \param Matri camiao de matricula Matri que vai receber o servico
+	 * \brief realiza o servico ao camiao C, deixando-o indisponivel, adiciona a disponibilidade de 5 unidades e guarda esse camiao na oficina
+	 * \param C Veiculo a que vai fazer o serviço
 	 *
 	 * \return Nao possui retorno
 	 */
 	void fazServico(Camiao* C);
 
 	/*
-	 * \brief termina o servico da oficina ficando a disponibilidade a zero e sem matriculas associadas
-	 * \param Nao possui parametros
+	 * \brief termina o servico da oficina ficando a disponibilidade reduzida de 5unidades e sem esse veiculo na oficina e este fica disponivel
+	 * \param C, apontador para o camiao que vai terminar o servico
 	 *
 	 * \return Nao possui retorno
 	 */
 	void termServico(Camiao* C);
-
+	/**
+		 * \brief verifica se o apontador de Camiao ja se encontra na oficina
+		 * \param C, apontador de camiao a procurar na oficina
+		 *
+		 * \return Retorna em forma de bool caso encontre ou nao
+		 */
 	bool camiaoNaOficina(Camiao* C);
 	/**
 	 * \brief Overload do operador << para fazer o cout de uma oficina
@@ -97,6 +109,7 @@ private:
 	string marca;
 	/** Disponibilidade da Oficina */
 	int disp;
+	/** Apontadores de camioes da oficina*/
 	vector<Camiao*> Cami;
 
 };
