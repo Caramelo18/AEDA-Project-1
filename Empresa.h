@@ -518,14 +518,21 @@ public:
 	 */
 	vector<Funcionario *> getFuncionariosvetor();
 	/**
-	 * \Funcao que pesquisa um cliente quer no vetor de clientes ativos quer na tabela de expressao de clientes inativos
+	 * \brief Funcao que pesquisa um cliente quer no vetor de clientes ativos quer na tabela de expressao de clientes inativos
 	 * \param nif Nif do cliente que pretendemos encontrar
 	 * \param show Variavel que define se ha impressao de informacao ou nao
 	 * \return Retorna 0 se o cliente for ativo, 1 se for inativo e -1 se nao existir
 	 */
 	int pesquisaCliente(unsigned long nif, int show);
 
-
+	/**
+	 * \brief Funcao que edita o funcionario, ou seja lhe altera o salario
+	 */
+	void editaFuncionario();
+	/**
+	 * \brief Funcao que edita a oficina, ou seja lhe modifica a marca
+	 */
+	void editaOficina();
 
 };
 

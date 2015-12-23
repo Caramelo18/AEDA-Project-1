@@ -1890,4 +1890,89 @@ int Empresa::pesquisaCliente(unsigned long nif, int show)
 	return -1;
 }
 
+void Empresa::editaFuncionario()
+{
+	unsigned long BI;
 
+	cout << "Insira o BI do funcionario a quem pretende alterar o salario: ";
+	cin >> BI;
+	cout << endl;
+
+	set<Funcionario*, classcomp>::iterator it;
+
+	for(it = funcionarios.begin(); it != funcionarios.end(); it++)
+	{
+		if((*it)->getBI() == BI)
+			break;
+	}
+
+	if (it == funcionarios.end())
+	{
+		cout << "Funcionario inexistente" << endl << endl;
+		return;
+	}
+
+	int sal;
+	cout << "Insira o novo salario do funcionario: ";
+	cin >> sal;
+	cout << endl;
+
+	funcionarios.erase(it);
+	(*it)->setSalario(sal);
+	funcionarios.insert(*it);
+
+	actualizaFicheiro();
+
+	cout << "Salario alterado com sucesso" << endl << endl;
+}
+
+void Empresa::editaOficina()
+{
+	string nomeO;
+	cout << "Insira o nome da oficina a qual pretende alterar a marca: ";
+	cin >> nomeO;
+
+	vector<Oficina> vec;
+
+	while(!oficinas.empty())
+	{
+		if (oficinas.top().getNome() == nomeO)
+			break;
+
+		vec.push_back(oficinas.top());
+		oficinas.pop();
+	}
+
+	if (oficinas.empty())
+	{
+		cout << "Oficina nao existente" << endl << endl;
+
+		for(unsigned int i = 0; i < vec.size(); i++)
+		{
+			oficinas.push(vec[i]);
+		}
+		return;
+	}
+
+	Oficina f = oficinas.top();
+	oficinas.pop();
+
+	string mar;
+
+	cout << "Insira a nova marca da oficina: ";
+	cin >> mar;
+	cout << endl;
+
+	f.setMarca(mar);
+
+	oficinas.push(f);
+
+	for(unsigned int i = 0; i < vec.size(); i++)
+	{
+		oficinas.push(vec[i]);
+	}
+
+	actualizaFicheiro();
+
+	cout << "Oficina modificada com sucesso" << endl << endl;
+}

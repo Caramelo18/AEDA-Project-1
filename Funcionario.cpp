@@ -84,4 +84,3 @@ void Funcionario::setHoras(unsigned int hr)
 {
 	horas = hr;
 }
-

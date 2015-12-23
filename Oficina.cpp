@@ -63,7 +63,7 @@ void Oficina::termServico(Camiao* C)
 
 	for(int i=0; i < Cami.size(); i++)
 	{
-		if(Cami[i] == C)
+		if(Cami[i]->getMatricula() == C->getMatricula())
 		{
 			Cami.erase(Cami.begin()+ i);
 			break;
@@ -108,4 +108,9 @@ ostream &operator<<(ostream &s, const Oficina  &F)
 	s <<  endl << endl;
 
 	return s;
+}
+
+void Oficina::setMarca(string mar)
+{
+	marca = mar;
 }

@@ -674,6 +674,7 @@ void gestaoFuncionarios(Empresa &e)
 	cout << "3 - Ver lista de funcionarios ordenada por nomes" << endl;
 	cout << "4 - Contratar funcionario" << endl;
 	cout << "5 - Despedir funcionario" << endl;
+	cout << "6 - Editar um funcioanrio" << endl;
 
 	cout << endl;
 	cout << "Por favor escolha a opcao pretendida: ";
@@ -712,7 +713,11 @@ void gestaoFuncionarios(Empresa &e)
 			e.despedeFuncionario();
 		else cout << "Password errada" << endl;
 		break;
-
+	case 6:
+		if (pass() == 0)
+			e.editaFuncionario();
+		else cout << "Password errada" << endl;
+		break;
 	default:
 		return;
 	}
@@ -728,6 +733,7 @@ void gestaoOficinas(Empresa &e)
 	cout << "4 - Fazer servico de reparacao especial a camiao" << endl;
 	cout << "5 - Fazer servico de reparacao usual a camiao" << endl;
 	cout << "6 - Terminar o servico de um veiculo" << endl;
+	cout << "7 - Editar oficina" << endl;
 
 	cout << endl;
 	cout << "Por favor escolha a opcao pretendida: ";
@@ -793,7 +799,11 @@ void gestaoOficinas(Empresa &e)
 	case 6:
 		e.termiServico();
 		break;
-
+	case 7:
+		if (pass() == 0)
+			e.editaOficina();
+		else cout << "Password errada" << endl;
+		break;
 	default:
 		return;
 	}

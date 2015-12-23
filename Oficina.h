@@ -101,6 +101,11 @@ public:
 	 * \return Retorna em forma de ostream a informacao da oficina a imprimir
 	 */
 	friend ostream & operator<<(ostream & s, const Oficina  &F);
+	/**
+	 * \brief Altera a marca da oficina
+	 * \param mar Nova marca da oficina
+	 */
+	void setMarca(string mar);
 
 private:
 	/** Nome da Oficina */

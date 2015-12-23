@@ -68,7 +68,10 @@ public:
 	 * \return Disponibilidade do Funcionario
 	 */
 	bool getDisponivel() const;
-
+	/**
+	 * \brief Retorna as horas diarias do Funcionario
+	 * \return Numero de horas diarias do Funcionario
+	 */
 	unsigned int getHoras() const;
 
 	/**
@@ -95,6 +98,7 @@ public:
 	 * \param hr Horas que vao definir as horas diarias de um trabalhador
 	 */
 	void setHoras(unsigned int hr);
+
 };
 
 #endif /* FUNCIONARIO_H_ */
